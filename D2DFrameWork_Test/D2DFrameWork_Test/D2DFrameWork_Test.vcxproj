@@ -95,7 +95,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\COM\source\repos\D2DProject\D2DFrameWork_Test\Headers;C:\Users\cat57\source\repos\cat5778\HeroSeige\D2DFrameWork_Test\Headers;C:\Users\COM\source\repos\HeroSeige\D2DFrameWork_Test\Headers;C:\Users\COM\source\repos\cat5778\DirectX-2D\D2DFrameWork_Test\Headers;C:\Users\cat57\source\repos\DirectX-2D\D2DFrameWork_Test\Headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\cat57\source\repos\cat5778\D2DProject\D2DFrameWork_Test\Headers;C:\Users\COM\source\repos\HeroSeige\D2DFrameWork_Test\Headers;C:\Users\COM\source\repos\cat5778\DirectX-2D\D2DFrameWork_Test\Headers;C:\Users\cat57\source\repos\DirectX-2D\D2DFrameWork_Test\Headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -108,7 +108,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\COM\source\repos\D2DProject\D2DFrameWork_Test\Headers;C:\Users\cat57\source\repos\cat5778\HeroSeige\D2DFrameWork_Test\Headers;C:\Users\COM\source\repos\HeroSeige\D2DFrameWork_Test\Headers;C:\Users\cat57\source\repos\DirectX-2D\D2DFrameWork_Test\Headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\cat57\source\repos\cat5778\D2DProject\D2DFrameWork_Test\Headers;C:\Users\COM\source\repos\HeroSeige\D2DFrameWork_Test\Headers;C:\Users\cat57\source\repos\DirectX-2D\D2DFrameWork_Test\Headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -124,7 +124,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\COM\source\repos\D2DProject\D2DFrameWork_Test\Headers;C:\Users\cat57\source\repos\cat5778\HeroSeige\D2DFrameWork_Test\Headers;C:\Users\COM\source\repos\HeroSeige\D2DFrameWork_Test\Headers;C:\Users\cat57\source\repos\DirectX-2D\D2DFrameWork_Test\Headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\cat57\source\repos\cat5778\D2DProject\D2DFrameWork_Test\Headers;C:\Users\COM\source\repos\HeroSeige\D2DFrameWork_Test\Headers;C:\Users\cat57\source\repos\DirectX-2D\D2DFrameWork_Test\Headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -141,7 +141,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>C:\Users\COM\source\repos\D2DProject\D2DFrameWork_Test\Headers;C:\Users\cat57\source\repos\cat5778\HeroSeige\D2DFrameWork_Test\Headers;C:\Users\COM\source\repos\HeroSeige\D2DFrameWork_Test\Headers;C:\Users\cat57\source\repos\DirectX-2D\D2DFrameWork_Test\Headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\Users\cat57\source\repos\cat5778\D2DProject\D2DFrameWork_Test\Headers;C:\Users\COM\source\repos\HeroSeige\D2DFrameWork_Test\Headers;C:\Users\cat57\source\repos\DirectX-2D\D2DFrameWork_Test\Headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
