@@ -1,0 +1,224 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="99.Default">
+      <UniqueIdentifier>{9826aafb-a896-4cf9-a2d5-3357f9bd4859}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.WinApp">
+      <UniqueIdentifier>{e279b710-91a9-4078-be40-9fafb73e5d6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Document">
+      <UniqueIdentifier>{5111d0aa-b43d-43b9-b4c6-de1649c4dd44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.View">
+      <UniqueIdentifier>{9a4a3664-62be-4b4a-afc3-c7f1b11b307f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.Dialog">
+      <UniqueIdentifier>{e32b684f-0778-42fa-b191-29ab716b0504}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.GameObjects">
+      <UniqueIdentifier>{1222aa3a-3d0e-43a0-96e4-763037a30fd3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="90.Managers">
+      <UniqueIdentifier>{3e145029-922c-4248-98db-aab8a912e352}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="98.Stdafx">
+      <UniqueIdentifier>{92a9bac4-205e-494a-833f-2a32083d6ad1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.FrameWnd">
+      <UniqueIdentifier>{f26e171a-556b-436e-8a74-d7c5ac320f5d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="90.Managers\00.DeviceManager">
+      <UniqueIdentifier>{e4edf5b8-8245-40a4-943f-97067baa805d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="90.Managers\01.TextureManager">
+      <UniqueIdentifier>{8b043255-857b-4547-8ac6-fe0a9dd97950}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="90.Managers\01.TextureManager\00.Texture">
+      <UniqueIdentifier>{cfb4aa91-7514-448e-a39c-f21006c79e5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.View\00.MiniView">
+      <UniqueIdentifier>{b4c68629-9dbb-4355-ad95-ad6e2393a5b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.View\01.FormView">
+      <UniqueIdentifier>{05b19703-8ac6-439d-b662-b04f6ff7636e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03.View\02.PreView">
+      <UniqueIdentifier>{7afbf21a-01c6-4ae0-949d-e4312c219a06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="90.Managers\02.CDrectoryManger">
+      <UniqueIdentifier>{1f8d98f5-53a1-4a54-b337-219a3d0e40f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.Dialog\TileTool">
+      <UniqueIdentifier>{7f5dd4f8-4d9f-48b1-a419-7361e50c2c53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.Dialog\ObjectTool">
+      <UniqueIdentifier>{1b1ef479-6804-4521-9297-8a9d472d543f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.GameObjects\Terrain">
+      <UniqueIdentifier>{31fd0360-8a92-4be0-a75d-a6b82a6c4273}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="04.Dialog\PathTool">
+      <UniqueIdentifier>{5822356b-ce0c-4988-88be-895a93fbdb8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="05.GameObjects\RespawnManager">
+      <UniqueIdentifier>{b0892cc1-6822-4631-81b1-265fbef76fc9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Tool.h">
+      <Filter>00.WinApp</Filter>
+    </ClInclude>
+    <ClInclude Include="ToolDoc.h">
+      <Filter>01.Document</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>98.Stdafx</Filter>
+    </ClInclude>
+    <ClInclude Include="ToolView.h">
+      <Filter>03.View</Filter>
+    </ClInclude>
+    <ClInclude Include="MainFrm.h">
+      <Filter>02.FrameWnd</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>99.Default</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>99.Default</Filter>
+    </ClInclude>
+    <ClInclude Include="DeviceMgr.h">
+      <Filter>90.Managers\00.DeviceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="SingleTexture.h">
+      <Filter>90.Managers\01.TextureManager\00.Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>90.Managers\01.TextureManager\00.Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureMgr.h">
+      <Filter>90.Managers\01.TextureManager</Filter>
+    </ClInclude>
+    <ClInclude Include="MultiTexture.h">
+      <Filter>90.Managers\01.TextureManager\00.Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>05.GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="MyForm.h">
+      <Filter>03.View\01.FormView</Filter>
+    </ClInclude>
+    <ClInclude Include="MiniView.h">
+      <Filter>03.View\00.MiniView</Filter>
+    </ClInclude>
+    <ClInclude Include="PreView.h">
+      <Filter>03.View\02.PreView</Filter>
+    </ClInclude>
+    <ClInclude Include="TileTool.h">
+      <Filter>04.Dialog\TileTool</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectoryMgr.h">
+      <Filter>90.Managers\02.CDrectoryManger</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectTool.h">
+      <Filter>04.Dialog\ObjectTool</Filter>
+    </ClInclude>
+    <ClInclude Include="Terrain.h">
+      <Filter>05.GameObjects\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="PathTool.h">
+      <Filter>04.Dialog\PathTool</Filter>
+    </ClInclude>
+    <ClInclude Include="RespawnManager.h">
+      <Filter>05.GameObjects\RespawnManager</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Tool.cpp">
+      <Filter>00.WinApp</Filter>
+    </ClCompile>
+    <ClCompile Include="ToolDoc.cpp">
+      <Filter>01.Document</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>99.Default</Filter>
+    </ClCompile>
+    <ClCompile Include="ToolView.cpp">
+      <Filter>03.View</Filter>
+    </ClCompile>
+    <ClCompile Include="MainFrm.cpp">
+      <Filter>02.FrameWnd</Filter>
+    </ClCompile>
+    <ClCompile Include="DeviceMgr.cpp">
+      <Filter>90.Managers\00.DeviceManager</Filter>
+    </ClCompile>
+    <ClCompile Include="SingleTexture.cpp">
+      <Filter>90.Managers\01.TextureManager\00.Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>90.Managers\01.TextureManager\00.Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureMgr.cpp">
+      <Filter>90.Managers\01.TextureManager</Filter>
+    </ClCompile>
+    <ClCompile Include="MultiTexture.cpp">
+      <Filter>90.Managers\01.TextureManager\00.Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>05.GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="MyForm.cpp">
+      <Filter>03.View\01.FormView</Filter>
+    </ClCompile>
+    <ClCompile Include="MiniView.cpp">
+      <Filter>03.View\00.MiniView</Filter>
+    </ClCompile>
+    <ClCompile Include="PreView.cpp">
+      <Filter>03.View\02.PreView</Filter>
+    </ClCompile>
+    <ClCompile Include="TileTool.cpp">
+      <Filter>04.Dialog\TileTool</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectoryMgr.cpp">
+      <Filter>90.Managers\02.CDrectoryManger</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectTool.cpp">
+      <Filter>04.Dialog\ObjectTool</Filter>
+    </ClCompile>
+    <ClCompile Include="Terrain.cpp">
+      <Filter>05.GameObjects\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="PathTool.cpp">
+      <Filter>04.Dialog\PathTool</Filter>
+    </ClCompile>
+    <ClCompile Include="RespawnManager.cpp">
+      <Filter>05.GameObjects\RespawnManager</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\Tool.ico">
+      <Filter>99.Default</Filter>
+    </Image>
+    <Image Include="res\Toolbar.bmp">
+      <Filter>99.Default</Filter>
+    </Image>
+    <Image Include="res\ToolDoc.ico">
+      <Filter>99.Default</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Tool.rc">
+      <Filter>99.Default</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\Tool.rc2">
+      <Filter>99.Default</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt">
+      <Filter>99.Default</Filter>
+    </Text>
+  </ItemGroup>
+</Project>

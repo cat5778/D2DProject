@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Song>
+    <Node Pos="0" StartTime="0" EndTime="0" NodeType="0"/>
+    <Node Pos="1" StartTime="1" EndTime="1" NodeType="1"/>
+    <Node Pos="2" StartTime="2" EndTime="2" NodeType="2"/>
+</Song>

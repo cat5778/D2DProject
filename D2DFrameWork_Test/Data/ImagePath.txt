@@ -1,0 +1,15 @@
+Object|Moon_Platform|2|..\Image\Object\Moon_Platform\%d.png
+Object|Tile_Pillar|6|..\Image\Object\Tile_Pillar\%d.png
+Object|Tile_Pillar_Desert|6|..\Image\Object\Tile_Pillar_Desert\%d.png
+Object|Tile_Pillar_Graveyard|6|..\Image\Object\Tile_Pillar_Graveyard\%d.png
+Object|Tile_Pillar_Manor|6|..\Image\Object\Tile_Pillar_Manor\%d.png
+Object|Tile_Pillar_Prison|6|..\Image\Object\Tile_Pillar_Prison\%d.png
+Object|Tile_Pillar_Shores|6|..\Image\Object\Tile_Pillar_Shores\%d.png
+Object|Wall_Cathedral|15|..\Image\Object\Wall_Cathedral\%d.png
+Object|Wall_Desert|16|..\Image\Object\Wall_Desert\%d.png
+Object|Wall_Graveyard|16|..\Image\Object\Wall_Graveyard\%d.png
+Object|Wall_Horizontal|21|..\Image\Object\Wall_Horizontal\%d.png
+Object|Wall_Vertical|21|..\Image\Object\Wall_Vertical\%d.png
+Object|Wall_Winter|16|..\Image\Object\Wall_Winter\%d.png
+Object|Wall_Wooden_Old|11|..\Image\Object\Wall_Wooden_Old\%d.png
+Image|Tile|10|..\Image\Tile\Autotile_Void_Desert_Night_tileset.png

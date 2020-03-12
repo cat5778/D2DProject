@@ -1,0 +1,410 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="99.Default">
+      <UniqueIdentifier>{bec1e715-0cd9-4415-86ab-8f6c5b9e3f59}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.WinMain">
+      <UniqueIdentifier>{dbcdb50a-88d1-4e2a-b2ea-71d708378a31}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.MainGame">
+      <UniqueIdentifier>{e93e486f-25e9-4bd1-9edb-05b7ee49e227}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="90.Manager">
+      <UniqueIdentifier>{3ae98e61-e6f3-42b1-9021-f2e60d1fef46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10.GameObjects">
+      <UniqueIdentifier>{c1d75c58-51f4-4d14-9621-d8415bef93b2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="80.Algorithm">
+      <UniqueIdentifier>{9be2ed26-48e2-4365-9023-f1118910b6f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="90.Manager\Keymgr">
+      <UniqueIdentifier>{67f60920-4250-4da0-a5d7-47ffd9c2e005}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="90.Manager\XMLMgr">
+      <UniqueIdentifier>{f3773824-85ef-4bc2-b635-04aaf163ecfa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="90.Manager\TextureMgr">
+      <UniqueIdentifier>{204c9149-99ad-407f-9df5-1d0ca8d440f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="90.Manager\DeviceMgr">
+      <UniqueIdentifier>{4dbba647-cf25-4b07-b635-7dc887282d3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10.GameObjects\Terrain">
+      <UniqueIdentifier>{4cbd04f3-dcaa-434f-a0fc-2cfd2fee7693}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10.GameObjects\Player">
+      <UniqueIdentifier>{d2152d90-6fc7-41e7-a554-6730ce8401f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="90.Manager\Mouse">
+      <UniqueIdentifier>{7b3310ec-8279-46e9-b1e0-bac499062dcf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="90.Manager\ScrollMgr">
+      <UniqueIdentifier>{6a4cbba3-7d5b-4442-af2f-54900d981b24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="90.Manager\TimeMgr">
+      <UniqueIdentifier>{e9b1a41f-d779-4b9f-bffb-bd029cce9cc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="90.Manager\ObjectManager">
+      <UniqueIdentifier>{c43c198d-03c0-46f5-ac20-8c861136aa0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="90.Manager\FrameMgr">
+      <UniqueIdentifier>{11fe04f6-44e9-4522-91ab-38afa54f5837}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="90.Manager\SceneMgr">
+      <UniqueIdentifier>{1072adaa-4884-4ec8-9350-12f511189e3d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="90.Manager\SceneMgr\Scene">
+      <UniqueIdentifier>{f1a446fe-c9d6-40bf-97fe-486c9bd1c2e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="90.Manager\SceneMgr\Logo">
+      <UniqueIdentifier>{54ea7717-ee7c-4631-8fc4-62ed8ae179e8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="90.Manager\SceneMgr\Stage">
+      <UniqueIdentifier>{f5e1277c-bfcd-45d0-97af-b784667daa3f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="90.Manager\RespawnMgr">
+      <UniqueIdentifier>{0d3c9fb7-f7b4-4143-8d22-24b288008496}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10.GameObjects\Obstacle">
+      <UniqueIdentifier>{a582ed72-c6fa-46b6-bbf9-a4a48e52799a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10.GameObjects\Choose">
+      <UniqueIdentifier>{d5df8197-26d1-4da4-a397-ebeee309abed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10.GameObjects\Shadow">
+      <UniqueIdentifier>{b1aa6954-dc2b-4eba-8316-01dcede6730e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="90.Manager\SceneMgr\Logo\Title">
+      <UniqueIdentifier>{5e580e48-1024-434b-af46-4d4f05a5db1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10.GameObjects\ColliderBox">
+      <UniqueIdentifier>{2107831d-34fb-4442-906a-b7887766c150}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10.GameObjects\Button">
+      <UniqueIdentifier>{d6f8b57e-30b6-4ef3-abbb-b23476214e1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10.GameObjects\Light">
+      <UniqueIdentifier>{ad278119-1e06-4214-a37e-bdc6be65ef9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10.GameObjects\TextField">
+      <UniqueIdentifier>{b6068371-c3fb-49fc-ba04-13722b946e6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="90.Manager\SceneMgr\Stage2">
+      <UniqueIdentifier>{f1047bd2-f857-4f20-9f7b-a2a9dedf8f81}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10.GameObjects\Player\Hat">
+      <UniqueIdentifier>{2b93deae-9ffb-4a35-9711-1d320184a934}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10.GameObjects\Player\Chest">
+      <UniqueIdentifier>{7264bf05-c209-48d3-8d1e-fd9005908a66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10.GameObjects\Player\Leg">
+      <UniqueIdentifier>{3131638f-c409-4768-8f84-110b64f6be9a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="90.Manager\SceneMgr\Tutorial">
+      <UniqueIdentifier>{d64e9f53-be33-4e0b-80c7-3f47d8899f36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10.GameObjects\Player\Weapon">
+      <UniqueIdentifier>{25c264a0-e673-4914-8a03-d39d653f0deb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10.GameObjects\Projectile">
+      <UniqueIdentifier>{0c98d155-fcf4-4878-8d73-b8ae45b0f79a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10.GameObjects\Monster">
+      <UniqueIdentifier>{77643910-fdb6-4c49-9b0f-5eb0a4a01f33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10.GameObjects\Monster\Fungus">
+      <UniqueIdentifier>{3edb5cca-48f5-453a-a326-f163ea169d1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="90.Manager\ColliderMgr">
+      <UniqueIdentifier>{650f8e66-5767-498d-a909-caa1194fbb4e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10.GameObjects\HPBar">
+      <UniqueIdentifier>{bace9959-50f3-46b5-bca7-c803ebd67331}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10.GameObjects\HPBar\Fill">
+      <UniqueIdentifier>{66c5f6e7-dcf3-461e-b602-275f1b41e2f1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="targetver.h">
+      <Filter>99.Default</Filter>
+    </ClInclude>
+    <ClInclude Include="D2DFrameWork_Test.h">
+      <Filter>99.Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>99.Default</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>99.Default</Filter>
+    </ClInclude>
+    <ClInclude Include="MainGame.h">
+      <Filter>01.MainGame</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyManager.h">
+      <Filter>90.Manager\Keymgr</Filter>
+    </ClInclude>
+    <ClInclude Include="XMLManager.h">
+      <Filter>90.Manager\XMLMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="MultiTexture.h">
+      <Filter>90.Manager\TextureMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="SingleTexture.h">
+      <Filter>90.Manager\TextureMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>90.Manager\TextureMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureMgr.h">
+      <Filter>90.Manager\TextureMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="DeviceMgr.h">
+      <Filter>90.Manager\DeviceMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>10.GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Terrain.h">
+      <Filter>10.GameObjects\Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="Mouse.h">
+      <Filter>90.Manager\Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="ScrollMgr.h">
+      <Filter>90.Manager\ScrollMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="TimeMgr.h">
+      <Filter>90.Manager\TimeMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="FrameMgr.h">
+      <Filter>90.Manager\FrameMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneMgr.h">
+      <Filter>90.Manager\SceneMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>90.Manager\SceneMgr\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectMgr.h">
+      <Filter>90.Manager\ObjectManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Logo.h">
+      <Filter>90.Manager\SceneMgr\Logo</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage.h">
+      <Filter>90.Manager\SceneMgr\Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="RespawnManager.h">
+      <Filter>90.Manager\RespawnMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="Obstacle.h">
+      <Filter>10.GameObjects\Obstacle</Filter>
+    </ClInclude>
+    <ClInclude Include="Choose.h">
+      <Filter>10.GameObjects\Choose</Filter>
+    </ClInclude>
+    <ClInclude Include="Shadow.h">
+      <Filter>10.GameObjects\Shadow</Filter>
+    </ClInclude>
+    <ClInclude Include="ColliderBox.h">
+      <Filter>10.GameObjects\ColliderBox</Filter>
+    </ClInclude>
+    <ClInclude Include="Title.h">
+      <Filter>90.Manager\SceneMgr\Logo\Title</Filter>
+    </ClInclude>
+    <ClInclude Include="GameButton.h">
+      <Filter>10.GameObjects\Button</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>10.GameObjects\Light</Filter>
+    </ClInclude>
+    <ClInclude Include="Hat.h">
+      <Filter>10.GameObjects\Player\Hat</Filter>
+    </ClInclude>
+    <ClInclude Include="TextField.h">
+      <Filter>10.GameObjects\TextField</Filter>
+    </ClInclude>
+    <ClInclude Include="Tutorial.h">
+      <Filter>90.Manager\SceneMgr\Tutorial</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>10.GameObjects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Chest.h">
+      <Filter>10.GameObjects\Player\Chest</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapon.h">
+      <Filter>10.GameObjects\Player\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="Leg.h">
+      <Filter>10.GameObjects\Player\Leg</Filter>
+    </ClInclude>
+    <ClInclude Include="Projectile.h">
+      <Filter>10.GameObjects\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>10.GameObjects\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="ColliderMgr.h">
+      <Filter>90.Manager\ColliderMgr</Filter>
+    </ClInclude>
+    <ClInclude Include="Fungus.h">
+      <Filter>10.GameObjects\Monster\Fungus</Filter>
+    </ClInclude>
+    <ClInclude Include="HPBar.h">
+      <Filter>10.GameObjects\HPBar</Filter>
+    </ClInclude>
+    <ClInclude Include="GaugeFill.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>99.Default</Filter>
+    </ClCompile>
+    <ClCompile Include="D2DFrameWork_Test.cpp">
+      <Filter>00.WinMain</Filter>
+    </ClCompile>
+    <ClCompile Include="MainGame.cpp">
+      <Filter>01.MainGame</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyManager.cpp">
+      <Filter>90.Manager\Keymgr</Filter>
+    </ClCompile>
+    <ClCompile Include="XMLManager.cpp">
+      <Filter>90.Manager\XMLMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxml2.cpp">
+      <Filter>99.Default</Filter>
+    </ClCompile>
+    <ClCompile Include="SingleTexture.cpp">
+      <Filter>90.Manager\TextureMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>90.Manager\TextureMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="TextureMgr.cpp">
+      <Filter>90.Manager\TextureMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="MultiTexture.cpp">
+      <Filter>90.Manager\TextureMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="DeviceMgr.cpp">
+      <Filter>90.Manager\DeviceMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>10.GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Terrain.cpp">
+      <Filter>10.GameObjects\Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="Mouse.cpp">
+      <Filter>90.Manager\Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="ScrollMgr.cpp">
+      <Filter>90.Manager\ScrollMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeMgr.cpp">
+      <Filter>90.Manager\TimeMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="FrameMgr.cpp">
+      <Filter>90.Manager\FrameMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneMgr.cpp">
+      <Filter>90.Manager\SceneMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>90.Manager\SceneMgr\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectMgr.cpp">
+      <Filter>90.Manager\ObjectManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Logo.cpp">
+      <Filter>90.Manager\SceneMgr\Logo</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage.cpp">
+      <Filter>90.Manager\SceneMgr\Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="RespawnManager.cpp">
+      <Filter>90.Manager\RespawnMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="Obstacle.cpp">
+      <Filter>10.GameObjects\Obstacle</Filter>
+    </ClCompile>
+    <ClCompile Include="Choose.cpp">
+      <Filter>10.GameObjects\Choose</Filter>
+    </ClCompile>
+    <ClCompile Include="Shadow.cpp">
+      <Filter>10.GameObjects\Shadow</Filter>
+    </ClCompile>
+    <ClCompile Include="ColliderBox.cpp">
+      <Filter>10.GameObjects\ColliderBox</Filter>
+    </ClCompile>
+    <ClCompile Include="Title.cpp">
+      <Filter>90.Manager\SceneMgr\Logo\Title</Filter>
+    </ClCompile>
+    <ClCompile Include="GameButton.cpp">
+      <Filter>10.GameObjects\Button</Filter>
+    </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>10.GameObjects\Light</Filter>
+    </ClCompile>
+    <ClCompile Include="Hat.cpp">
+      <Filter>10.GameObjects\Player\Hat</Filter>
+    </ClCompile>
+    <ClCompile Include="TextField.cpp">
+      <Filter>10.GameObjects\TextField</Filter>
+    </ClCompile>
+    <ClCompile Include="Tutorial.cpp">
+      <Filter>90.Manager\SceneMgr\Tutorial</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>10.GameObjects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Chest.cpp">
+      <Filter>10.GameObjects\Player\Chest</Filter>
+    </ClCompile>
+    <ClCompile Include="Weapon.cpp">
+      <Filter>10.GameObjects\Player\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="Leg.cpp">
+      <Filter>10.GameObjects\Player\Leg</Filter>
+    </ClCompile>
+    <ClCompile Include="Projectile.cpp">
+      <Filter>10.GameObjects\Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>10.GameObjects\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="ColliderMgr.cpp">
+      <Filter>90.Manager\ColliderMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="Fungus.cpp">
+      <Filter>10.GameObjects\Monster\Fungus</Filter>
+    </ClCompile>
+    <ClCompile Include="HPBar.cpp">
+      <Filter>10.GameObjects\HPBar</Filter>
+    </ClCompile>
+    <ClCompile Include="GaugeFill.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>99.Default</Filter>
+    </Image>
+    <Image Include="D2DFrameWork_Test.ico">
+      <Filter>99.Default</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="D2DFrameWork_Test.rc">
+      <Filter>99.Default</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt">
+      <Filter>99.Default</Filter>
+    </Text>
+  </ItemGroup>
+</Project>
