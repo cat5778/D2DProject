@@ -4,14 +4,17 @@
 #include "ColliderBox.h"
 #include "ScrollMgr.h"
 #include "HPBar.h"
+#include "Effect.h"
 CMonster::CMonster()
-	:m_eType(OBJECT_MONSTER), m_CollBox(nullptr)
+	:m_CollBox(nullptr)
 {
+	
 }
 
 CMonster::CMonster(const OBJ_INFO & objInfo, D3DXVECTOR3 vPos)
-	:m_eType(OBJECT_MONSTER), m_CollBox(nullptr)
+	: m_CollBox(nullptr)
 {
+	
 	m_bIsCollsion = false;
 	m_tObjInfo = objInfo;
 	m_tInfo.vPos = vPos;
@@ -26,55 +29,58 @@ CMonster::~CMonster()
 
 HRESULT CMonster::Initialize()
 {
+	m_eType = OBJECT_MONSTER;
 	D3DXMatrixIdentity(&m_tInfo.matWorld); // 다이렉트 항등행렬 함수
 	m_tInfo.vDir = { 0.f, 0.f, 0.f };
 	m_tInfo.vLook = { 0.f, -1.f, 0.f };
 	m_tInfo.vSize = { 1.f, 1.f, 0.f };
-
+	m_fTimer = 0.f;
+	m_bIsDead = false;
 	m_tFrame.fCurFrame = 0.f;
 	m_tFrame.fMaxFrame = 10.f;
 	m_pHPBar = new CHPBar(OBJECT_PLAYER, m_tInfo.vPos, m_tData);
+	ChangeState(STATE_IDLE);
 	return S_OK;
 }
 
 void CMonster::Release()
 {
+	m_CollBox->EraseCollider();
 }
 
 int CMonster::Update()
 {
+	if (m_eCurState == STATE_DEAD)
+	{
+		m_CollBox->SetActice(false);
+		m_tFrame.fCurFrame += m_tFrame.fMaxFrame * m_pTimeMgr->GetDelta();
 
+		if (m_tFrame.fMaxFrame <= m_tFrame.fCurFrame)
+			return DEAD_OBJ;
+	}
+	else
+		Animate();
+
+
+	StateMachine();
+	DetectTarget();
+	
 	if (m_CollBox != nullptr)
 	{
 		m_CollBox->SetDamage(m_tData.fDamage);
 		m_CollBox->SetvPos(m_tInfo.vPos);
 		if (m_CollBox->IsCollsion() && m_CollBox->GetHitColl()== PLAYER_PROJECTILE_COLLISION)
 		{
-			cout<<"충돌"<<endl;
-			m_tData.fCurHp -= 10;
+			BeAttack(-m_CollBox->GetGameData().fCurHp);
+			m_CollBox->InitCurHP();
 			m_CollBox->SetHitColl(COLLSION_END);
+			CEffect* temp = new CEffect(m_tInfo.vPos, L"Effect", L"Hit");
+			CObjectMgr::GetInstance()->AddObject(OBJECT_EFFECT, temp);
 		}
 	}
-	if (m_tObjInfo.IsAni)
-	{
-		m_tFrame.fCurFrame += m_tFrame.fMaxFrame * m_pTimeMgr->GetDelta()/* * 20.f*/;
-		if (m_tFrame.fMaxFrame <= m_tFrame.fCurFrame)
-			m_tFrame.fCurFrame = 0.f;
-	}
-	
-	if (DetectTarget())
-	{
-		if (AttackRange())
-		{
-			Attack();
-		}
-		else
-		{
-			if (!m_CollBox->IsCollsion())
-				Move();
-		}
-	}
-	return 0;
+
+
+	return NO_EVENT;
 }
 
 void CMonster::LateUpdate()
@@ -98,22 +104,14 @@ void CMonster::LateUpdate()
 
 void CMonster::Render()
 {
-	const TEX_INFO* pTexInfo;
-	if (m_tObjInfo.IsAni)
-	{
-		pTexInfo = m_pTextureMgr->GetTexInfo(m_tObjInfo.wstrObjectKey, m_tObjInfo.wstrStateKey, (int)m_tFrame.fCurFrame);
-		m_tFrame.fMaxFrame = pTexInfo->iMaxCnt;
-	}
-	else
-		pTexInfo = m_pTextureMgr->GetTexInfo(m_tObjInfo.wstrObjectKey, m_tObjInfo.wstrStateKey, m_tObjInfo.ImageIDX);
+	const TEX_INFO* pTexInfo = m_pTextureMgr->GetTexInfo(m_tObjInfo.wstrObjectKey, m_tObjInfo.wstrStateKey, (int)m_tFrame.fCurFrame);
+	m_tFrame.fMaxFrame = pTexInfo->iMaxCnt;
 
 	NULL_CHECK(pTexInfo);
-	//float fCenterX = 0;
-	//float fCenterY = 0;
+	
 	m_vSize.x= pTexInfo->tImgInfo.Width * 0.5f;
 	m_vSize.y= pTexInfo->tImgInfo.Height * 0.5f;
-	//ConvertCenter(m_tObjInfo, *pTexInfo, fCenterX, fCenterY);
-
+	
 	m_pDeviceMgr->GetSprite()->SetTransform(&m_tInfo.matWorld);
 	m_pDeviceMgr->GetSprite()->Draw(pTexInfo->pTexture, nullptr, &D3DXVECTOR3(m_vSize.x, m_vSize.y, 0.f),
 		nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));
@@ -135,10 +133,15 @@ void CMonster::Render()
 
 void CMonster::Attack()
 {
+	cout << "MonAttack" << endl;
 }
 
 void CMonster::Move()
 {
+	if (m_CollBox->IsCollsion())
+		return;
+
+
 	D3DXVECTOR3 temPos;
 	D3DXVec3Normalize(&temPos,&m_vDir);
 	m_tInfo.vPos += temPos*m_fSpeed* m_pTimeMgr->GetDelta();
@@ -147,13 +150,27 @@ void CMonster::Move()
 
 bool CMonster::DetectTarget()
 {
+	if (m_tData.fCurHp <= 0.f)
+	{
+		ChangeState(STATE_DEAD);
+		return false;
+	}
 	if (!CObjectMgr::GetInstance()->GetObjList(OBJECT_PLAYER).empty())
 	{
-
-		auto playerPos = (*CObjectMgr::GetInstance()->GetObjList(OBJECT_PLAYER).begin())->GetTagInfo().vPos;
-		m_vDir = playerPos - m_tInfo.vPos;
+		m_vTargetPos= (*CObjectMgr::GetInstance()->GetObjList(OBJECT_PLAYER).begin())->GetTagInfo().vPos;
+		m_vDir = m_vTargetPos - m_tInfo.vPos;
 		if (D3DXVec3Length(&m_vDir) <= m_fDetectDistance)
+		{
+			if (D3DXVec3Length(&m_vDir) <= m_fAtkRange)
+				ChangeState(STATE_ATTACK);
+			else
+				ChangeState(STATE_MOVE);
 			return true;
+		}
+		else
+			ChangeState(STATE_IDLE);
+
+	
 	}
 	return false;
 }
@@ -168,5 +185,35 @@ bool CMonster::AttackRange()
 			return true;
 	}
 	return false;
+}
+
+int CMonster::Dead()
+{
+	cout << "MonDead" << endl;
+	return NO_EVENT;
+}
+
+void CMonster::StateMachine()
+{
+	switch (m_eCurState)
+	{
+	case STATE_IDLE:
+		break;
+	case STATE_ATTACK:
+		Attack();
+		break;
+	case STATE_MOVE:
+		Move();
+		break;
+	case STATE_BEATTACK:
+		break;
+	case STATE_DEAD:
+		Dead();
+		break;
+	case STATE_END:
+		break;
+	default:
+		break;
+	}
 }
 

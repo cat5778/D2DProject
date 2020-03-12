@@ -10,6 +10,6 @@ public:
 
 private:
 	virtual void Attack() override;
-
+	virtual int Dead()override;
 };
 

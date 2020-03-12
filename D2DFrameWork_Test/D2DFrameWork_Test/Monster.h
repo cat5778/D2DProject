@@ -21,18 +21,19 @@ protected:
 	virtual void Move();
 	virtual bool DetectTarget();
 	virtual bool AttackRange();
-
+	virtual int Dead();
+	void StateMachine();
 protected:
 	CColliderBox*	m_CollBox;
 	CHPBar*			m_pHPBar;
 	D3DXVECTOR2		m_vSize;
-	D3DXVECTOR3		m_vDir;
-	OBJECT_TYPE		m_eType;
+	
 	float			m_fDetectDistance;
 	float			m_fAtkRange;
 	int				m_iHP;
 	int				m_iCurHP;
 	int				m_iExe;
 	float			m_fSpeed;
+	D3DXVECTOR3		m_vTargetPos;
 };
 

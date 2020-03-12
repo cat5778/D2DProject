@@ -5,7 +5,7 @@ class CColliderBox :
 {
 public:
 	CColliderBox();
-	CColliderBox(D3DXVECTOR3 &vPos ,COLLSION_TYPE eType,D3DXVECTOR2 vSize, bool infinite=true);
+	CColliderBox(D3DXVECTOR3 &vPos, COLLSION_TYPE eType, D3DXVECTOR2 vSize, D3DXVECTOR3 vDir = {0,0,0}, bool infinite = true);
 	~CColliderBox();
 
 	// CGameObject을(를) 통해 상속됨
@@ -16,7 +16,7 @@ public:
 	virtual void Render() override;
 	void RenderLine();
 public:
-	bool GetActice() { return m_pDeviceMgr; }
+	bool GetActice() { return m_bIsActive; }
 	void SetActice(bool active) { m_bIsActive=active; }
 	COLLSION_TYPE GetCollType() {return m_eCollType;}
 	bool IsPicking(const D3DXVECTOR3 & vPos);

@@ -29,7 +29,8 @@ private:
 	WEAPONE_TYPE		m_eWpType;
 	wstring				m_wstrState;
 	list<CProjectile*>  m_pPTlist;
-	float				m_fAtkSpeed;
+	
+
 	bool				m_bIsAtkEnd;
 	D3DXVECTOR3			m_tAtkVec;
 };
