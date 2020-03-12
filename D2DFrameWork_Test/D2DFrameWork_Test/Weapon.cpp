@@ -17,8 +17,9 @@ CWeapon::CWeapon()
 }
 
 CWeapon::CWeapon(D3DXVECTOR3 vPos,float fAtkSpeed, float fDamage)
-	:m_wstrState(L"Idle_"),m_fAtkSpeed(fAtkSpeed), m_bIsAtkEnd(false)
+	:m_wstrState(L"Idle_"), m_bIsAtkEnd(false)
 {
+	m_tData.fAtkSpeed = fAtkSpeed;
 	m_dwDir = DOWN;
 	m_tObjInfo.wstrObjectName = L"Weapon";
 	m_tObjInfo.wstrObjectKey = L"Item";
@@ -52,7 +53,7 @@ void CWeapon::Release()
 
 int CWeapon::Update()
 {
-	m_tFrame.fCurFrame += m_tFrame.fMaxFrame * m_pTimeMgr->GetDelta()*m_fAtkSpeed;
+	m_tFrame.fCurFrame += m_tFrame.fMaxFrame * m_pTimeMgr->GetDelta()*m_tData.fAtkSpeed;
 
 	if (!m_bIsAtkEnd &&(int)(m_tFrame.fMaxFrame -m_tFrame.fCurFrame)==2
 		&&m_wstrState.compare(L"Attack_") == 0)
@@ -69,7 +70,6 @@ int CWeapon::Update()
 		m_tFrame.fCurFrame = 0.f;
 		m_wstrState = L"Idle_";
 		m_bIsAtkEnd = false;
-	
 	}
 	return 0;
 }
@@ -105,16 +105,16 @@ void CWeapon::AttackAni(WEAPONE_TYPE eType)
 		m_tObjInfo.wstrStateKey = L"";
 		break;
 	case WEAPONE_JAVELIN:
-		m_tObjInfo.wstrStateKey = L"Javelin1_";
+		m_tObjInfo.wstrStateKey = L"Javelin1";
 		break;
 	case WEAPONE_JAVELIN1:
-		m_tObjInfo.wstrStateKey = L"Jevelin2_";
+		m_tObjInfo.wstrStateKey = L"Jevelin2";
 		break;
 	case WEAPONE_BOW:
-		m_tObjInfo.wstrStateKey = L"Bow1_";
+		m_tObjInfo.wstrStateKey = L"Bow1";
 		break;
 	case WEAPONE_BOW1:
-		m_tObjInfo.wstrStateKey = L"Bow2_";
+		m_tObjInfo.wstrStateKey = L"Bow2";
 		break;
 	case WEAPONE_END:
 		break;

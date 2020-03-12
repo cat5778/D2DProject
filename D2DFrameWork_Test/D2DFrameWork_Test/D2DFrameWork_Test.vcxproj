@@ -161,6 +161,7 @@
     <ClInclude Include="ColliderMgr.h" />
     <ClInclude Include="D2DFrameWork_Test.h" />
     <ClInclude Include="DeviceMgr.h" />
+    <ClInclude Include="Effect.h" />
     <ClInclude Include="FrameMgr.h" />
     <ClInclude Include="Fungus.h" />
     <ClInclude Include="GameButton.h" />
@@ -207,6 +208,7 @@
     <ClCompile Include="ColliderMgr.cpp" />
     <ClCompile Include="D2DFrameWork_Test.cpp" />
     <ClCompile Include="DeviceMgr.cpp" />
+    <ClCompile Include="Effect.cpp" />
     <ClCompile Include="FrameMgr.cpp" />
     <ClCompile Include="Fungus.cpp" />
     <ClCompile Include="GameButton.cpp" />

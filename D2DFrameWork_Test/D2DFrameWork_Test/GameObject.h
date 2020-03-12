@@ -23,16 +23,28 @@ public:
 	bool IsCollsion() { return m_bIsCollsion; }
 	void SetCollision(bool bIsColl, COLLSION_TYPE CollType = COLLSION_END, float fDamage = -1.0f);
 	void SetvPos(D3DXVECTOR3 vPos, DWORD Dir = DOWN);
-	void BeAttack(float fDamage) { m_tData.fCurHp -= fDamage; }
+	void BeAttack(float fDamage) { m_tData.fCurHp -= fDamage;ChangeState(STATE_BEATTACK); }
 	GAME_DATA GetGameData() { return m_tData; }
+	void InitCurHP() { m_tData.fCurHp = 0; }
+	void Timer(bool bIsActive);
+	float GetRadian() { return m_fRadian; }
+
+	D3DXVECTOR3 GetvDir() { return m_vDir; }
+	D3DXVECTOR3 GetvKnock() { return m_vKnockDir; }
+	void SetKnockDir(D3DXVECTOR3 vDir) { m_vKnockDir=vDir; }
+
 	void SetDamage(float fDamage) { m_tData.fDamage=fDamage; }
 	COLLSION_TYPE GetHitColl() { return m_HitCollType; }
 	void SetHitColl(COLLSION_TYPE eType) {m_HitCollType = eType;}
+
 protected:
+	bool Animate(bool bISInfinite =true,float fSpeed=1.f);
 	void UpdateMatWorld(float fScale=1, float fZLayer=1, float fAngle=0.f);
 	float ZOrder(float _y);
 	void GetImageDir(DWORD dwDir);
 	void GetAngle(D3DXVECTOR3 targetPos);
+	void ChangeState(OBJECT_STATE eState);
+	void KnockBack(D3DXVECTOR3 vKnock, float fPower);
 protected:
 	CDeviceMgr*		m_pDeviceMgr;
 	CTextureMgr*	m_pTextureMgr;
@@ -49,9 +61,15 @@ protected:
 	bool			m_bIsCollsion;
 	GAME_DATA		m_tData;
 	COLLSION_TYPE	m_HitCollType;
+	OBJECT_STATE	m_eCurState;
+	OBJECT_STATE	m_eOldState;
+	COLLSION_TYPE	m_eProjectileType;
+	float			m_fTimer;
+	bool			m_bIsDead;
+	OBJECT_TYPE		m_eType;
+	D3DXVECTOR3		m_vDir;
+	D3DXVECTOR3		m_vKnockDir;
+
 	
-
-
-
 };
 

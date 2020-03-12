@@ -8,7 +8,7 @@ CGameObject::CGameObject()
 	m_pTextureMgr(CTextureMgr::GetInstance()),
 	m_pTimeMgr(CTimeMgr::GetInstance()),
 	m_pColliderMgr(ColliderMgr::GetInstance()),
-	m_dwDir(0x00000001),m_ColliderBox(nullptr), m_bIsCollsion(false)
+	m_dwDir(0x00000001),m_ColliderBox(nullptr), m_bIsCollsion(false), m_fTimer(0)
 {
 }
 
@@ -21,6 +21,7 @@ void CGameObject::SetCollision(bool bIsColl, COLLSION_TYPE CollType, float fDama
 {
 	 m_bIsCollsion = bIsColl; 
 	 m_HitCollType = CollType;
+	
 	 if (fDamage > 0)
 		 BeAttack(fDamage);
 }
@@ -31,6 +32,31 @@ void CGameObject::SetvPos(D3DXVECTOR3 vPos, DWORD Dir)
 	GetImageDir(Dir);
 	m_tInfo.vPos = vPos;
 	
+}
+
+void CGameObject::Timer(bool bIsActive)
+{
+	bIsActive ? m_fTimer += m_pTimeMgr->GetDelta() : m_fTimer = 0.f;
+}
+
+bool CGameObject::Animate(bool bISInfinite,float fSpeed)
+{
+	if (bISInfinite)
+	{
+		m_tFrame.fCurFrame += m_tFrame.fMaxFrame * m_pTimeMgr->GetDelta()*fSpeed;
+		if (m_tFrame.fMaxFrame <= m_tFrame.fCurFrame)
+			m_tFrame.fCurFrame = 0.f;
+	}
+	else
+	{
+		m_tFrame.fCurFrame += m_tFrame.fMaxFrame * m_pTimeMgr->GetDelta()*fSpeed;
+		if (m_tFrame.fMaxFrame <= m_tFrame.fCurFrame)
+		{
+			m_tFrame.fCurFrame = 0.f;
+			return true;
+		}
+	}
+	return false;
 }
 
 void CGameObject::UpdateMatWorld(float fScale, float fZLayer,float fAngle)
@@ -74,13 +100,13 @@ void CGameObject::GetImageDir(DWORD dwDir)
 {
 	m_dwDir = dwDir;
 	if (dwDir & DOWN)
-		m_wsImgDir = L"Down";
+		m_wsImgDir = L"_Down";
 	else if (dwDir & LEFT)
-		m_wsImgDir = L"Left";
+		m_wsImgDir = L"_Left";
 	else if (dwDir & UP)
-		m_wsImgDir = L"Up";
+		m_wsImgDir = L"_Up";
 	else if (dwDir & RIGHT)
-		m_wsImgDir = L"Right";
+		m_wsImgDir = L"_Right";
 
 }
 
@@ -101,5 +127,50 @@ void CGameObject::GetAngle(D3DXVECTOR3 targetPos)
 		m_fRadian *= -1.f;
 
 
+}
+
+void CGameObject::ChangeState(OBJECT_STATE eState)
+{
+	if (m_eOldState != eState)
+	{
+		m_eOldState = eState;
+		switch (eState)
+		{
+		case STATE_IDLE:
+			m_eCurState = STATE_IDLE;
+			break;
+		case STATE_ATTACK:
+			m_eCurState = STATE_ATTACK;
+			break;
+		case STATE_MOVE:
+			m_eCurState = STATE_MOVE;
+			break;
+		case STATE_BEATTACK:
+			m_eCurState = STATE_BEATTACK;
+			break;
+		case STATE_DEAD:
+		{
+			m_eCurState = STATE_DEAD;
+			m_tFrame.fCurFrame = 0;
+		}
+			break;
+		case STATE_END:
+			m_eCurState = STATE_END;
+			break;
+		default:
+			break;
+		}
+		
+	}
+}
+
+void CGameObject::KnockBack(D3DXVECTOR3 vKnock, float fPower)
+{
+	//D3DXVECTOR3 temp;
+	//D3DXVec3Normalize(&temp, &m_tInfo.vPos);
+	//m_vKnockDir = temp - m_vKnockDir;
+
+	m_tInfo.vPos += vKnock*fPower* m_pTimeMgr->GetDelta();
+	//m_tInfo.vPos = ;
 }
 

@@ -19,6 +19,7 @@ CPlayer::CPlayer(D3DXVECTOR3 vPos)
 	m_pLeg(nullptr), m_fSpeed(0.f), m_wstrChest(L"Idle"), m_pWeapon(nullptr),
 	m_fAtkSpd(2),m_CollBox(nullptr), m_pHPBar(nullptr)
 {
+	m_eType = OBJECT_PLAYER;
 	m_bIsCollsion = false;
 	m_tInfo.vPos = vPos;
 	Initialize();
@@ -59,9 +60,13 @@ int CPlayer::Update()
 	if (m_CollBox != nullptr)
 	{
 		m_CollBox->SetvPos(m_tInfo.vPos);
-		if (m_CollBox->IsCollsion())
-			m_tData.fCurHp -= 1;
-			//cout << "플레이어 충돌" << endl;
+		if (m_CollBox->IsCollsion()&& m_CollBox->GetHitColl()!=COLLSION_END)
+		{
+			BeAttack(-m_CollBox->GetGameData().fCurHp);
+			m_CollBox->InitCurHP();
+			m_CollBox->SetHitColl(COLLSION_END);
+			KnockBack(m_CollBox->GetvKnock(),200.f);
+		}
 
 	}
 
@@ -128,7 +133,7 @@ HRESULT CPlayer::Initialize()
 	m_tData.fCurEXE = 0;
 	m_tData.fHp = 100;
 	m_tData.fCurHp = m_tData.fHp;
-	m_tData.fDamage=30;
+	m_tData.fDamage=10;
 	m_tData.fOldHp = m_tData.fCurHp;
 	
 #pragma region InitBody
@@ -139,7 +144,7 @@ HRESULT CPlayer::Initialize()
 		OBJ_INFO* temp = new OBJ_INFO;
 		temp->wstrObjectName = L"Amzon_Hat_Down";
 		temp->wstrObjectKey = L"Hat";
-		temp->wstrStateKey = L"Amazon_Hat_";
+		temp->wstrStateKey = L"Amazon_Hat";
 		temp->IsAni = true;
 		temp->ImageIDX = 0;
 		temp->eObjectType = OBJECT_PLAYER;
@@ -150,7 +155,7 @@ HRESULT CPlayer::Initialize()
 	if (m_pChest == nullptr)
 	{
 		OBJ_INFO* temp = new OBJ_INFO;
-		wstring tempChest = L"_Chest_";
+		wstring tempChest = L"_Chest";
 		temp->wstrObjectName = L"Idle_Chest_Down";
 		temp->wstrObjectKey = L"Amazon";
 		temp->wstrStateKey = /*m_wstrChest+*/tempChest;
@@ -166,7 +171,7 @@ HRESULT CPlayer::Initialize()
 		OBJ_INFO* temp = new OBJ_INFO;
 		temp->wstrObjectName = L"Leg_Down";
 		temp->wstrObjectKey = L"Amazon";
-		temp->wstrStateKey = L"Leg_";
+		temp->wstrStateKey = L"Leg";
 		temp->IsAni = true;
 		temp->ImageIDX = 0;
 		temp->eObjectType = OBJECT_PLAYER;

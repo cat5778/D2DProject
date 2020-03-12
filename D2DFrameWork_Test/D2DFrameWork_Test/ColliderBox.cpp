@@ -6,9 +6,11 @@ CColliderBox::CColliderBox()
 {
 }
 
-CColliderBox::CColliderBox(D3DXVECTOR3 &vPos, COLLSION_TYPE eType, D3DXVECTOR2 vSize, bool infinite)
+CColliderBox::CColliderBox(D3DXVECTOR3 &vPos, COLLSION_TYPE eType, D3DXVECTOR2 vSize, D3DXVECTOR3 vDir, bool infinite)
 	:m_eCollType(eType), m_bIsInfinite(infinite), m_bIsDeadObj(false)
 {
+	ZeroMemory(&m_tData, sizeof(GAME_DATA));
+	m_vDir = vDir;
 	m_HitCollType = COLLSION_END;
 	m_bIsCollsion = false;
 	m_vSize=vSize;

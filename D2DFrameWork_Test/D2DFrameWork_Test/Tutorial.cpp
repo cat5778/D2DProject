@@ -26,7 +26,7 @@ int CTutorial::Update()
 	m_pObjectMgr->Update();
 	m_pColliderMgr->Update();
 	//CScrollMgr::ScrollPos();
-	
+	cout << m_pObjectMgr->GetObjList(OBJECT_MONSTER).size() << endl;
 	return NO_EVENT;
 }
 

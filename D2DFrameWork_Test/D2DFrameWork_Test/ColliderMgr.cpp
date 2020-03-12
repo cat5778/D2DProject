@@ -61,8 +61,8 @@ int ColliderMgr::Update()
 		}
 	}
 	CheckCollision(PLAYER_HITBOX_COLLISION, MONSTER_HITBOX_COLLISION);
-	CheckCollision(PLAYER_PROJECTILE_COLLISION, MONSTER_HITBOX_COLLISION);
-
+	HitCollision(PLAYER_PROJECTILE_COLLISION, MONSTER_HITBOX_COLLISION);
+	HitCollision(MONSTER_PROJECTILE_COLLISION, PLAYER_HITBOX_COLLISION);
 	return NO_EVENT;
 }
 
@@ -91,13 +91,15 @@ void ColliderMgr::Render()
 	}
 }
 
-void ColliderMgr::CheckCollision(COLLSION_TYPE sourType, COLLSION_TYPE destType)
+void ColliderMgr::HitCollision(COLLSION_TYPE sourType, COLLSION_TYPE destType)
 {
 	for (auto pSource : m_CollList[sourType])
 	{
 		pSource->SetCollision(false);
 		for (auto pDest : m_CollList[destType])
 		{
+			if (!dynamic_cast<CColliderBox*>(pDest)->GetActice())
+				continue;
 			D3DXVECTOR3 temp = (pSource->GetTagInfo().vPos - pDest->GetTagInfo().vPos);
 			//D3DXVECTOR3 vSize = { pSource->GetvSize().x+ pDest->GetvSize().x,pSource->GetvSize().y+ pDest->GetvSize().y,0 };
 			D3DXVECTOR2 vSize = (pSource->GetvSize() + pDest->GetvSize());
@@ -107,7 +109,7 @@ void ColliderMgr::CheckCollision(COLLSION_TYPE sourType, COLLSION_TYPE destType)
 			{
 				pSource->SetCollision(true);
 				pDest->SetCollision(true,dynamic_cast<CColliderBox*>(pSource)->GetCollType(), pSource->GetGameData().fDamage);
-
+				pDest->SetKnockDir(pSource->GetvDir());
 			}
 			else
 			{
@@ -117,7 +119,7 @@ void ColliderMgr::CheckCollision(COLLSION_TYPE sourType, COLLSION_TYPE destType)
 	}
 }
 
-void ColliderMgr::HitCollision(COLLSION_TYPE sourType, COLLSION_TYPE destType)
+void ColliderMgr::CheckCollision(COLLSION_TYPE sourType, COLLSION_TYPE destType)
 {
 	for (auto pSource : m_CollList[sourType])
 	{
