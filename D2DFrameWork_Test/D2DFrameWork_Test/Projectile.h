@@ -6,8 +6,8 @@ class CProjectile :
 {
 public:
 	CProjectile();
-	CProjectile(WEAPONE_TYPE eType,D3DXVECTOR3 vPos, D3DXVECTOR3 vDir,float fDamage=-1.f, 
-		COLLSION_TYPE eCollType= PLAYER_PROJECTILE_COLLISION,wstring wstrObjectKey= L"Projectile", wstring wstrStateKey=L"");
+	CProjectile(WEAPONE_TYPE eType, D3DXVECTOR3 vPos, D3DXVECTOR3 vDir, float fDamage = -1.f,
+		COLLSION_TYPE eCollType = PLAYER_PROJECTILE_COLLISION, wstring wstrObjectKey = L"Projectile", wstring wstrStateKey = L"", bool IsAni = true);
 	~CProjectile();
 
 	// CGameObject을(를) 통해 상속됨

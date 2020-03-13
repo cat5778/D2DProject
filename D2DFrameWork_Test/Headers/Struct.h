@@ -12,10 +12,10 @@ typedef struct tagInfo
 }TAG_INFO;
 typedef struct tagRect
 {
-	D3DXVECTOR3  leftTop;
-	D3DXVECTOR3  leftBottom;
-	D3DXVECTOR3  rightTop;
-	D3DXVECTOR3  rightBottom;
+	D3DXVECTOR3  left;
+	D3DXVECTOR3  top;
+	D3DXVECTOR3  right;
+	D3DXVECTOR3  bottom;
 }vRect;
 typedef struct tagTextureInfo
 {

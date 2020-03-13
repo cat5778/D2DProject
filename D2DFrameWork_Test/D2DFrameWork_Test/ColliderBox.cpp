@@ -13,6 +13,7 @@ CColliderBox::CColliderBox(D3DXVECTOR3 &vPos, COLLSION_TYPE eType, D3DXVECTOR2 v
 	m_vDir = vDir;
 	m_HitCollType = COLLSION_END;
 	m_bIsCollsion = false;
+	m_bIsObjCollision = false;
 	m_vSize=vSize;
 	m_tInfo.vPos = vPos;
 	Initialize();

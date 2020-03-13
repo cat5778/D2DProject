@@ -1,5 +1,7 @@
 #pragma once
 #include "GameObject.h"
+class CColliderBox;
+
 class CObstacle :
 	public CGameObject
 {
@@ -20,10 +22,12 @@ private:
 	void ConvertPos(const OBJ_INFO& objInfo, const TEX_INFO& pTexInfo, D3DXVECTOR3 &vPos);
 	void ConvertCenter(const OBJ_INFO& objInfo, const TEX_INFO& pTexInfo, float &cx, float &cy);
 	void CheckType();
-
+	void ConvertSize();
 private:
-	OBSTACLE_TYPE m_eType;
-
+	OBSTACLE_TYPE	m_eType;
+	D3DXVECTOR3		m_VCollPos;
+	CColliderBox*	m_CollBox;
+	bool			m_bIsHorizon;
 
 
 };

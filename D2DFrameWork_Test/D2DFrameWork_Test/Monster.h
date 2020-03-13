@@ -7,7 +7,7 @@ class CMonster :
 {
 public:
 	CMonster();
-	CMonster(const OBJ_INFO& objInfo, D3DXVECTOR3 vPos);
+	CMonster(const OBJ_INFO& objInfo, D3DXVECTOR3 vPos,MONTER_TYPE eType);
 	~CMonster();
 
 	// CGameObject을(를) 통해 상속됨
@@ -17,6 +17,7 @@ public:
 	virtual void LateUpdate() override;
 	virtual void Render() override;
 protected:
+	virtual void Idle();
 	virtual void Attack();
 	virtual void Move();
 	virtual bool DetectTarget();
@@ -27,7 +28,7 @@ protected:
 	CColliderBox*	m_CollBox;
 	CHPBar*			m_pHPBar;
 	D3DXVECTOR2		m_vSize;
-	
+	MONTER_TYPE		m_eMonType;
 	float			m_fDetectDistance;
 	float			m_fAtkRange;
 	int				m_iHP;
@@ -35,5 +36,6 @@ protected:
 	int				m_iExe;
 	float			m_fSpeed;
 	D3DXVECTOR3		m_vTargetPos;
+
 };
 

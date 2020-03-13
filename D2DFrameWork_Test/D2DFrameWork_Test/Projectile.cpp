@@ -10,7 +10,7 @@ CProjectile::CProjectile()
 }
 
 CProjectile::CProjectile(WEAPONE_TYPE eType, D3DXVECTOR3 vPos, D3DXVECTOR3 vDir,float fDamage,
-	COLLSION_TYPE eCollType, wstring wstrObjectKey, wstring wstrStateKey)
+	COLLSION_TYPE eCollType, wstring wstrObjectKey, wstring wstrStateKey, bool IsAni)
 	:m_eWpType(eType), m_fSpeed(400), m_IsDead(false),m_fTime(0.f), m_CollBox(nullptr)
 {
 	m_eProjectileType = eCollType;
@@ -19,6 +19,7 @@ CProjectile::CProjectile(WEAPONE_TYPE eType, D3DXVECTOR3 vPos, D3DXVECTOR3 vDir,
 	m_bIsCollsion = false;
 	m_tObjInfo.wstrObjectKey = wstrObjectKey;
 	m_tObjInfo.wstrStateKey = wstrStateKey;
+	m_tObjInfo.IsAni = IsAni;
 	m_tFrame.fCurFrame = 0;
 	m_vDir = vDir;
 	switch (m_eProjectileType)
@@ -82,7 +83,9 @@ int CProjectile::Update()
 			if(m_CollBox!=nullptr)
 				m_CollBox->EraseCollider();
 		}
-		m_tInfo.vPos += m_vDir*m_fSpeed* m_pTimeMgr->GetDelta();
+		D3DXVECTOR3 vNmalDir;
+		D3DXVec3Normalize(&vNmalDir, &m_vDir);
+		m_tInfo.vPos += vNmalDir*m_fSpeed* m_pTimeMgr->GetDelta();
 		if (m_CollBox != nullptr)
 		{
 			m_CollBox->SetDamage(m_tData.fDamage);
@@ -112,30 +115,40 @@ void CProjectile::Render()
 	{
 		UpdateMatWorld(1.0f, ZOrder(m_tInfo.vPos.y), m_fRadian);
 		//cout << m_fRadian << endl;
-		const TEX_INFO* pTexInfo = m_pTextureMgr->GetTexInfo(m_tObjInfo.wstrObjectKey,
-			m_tObjInfo.wstrStateKey, m_tFrame.fCurFrame);
-		NULL_CHECK(pTexInfo);
-
-		m_tFrame.fMaxFrame = pTexInfo->iMaxCnt;
-		if (m_eProjectileType == MONSTER_PROJECTILE_COLLISION)
+		if (m_tObjInfo.IsAni)
 		{
-			m_vSize.x = pTexInfo->tImgInfo.Width *  0.25f;
-			m_vSize.y = pTexInfo->tImgInfo.Height * 0.25f;
+			const TEX_INFO* pTexInfo = m_pTextureMgr->GetTexInfo(m_tObjInfo.wstrObjectKey,
+				m_tObjInfo.wstrStateKey, m_tFrame.fCurFrame);
+			NULL_CHECK(pTexInfo);
+
+			m_tFrame.fMaxFrame = pTexInfo->iMaxCnt;
+			if (m_eProjectileType == MONSTER_PROJECTILE_COLLISION)
+			{
+				m_vSize.x = pTexInfo->tImgInfo.Width *  0.25f;
+				m_vSize.y = pTexInfo->tImgInfo.Height * 0.25f;
+			}
+			else
+			{
+				m_vSize.x = pTexInfo->tImgInfo.Width *  0.25f;
+				m_vSize.y = pTexInfo->tImgInfo.Height * 0.25f;
+			}
+			m_pDeviceMgr->GetSprite()->SetTransform(&m_tInfo.matWorld);
+			m_pDeviceMgr->GetSprite()->Draw(pTexInfo->pTexture, nullptr, &D3DXVECTOR3(m_vSize.x, m_vSize.y, 0.f),
+				nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));
+			if (m_CollBox == nullptr)
+			{
+				m_CollBox = new CColliderBox(m_tInfo.vPos, m_eProjectileType, m_vSize, m_vDir);
+				m_pColliderMgr->AddObject(m_eProjectileType, m_CollBox);
+			}
 		}
 		else
 		{
-			m_vSize.x = pTexInfo->tImgInfo.Width *  0.5f;
-			m_vSize.y = pTexInfo->tImgInfo.Height * 0.5f;
+			if (m_CollBox == nullptr)
+			{
+				m_CollBox = new CColliderBox(m_tInfo.vPos, m_eProjectileType, m_vSize, m_vDir);
+				m_pColliderMgr->AddObject(m_eProjectileType, m_CollBox);
+			}
 		}
-		m_pDeviceMgr->GetSprite()->SetTransform(&m_tInfo.matWorld);
-		m_pDeviceMgr->GetSprite()->Draw(pTexInfo->pTexture, nullptr, &D3DXVECTOR3(m_vSize.x, m_vSize.y, 0.f),
-			nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));
-		if (m_CollBox == nullptr)
-		{
-			m_CollBox = new CColliderBox(m_tInfo.vPos, m_eProjectileType, m_vSize, m_vDir);
-			m_pColliderMgr->AddObject(m_eProjectileType, m_CollBox);
-		}
-		
 		//if (CKeyManager::GetInstance()->KeyPressing(KEY_6)&& m_CollBox != nullptr)
 		//{
 			//m_CollBox->RenderLine();
@@ -168,24 +181,30 @@ void CProjectile::PlayerAngle()
 		break;
 	}
 	m_vDir = (CMouse::GetMousePos() + CScrollMgr::GetScrollPos()) - m_tInfo.vPos;
-	D3DXVec3Normalize(&m_vDir, &m_vDir);
+	//D3DXVec3Normalize(&m_vDir, &m_vDir);
+	D3DXVECTOR3 vNmalDir;
+	D3DXVec3Normalize(&vNmalDir, &m_vDir);
 	D3DXVECTOR3 tempPos = m_tInfo.vPos;
 	tempPos.x += 1;
 	D3DXVECTOR3 LookPos = tempPos - m_tInfo.vPos;
 	D3DXVec3Normalize(&LookPos, &LookPos);
-	m_fRadian = acosf(D3DXVec3Dot(&LookPos, &m_vDir));
+	m_fRadian = acosf(D3DXVec3Dot(&LookPos, &vNmalDir));
 	if (m_tInfo.vPos.y > (CMouse::GetMousePos().y + CScrollMgr::GetScrollPos().y))
 		m_fRadian *= -1.f;
 }
 
 void CProjectile::MonsterAngle()
 {
-	D3DXVec3Normalize(&m_vDir, &m_vDir);
+
+	//D3DXVec3Normalize(&m_vDir, &m_vDir);
+	//D3DXVec3Normalize(&m_vDir, &m_vDir);
+	D3DXVECTOR3 vNmalDir;
+	D3DXVec3Normalize(&vNmalDir, &m_vDir);
 	D3DXVECTOR3 tempPos = m_tInfo.vPos;
 	tempPos.x += 1;
 	D3DXVECTOR3 LookPos = tempPos - m_tInfo.vPos;
 	D3DXVec3Normalize(&LookPos, &LookPos);
-	m_fRadian = acosf(D3DXVec3Dot(&LookPos, &m_vDir));
-	if (m_tInfo.vPos.y > m_vDir.y)
+	m_fRadian = acosf(D3DXVec3Dot(&LookPos, &vNmalDir));
+	if (m_tInfo.vPos.y > vNmalDir.y)
 		m_fRadian *= -1.f;
 }

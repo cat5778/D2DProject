@@ -60,8 +60,9 @@ int ColliderMgr::Update()
 				++iter_begin;
 		}
 	}
-	CheckCollision(PLAYER_HITBOX_COLLISION, MONSTER_HITBOX_COLLISION);
+	CheckCollision(PLAYER_HITBOX_COLLISION, OBJECT_HITBOX_COLLISION);
 	HitCollision(PLAYER_PROJECTILE_COLLISION, MONSTER_HITBOX_COLLISION);
+	CheckCollision(MONSTER_HITBOX_COLLISION, OBJECT_HITBOX_COLLISION);
 	HitCollision(MONSTER_PROJECTILE_COLLISION, PLAYER_HITBOX_COLLISION);
 	return NO_EVENT;
 }
@@ -100,6 +101,7 @@ void ColliderMgr::HitCollision(COLLSION_TYPE sourType, COLLSION_TYPE destType)
 		{
 			if (!dynamic_cast<CColliderBox*>(pDest)->GetActice())
 				continue;
+			
 			D3DXVECTOR3 temp = (pSource->GetTagInfo().vPos - pDest->GetTagInfo().vPos);
 			//D3DXVECTOR3 vSize = { pSource->GetvSize().x+ pDest->GetvSize().x,pSource->GetvSize().y+ pDest->GetvSize().y,0 };
 			D3DXVECTOR2 vSize = (pSource->GetvSize() + pDest->GetvSize());
@@ -123,24 +125,25 @@ void ColliderMgr::CheckCollision(COLLSION_TYPE sourType, COLLSION_TYPE destType)
 {
 	for (auto pSource : m_CollList[sourType])
 	{
-		pSource->SetCollision(false);
+		pSource->SetOBJCollision(false);
 		for (auto pDest : m_CollList[destType])
 		{
+			if (pSource == pDest)
+				continue;
 			D3DXVECTOR3 temp = (pSource->GetTagInfo().vPos - pDest->GetTagInfo().vPos);
-			//D3DXVECTOR3 vSize = { pSource->GetvSize().x+ pDest->GetvSize().x,pSource->GetvSize().y+ pDest->GetvSize().y,0 };
 			D3DXVECTOR2 vSize = (pSource->GetvSize() + pDest->GetvSize());
 			float fDistance = fabsf(D3DXVec3Length(&temp));
 			float fSize = fabsf(D3DXVec2Length(&vSize));
 			if (fDistance <= fSize*0.5f)
 			{
-				pSource->SetCollision(true);
-				pDest->SetCollision(true);
-				pDest->BeAttack(pSource->GetGameData().fDamage);
-
+				pSource->SetOBJCollision(true,destType);
+				pDest->SetOBJCollision(true,sourType);
+				pSource->GetCollDir(pDest->GetTagInfo().vPos);
+				//cout << "Ãæµ¹" << endl;
 			}
 			else
 			{
-				pDest->SetCollision(false);
+				pDest->SetOBJCollision(false, destType);
 			}
 		}
 	}

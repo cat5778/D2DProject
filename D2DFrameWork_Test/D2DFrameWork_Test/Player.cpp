@@ -19,10 +19,16 @@ CPlayer::CPlayer(D3DXVECTOR3 vPos)
 	m_pLeg(nullptr), m_fSpeed(0.f), m_wstrChest(L"Idle"), m_pWeapon(nullptr),
 	m_fAtkSpd(2),m_CollBox(nullptr), m_pHPBar(nullptr)
 {
+	m_bIsInvincible = false;
+	m_tData.fAtkSpeed = 1.0f;
+	m_fTimer = 0;
+	m_bIsAttack = false;
 	m_eType = OBJECT_PLAYER;
+	m_bIsObjCollision = false;
 	m_bIsCollsion = false;
 	m_tInfo.vPos = vPos;
 	Initialize();
+ 
 }
 
 
@@ -60,14 +66,34 @@ int CPlayer::Update()
 	if (m_CollBox != nullptr)
 	{
 		m_CollBox->SetvPos(m_tInfo.vPos);
-		if (m_CollBox->IsCollsion()&& m_CollBox->GetHitColl()!=COLLSION_END)
+		m_bIsCollsion = m_CollBox->IsCollsion();
+		m_bIsObjCollision = m_CollBox->IsOBJCollsion();
+		if (m_bIsCollsion)
 		{
-			BeAttack(-m_CollBox->GetGameData().fCurHp);
-			m_CollBox->InitCurHP();
-			m_CollBox->SetHitColl(COLLSION_END);
-			KnockBack(m_CollBox->GetvKnock(),200.f);
-		}
+			
+			//cout << m_dwCollDir << "  Ãæµ¹=" << m_bIsCollsion << endl;
+			if (m_CollBox->GetHitColl() != COLLSION_END)
+			{
+				BeAttack(-m_CollBox->GetGameData().fCurHp);
+				m_CollBox->SetHitColl(COLLSION_END);
+				m_bIsInvincible = true;
 
+			}
+		}
+		//cout << m_bIsObjCollision << endl;
+		if (m_bIsObjCollision)
+			m_dwCollDir = m_CollBox->GetdwCollDir();
+		else
+			m_dwCollDir = -1;
+
+		
+
+		if (m_bIsInvincible)
+		{
+			KnockBack(m_CollBox->GetvKnock(), 10.f*(-m_CollBox->GetGameData().fCurHp));
+			m_CollBox->InitCurHP();
+		}
+		Timer(m_bIsInvincible, 0.1f, m_fKnockTime);
 	}
 
 	return NO_EVENT;
@@ -133,7 +159,7 @@ HRESULT CPlayer::Initialize()
 	m_tData.fCurEXE = 0;
 	m_tData.fHp = 100;
 	m_tData.fCurHp = m_tData.fHp;
-	m_tData.fDamage=10;
+	m_tData.fDamage=100;
 	m_tData.fOldHp = m_tData.fCurHp;
 	
 #pragma region InitBody
@@ -197,43 +223,47 @@ void CPlayer::Release()
 void CPlayer::KeyInput()
 {
 
+
 	if (m_pKeyMgr->KeyPressing(KEY_A)&&m_tInfo.vPos.x>=25)
 	{
-		m_tInfo.vPos.x -= m_fSpeed * m_pTimeMgr->GetDelta();
 		m_dwDir = LEFT;
+		if (m_dwCollDir == LEFT&&m_bIsObjCollision)
+			return;
+		m_tInfo.vPos.x -= m_fSpeed * m_pTimeMgr->GetDelta();
 	}
 	if (m_pKeyMgr->KeyPressing(KEY_D) && m_tInfo.vPos.x <= 1775)
 	{
-		m_tInfo.vPos.x += m_fSpeed * m_pTimeMgr->GetDelta();
 		m_dwDir = RIGHT;
+		if (m_dwCollDir == RIGHT&&m_bIsObjCollision)
+			return;
+		m_tInfo.vPos.x += m_fSpeed * m_pTimeMgr->GetDelta();
 	}
 	if (m_pKeyMgr->KeyPressing(KEY_S) && m_tInfo.vPos.y <= 1750)
 	{
-		m_tInfo.vPos.y += m_fSpeed * m_pTimeMgr->GetDelta();
 		m_dwDir = DOWN;
+		if (m_dwCollDir == DOWN&&m_bIsObjCollision)
+			return;
+		m_tInfo.vPos.y += m_fSpeed * m_pTimeMgr->GetDelta();
 	}
 	if (m_pKeyMgr->KeyPressing(KEY_W) && m_tInfo.vPos.y >= 25)
 	{
-		m_tInfo.vPos.y-= m_fSpeed * m_pTimeMgr->GetDelta();
 		m_dwDir = UP;
+		if (m_dwCollDir == UP&&m_bIsObjCollision)
+			return;
+		m_tInfo.vPos.y-= m_fSpeed * m_pTimeMgr->GetDelta();
 	}
-	if (m_pKeyMgr->KeyDown(KEY_LBUTTON))
+	
+	if (m_pKeyMgr->KeyPressing(KEY_LBUTTON))
 	{
-		m_pChest->AttackAni(m_eWpType);
-		m_pWeapon->AttackAni(m_eWpType);
-		//D3DXVECTOR3 mPos = CScrollMgr::GetScrollPos()+CMouse::GetMousePos();
-		//auto obsList = CObjectMgr::GetInstance()->GetObjList(OBJECT_NPC);
-		//for (auto pObs : obsList)
-		//{
-		//	D3DXVECTOR3 vTemp= pObs->GetTagInfo().vPos -mPos;
-		//	if (D3DXVec3Length(&vTemp) <= 20.f)
-		//	{//WEAPONE_JAVELIN
-		//		m_pChest->AttackAni(m_eWpType);
-		//		m_pWeapon->AttackAni(m_eWpType);
-		//		//wcout<< pObs->GetObjInfo().wstrStateKey.c_str() << endl;
-		//	}
-		//}
+		if (!m_bIsAttack)
+		{
+			m_pChest->AttackAni(m_eWpType);
+			m_pWeapon->AttackAni(m_eWpType);
+			m_bIsAttack = true;
+		}
 	}
+	Timer(m_bIsAttack, m_tData.fAtkSpeed,m_fTimer);
+	
 	if (m_pKeyMgr->KeyPressing(KEY_1))
 		m_eWpType = WEAPONE_FIST;
 	if (m_pKeyMgr->KeyPressing(KEY_2))

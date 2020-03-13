@@ -1,16 +1,18 @@
 #include "stdafx.h"
 #include "Obstacle.h"
 #include "ScrollMgr.h"
-
+#include "ColliderBox.h"
 CObstacle::CObstacle()
 {
 }
 
 CObstacle::CObstacle(const  OBJ_INFO& objInfo, D3DXVECTOR3 vPos)
+	:m_CollBox(nullptr), m_bIsHorizon(true)
 {
 	m_tObjInfo = objInfo;
 	m_tInfo.vPos = vPos;
 	Initialize();
+
 }
 
 
@@ -27,9 +29,10 @@ HRESULT CObstacle::Initialize()
 	m_tInfo.vDir = { 0.f, 0.f, 0.f };
 	m_tInfo.vLook = { 0.f, -1.f, 0.f };
 	m_tInfo.vSize = { 1.f, 1.f, 0.f };
-
+	m_VCollPos = { 0,0,0 };
 	m_tFrame.fCurFrame = 0.f;
 	m_tFrame.fMaxFrame = 10.f;
+	//m_vSize = {50,50};
 
 	return S_OK;
 }
@@ -46,6 +49,7 @@ int CObstacle::Update()
 		if (m_tFrame.fMaxFrame <= m_tFrame.fCurFrame)
 			m_tFrame.fCurFrame = 0.f;
 	}
+
 	return 0;
 }
 
@@ -73,18 +77,28 @@ void CObstacle::Render()
 	const TEX_INFO* pTexInfo;
 	if (m_tObjInfo.IsAni)
 	{
-		pTexInfo = m_pTextureMgr->GetTexInfo(m_tObjInfo.wstrObjectKey, m_tObjInfo.wstrStateKey, (int)m_tFrame.fCurFrame);
+		pTexInfo = m_pTextureMgr->GetTexInfo(m_tObjInfo.wstrObjectKey,
+			m_tObjInfo.wstrStateKey, (int)m_tFrame.fCurFrame);
 		m_tFrame.fMaxFrame = pTexInfo->iMaxCnt;
 	}
 	else
-		pTexInfo = m_pTextureMgr->GetTexInfo(m_tObjInfo.wstrObjectKey, m_tObjInfo.wstrStateKey, m_tObjInfo.ImageIDX);
+		pTexInfo = m_pTextureMgr->GetTexInfo(m_tObjInfo.wstrObjectKey, 
+			m_tObjInfo.wstrStateKey, m_tObjInfo.ImageIDX);
 	
 	NULL_CHECK(pTexInfo);
 	float fCenterX = 0; 
 	float fCenterY = 0;
+	m_vSize.x = pTexInfo->tImgInfo.Width*0.5f;
+	m_vSize.y = pTexInfo->tImgInfo.Height*0.5f;
 	//float fCenterX = pTexInfo->tImgInfo.Width * 0.5f;
 	//float fCenterY = pTexInfo->tImgInfo.Height * 0.5f;
 	ConvertCenter(m_tObjInfo, *pTexInfo, fCenterX, fCenterY);
+	ConvertSize();
+	if (m_VCollPos.x!=0&&m_CollBox == nullptr)
+	{
+		m_CollBox = new CColliderBox(m_VCollPos, OBJECT_HITBOX_COLLISION, m_vSize);
+		m_pColliderMgr->AddObject(OBJECT_HITBOX_COLLISION, m_CollBox);
+	}
 
 	m_pDeviceMgr->GetSprite()->SetTransform(&m_tInfo.matWorld);
 	m_pDeviceMgr->GetSprite()->Draw(pTexInfo->pTexture, nullptr, &D3DXVECTOR3(fCenterX, fCenterY, 0.f),
@@ -104,6 +118,7 @@ float CObstacle::ZOrder()
 	case OBSTACLE_BUILDING:
 		break;
 	case OBSTACLE_TP:
+		return 1 - (m_tInfo.vPos.y *0.00001f);
 		break;
 	case OBSTACLE_FENCE:
 		return 1 - ((m_tInfo.vPos.y - 20) * 0.00001f);
@@ -143,6 +158,7 @@ void CObstacle::ConvertPos(const OBJ_INFO & objInfo, const TEX_INFO & pTexInfo, 
 	}
 	else if (objInfo.wstrObjectName.find(L"Vertical_Wall") != wstring::npos)
 	{
+
 		m_eType = OBSTACLE_TP;
 		iW = pTexInfo.tImgInfo.Width*0.75;
 		iH = pTexInfo.tImgInfo.Height*0.8;
@@ -192,24 +208,30 @@ void CObstacle::ConvertCenter(const OBJ_INFO & objInfo, const TEX_INFO & pTexInf
 
 void CObstacle::CheckType()
 {
+	m_bIsHorizon = true;
+	if (m_tObjInfo.wstrStateKey.find(L"Vertical") != wstring::npos)
+		m_bIsHorizon = false;
 
 	if (m_tObjInfo.wstrStateKey.find(L"TP") != wstring::npos)
 	{
 		m_eType = OBSTACLE_TP;
 
 	}
-	else if (m_tObjInfo.wstrStateKey.find(L"Horizontal_Wall") != wstring::npos)
+	else if (m_tObjInfo.wstrStateKey.find(L"Wall_Horizontal") != wstring::npos)
 	{
+		
 		m_eType = OBSTACLE_TP;
 
 	}
-	else if (m_tObjInfo.wstrStateKey.find(L"Vertical_Wall") != wstring::npos)
+	else if (m_tObjInfo.wstrStateKey.find(L"Wall_Vertical") != wstring::npos)
 	{
+		m_bIsHorizon = false;
 		m_eType = OBSTACLE_TP;
-
 	}
 	else if (m_tObjInfo.wstrStateKey.find(L"Fence") != wstring::npos)
 	{
+		if (m_tObjInfo.ImageIDX == 1)
+			m_bIsHorizon = false;
 		m_eType = OBSTACLE_FENCE;
 	}
 	else if (m_tObjInfo.wstrStateKey.find(L"Tree") != wstring::npos)
@@ -232,5 +254,59 @@ void CObstacle::CheckType()
 	{
 	
 		m_eType = OBSTACLE_END;
+		//wcout << m_tObjInfo.wstrStateKey.c_str() << endl;
 	}
+}
+
+void CObstacle::ConvertSize()
+{
+	
+	switch (m_eType)
+	{
+	case OBSTACLE_TREE:
+	{
+		m_VCollPos = m_tInfo.vPos;
+		m_VCollPos.y -= 20.f;
+		m_vSize.x *= 0.25f;
+		m_vSize.y *= 0.25f;
+
+	}
+		break;
+	case OBSTACLE_GRASS:
+		break;
+	case OBSTACLE_BUILDING:
+		break;
+	case OBSTACLE_TP:
+	{
+		m_VCollPos = m_tInfo.vPos;
+		m_vSize.x *= 2.f;
+		m_vSize.y *= 0.25f;
+	}
+		break;
+	case OBSTACLE_FENCE:
+	{
+		if (m_bIsHorizon)
+		{
+			m_VCollPos = m_tInfo.vPos;
+			m_vSize.x *= 2.f;
+			m_vSize.y *= 0.25f;
+		}
+		else
+		{
+			m_VCollPos = m_tInfo.vPos;
+			m_vSize.x *= 0.25;
+			m_vSize.y *= 2.0f;
+		}
+	}
+		break;
+	case OBSTACLE_LAMP:
+		break;
+	case OBSTACLE_END:
+		break;
+	default:
+		break;
+	}
+
+
+
 }

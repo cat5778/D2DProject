@@ -9,6 +9,9 @@
 #include "Player.h"
 #include "Monster.h"
 #include "Fungus.h"
+#include "Silme.h"
+#include "Monk.h"
+#include "Priest.h"
 CTutorial::CTutorial()
 	:m_pObjectMgr(CObjectMgr::GetInstance()),
 	m_pColliderMgr(ColliderMgr::GetInstance())
@@ -26,7 +29,7 @@ int CTutorial::Update()
 	m_pObjectMgr->Update();
 	m_pColliderMgr->Update();
 	//CScrollMgr::ScrollPos();
-	cout << m_pObjectMgr->GetObjList(OBJECT_MONSTER).size() << endl;
+	//cout << m_pObjectMgr->GetObjList(OBJECT_MONSTER).size() << endl;
 	return NO_EVENT;
 }
 
@@ -80,8 +83,26 @@ HRESULT CTutorial::Initialize()
 		break;
 		case OBJECT_MONSTER:
 		{
-			CFungus *temp = new CFungus(*Obj.first, Obj.second);
-			hr = m_pObjectMgr->AddObject(OBJECT_MONSTER, temp);
+			if ((Obj.first)->wstrObjectName.find(L"Fungus") != wstring::npos)
+			{
+				CFungus *temp = new CFungus(*Obj.first, Obj.second);
+				hr = m_pObjectMgr->AddObject(OBJECT_MONSTER, temp);
+			}
+			else if ((Obj.first)->wstrObjectName.find(L"Slime") != wstring::npos)
+			{
+				CSilme *temp = new CSilme(*Obj.first, Obj.second);
+				hr = m_pObjectMgr->AddObject(OBJECT_MONSTER, temp);
+			}
+			else if ((Obj.first)->wstrObjectName.find(L"Monk") != wstring::npos)
+			{
+				Monk *temp = new Monk(*Obj.first, Obj.second);
+				hr = m_pObjectMgr->AddObject(OBJECT_MONSTER, temp);
+			}
+			else if ((Obj.first)->wstrObjectName.find(L"Priest") != wstring::npos)
+			{
+				Priest *temp = new Priest(*Obj.first, Obj.second);
+				hr = m_pObjectMgr->AddObject(OBJECT_MONSTER, temp);
+			}
 			FAILED_CHECK_MSG_RETURN(hr, Obj.first->wstrObjectName.c_str(), E_FAIL);
 		}
 		case OBJECT_END:

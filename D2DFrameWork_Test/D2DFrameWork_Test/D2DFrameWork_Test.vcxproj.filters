@@ -130,6 +130,15 @@
     <Filter Include="10.GameObjects\Effect">
       <UniqueIdentifier>{c07e1eae-b4e3-4404-9886-defa07bed678}</UniqueIdentifier>
     </Filter>
+    <Filter Include="10.GameObjects\Monster\Slime">
+      <UniqueIdentifier>{29720b91-5256-4421-bb50-29fe488d6deb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10.GameObjects\Monster\Priest">
+      <UniqueIdentifier>{3ea6fa54-bbb6-49c2-8666-906a0e0fea05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10.GameObjects\Monster\Monk">
+      <UniqueIdentifier>{955d0111-0722-4bfe-9273-b83c8fcc069e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -261,8 +270,19 @@
     <ClInclude Include="HPBar.h">
       <Filter>10.GameObjects\HPBar</Filter>
     </ClInclude>
-    <ClInclude Include="GaugeFill.h" />
-    <ClInclude Include="Effect.h" />
+    <ClInclude Include="Silme.h">
+      <Filter>10.GameObjects\Monster\Slime</Filter>
+    </ClInclude>
+    <ClInclude Include="Monk.h">
+      <Filter>10.GameObjects\Monster\Monk</Filter>
+    </ClInclude>
+    <ClInclude Include="Effect.h">
+      <Filter>10.GameObjects\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="GaugeFill.h">
+      <Filter>10.GameObjects\HPBar\Fill</Filter>
+    </ClInclude>
+    <ClInclude Include="Priest.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -391,8 +411,19 @@
     <ClCompile Include="HPBar.cpp">
       <Filter>10.GameObjects\HPBar</Filter>
     </ClCompile>
-    <ClCompile Include="GaugeFill.cpp" />
-    <ClCompile Include="Effect.cpp" />
+    <ClCompile Include="Silme.cpp">
+      <Filter>10.GameObjects\Monster\Slime</Filter>
+    </ClCompile>
+    <ClCompile Include="Monk.cpp">
+      <Filter>10.GameObjects\Monster\Monk</Filter>
+    </ClCompile>
+    <ClCompile Include="Effect.cpp">
+      <Filter>10.GameObjects\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="GaugeFill.cpp">
+      <Filter>10.GameObjects\HPBar\Fill</Filter>
+    </ClCompile>
+    <ClCompile Include="Priest.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">

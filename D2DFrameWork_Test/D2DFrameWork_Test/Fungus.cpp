@@ -8,6 +8,7 @@ CFungus::CFungus()
 
 CFungus::CFungus(const OBJ_INFO & objInfo, D3DXVECTOR3 vPos)
 {
+	m_eMonType = FUNGUS;
 	m_CollBox=nullptr;
 	m_fDetectDistance = 400;
 	m_fAtkRange = 200;
@@ -18,8 +19,9 @@ CFungus::CFungus(const OBJ_INFO & objInfo, D3DXVECTOR3 vPos)
 	m_tData.fCurEXE = 10;
 	m_tData.fHp = 100;
 	m_tData.fCurHp = m_tData.fHp;
-	m_tData.fDamage = 10;
+	m_tData.fDamage = 30;
 	m_tData.fOldHp = m_tData.fCurHp;
+	m_wsIdleState = objInfo.wstrStateKey;
 	Initialize();
 }
 

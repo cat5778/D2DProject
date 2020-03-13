@@ -11,11 +11,10 @@ CMonster::CMonster()
 	
 }
 
-CMonster::CMonster(const OBJ_INFO & objInfo, D3DXVECTOR3 vPos)
-	: m_CollBox(nullptr)
+CMonster::CMonster(const OBJ_INFO & objInfo, D3DXVECTOR3 vPos, MONTER_TYPE eType)
+	: m_CollBox(nullptr), m_eMonType(eType)
 {
 	
-	m_bIsCollsion = false;
 	m_tObjInfo = objInfo;
 	m_tInfo.vPos = vPos;
 	Initialize();
@@ -29,17 +28,24 @@ CMonster::~CMonster()
 
 HRESULT CMonster::Initialize()
 {
+	m_bIsCollsion = false;
+	m_bIsObjCollision = false;
+	//m_wsIdleState=m_tObjInfo.wstrStateKey;
+	m_bIsAttack = false;
 	m_eType = OBJECT_MONSTER;
 	D3DXMatrixIdentity(&m_tInfo.matWorld); // 다이렉트 항등행렬 함수
 	m_tInfo.vDir = { 0.f, 0.f, 0.f };
-	m_tInfo.vLook = { 0.f, -1.f, 0.f };
+	m_tInfo.vLook = { 1.f, 0.f, 0.f };
 	m_tInfo.vSize = { 1.f, 1.f, 0.f };
 	m_fTimer = 0.f;
 	m_bIsDead = false;
+	m_bIsInvincible = false;
+	m_fKnockTime = 0;
 	m_tFrame.fCurFrame = 0.f;
 	m_tFrame.fMaxFrame = 10.f;
 	m_pHPBar = new CHPBar(OBJECT_PLAYER, m_tInfo.vPos, m_tData);
 	ChangeState(STATE_IDLE);
+	m_wsState = L"";
 	return S_OK;
 }
 
@@ -50,6 +56,7 @@ void CMonster::Release()
 
 int CMonster::Update()
 {
+	
 	if (m_eCurState == STATE_DEAD)
 	{
 		m_CollBox->SetActice(false);
@@ -60,8 +67,7 @@ int CMonster::Update()
 	}
 	else
 		Animate();
-
-
+	
 	StateMachine();
 	DetectTarget();
 	
@@ -69,14 +75,22 @@ int CMonster::Update()
 	{
 		m_CollBox->SetDamage(m_tData.fDamage);
 		m_CollBox->SetvPos(m_tInfo.vPos);
-		if (m_CollBox->IsCollsion() && m_CollBox->GetHitColl()== PLAYER_PROJECTILE_COLLISION)
+
+		if (m_CollBox->IsCollsion() 
+			&& m_CollBox->GetHitColl()== PLAYER_PROJECTILE_COLLISION)
 		{
 			BeAttack(-m_CollBox->GetGameData().fCurHp);
 			m_CollBox->InitCurHP();
 			m_CollBox->SetHitColl(COLLSION_END);
 			CEffect* temp = new CEffect(m_tInfo.vPos, L"Effect", L"Hit");
 			CObjectMgr::GetInstance()->AddObject(OBJECT_EFFECT, temp);
+			m_bIsInvincible = true;
 		}
+
+		if (m_bIsInvincible)
+			KnockBack(m_CollBox->GetvKnock(), 200.f);
+
+		Timer(m_bIsInvincible, 0.1f, m_fKnockTime);
 	}
 
 
@@ -104,7 +118,8 @@ void CMonster::LateUpdate()
 
 void CMonster::Render()
 {
-	const TEX_INFO* pTexInfo = m_pTextureMgr->GetTexInfo(m_tObjInfo.wstrObjectKey, m_tObjInfo.wstrStateKey, (int)m_tFrame.fCurFrame);
+	const TEX_INFO* pTexInfo = m_pTextureMgr->GetTexInfo(m_tObjInfo.wstrObjectKey,
+		m_tObjInfo.wstrStateKey, (int)m_tFrame.fCurFrame);
 	m_tFrame.fMaxFrame = pTexInfo->iMaxCnt;
 
 	NULL_CHECK(pTexInfo);
@@ -131,6 +146,19 @@ void CMonster::Render()
 	//}
 }
 
+void CMonster::Idle()
+{
+	if (m_eMonType == MONK|| m_eMonType == PRIEST)
+	{
+		GetCollDir(m_vTargetPos);
+		GetImageDir(m_dwCollDir);
+		m_tObjInfo.wstrStateKey = m_wsIdleState + m_wsImgDir;
+	}
+	else
+		m_tObjInfo.wstrStateKey = m_wsIdleState;
+	
+}
+
 void CMonster::Attack()
 {
 	cout << "MonAttack" << endl;
@@ -138,8 +166,20 @@ void CMonster::Attack()
 
 void CMonster::Move()
 {
-	if (m_CollBox->IsCollsion())
+	if (m_eMonType == MONK||m_eMonType == PRIEST)
+	{
+		GetCollDir(m_vTargetPos);
+		GetImageDir(m_dwCollDir);
+		m_tObjInfo.wstrStateKey = m_wsIdleState + m_wsImgDir;
+	}
+	else
+		m_tObjInfo.wstrStateKey = m_wsIdleState;
+	if (m_CollBox->IsOBJCollsion())
+	{
+		//wcout << m_tObjInfo.wstrStateKey.c_str()  << endl;
 		return;
+	}
+
 
 
 	D3DXVECTOR3 temPos;
@@ -157,6 +197,7 @@ bool CMonster::DetectTarget()
 	}
 	if (!CObjectMgr::GetInstance()->GetObjList(OBJECT_PLAYER).empty())
 	{
+		m_wsState = L"";
 		m_vTargetPos= (*CObjectMgr::GetInstance()->GetObjList(OBJECT_PLAYER).begin())->GetTagInfo().vPos;
 		m_vDir = m_vTargetPos - m_tInfo.vPos;
 		if (D3DXVec3Length(&m_vDir) <= m_fDetectDistance)
@@ -164,7 +205,10 @@ bool CMonster::DetectTarget()
 			if (D3DXVec3Length(&m_vDir) <= m_fAtkRange)
 				ChangeState(STATE_ATTACK);
 			else
+			{
 				ChangeState(STATE_MOVE);
+				m_tFrame.fCurFrame = 0;
+			}
 			return true;
 		}
 		else
@@ -198,6 +242,7 @@ void CMonster::StateMachine()
 	switch (m_eCurState)
 	{
 	case STATE_IDLE:
+		Idle();
 		break;
 	case STATE_ATTACK:
 		Attack();

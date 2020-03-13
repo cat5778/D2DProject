@@ -19,11 +19,21 @@ CGameObject::~CGameObject()
 
 void CGameObject::SetCollision(bool bIsColl, COLLSION_TYPE CollType, float fDamage)
 {
-	 m_bIsCollsion = bIsColl; 
-	 m_HitCollType = CollType;
-	
+
+	m_bIsCollsion = bIsColl; 
+	m_HitCollType = CollType;
+	if (false)
+	{
+		m_dwCollDir=-1;
+	}
 	 if (fDamage > 0)
 		 BeAttack(fDamage);
+}
+
+void CGameObject::SetOBJCollision(bool bIsColl, COLLSION_TYPE CollType, float fDamage)
+{
+	m_bIsObjCollision = bIsColl;
+	//m_HitCollType = CollType;
 }
 
 void CGameObject::SetvPos(D3DXVECTOR3 vPos, DWORD Dir)
@@ -34,9 +44,41 @@ void CGameObject::SetvPos(D3DXVECTOR3 vPos, DWORD Dir)
 	
 }
 
-void CGameObject::Timer(bool bIsActive)
+void CGameObject::Timer(bool& SetBool, float fRate, float& fTime)
 {
-	bIsActive ? m_fTimer += m_pTimeMgr->GetDelta() : m_fTimer = 0.f;
+	(SetBool) ? fTime += m_pTimeMgr->GetDelta() : fTime = 0.f;
+	if (fTime >= fRate)
+	{
+		SetBool = false;
+		fTime = 0.f;
+	}
+}
+
+DWORD CGameObject::GetCollDir(D3DXVECTOR3 vCollDir)
+{
+
+	D3DXVECTOR3 tempNmlColDir=vCollDir- m_tInfo.vPos;
+	D3DXVec3Normalize(&tempNmlColDir, &tempNmlColDir);
+
+	D3DXVECTOR3 temp = m_tInfo.vPos;
+	temp.x += 1;
+	temp = temp - m_tInfo.vPos;
+	D3DXVec3Normalize(&temp, &temp);
+	m_fCollRadian =acosf(D3DXVec3Dot(&temp, &tempNmlColDir));
+	if (m_tInfo.vPos.y > vCollDir.y)
+		m_fCollRadian *= -1.f;
+	float fAngle = m_fCollRadian / PI * 180;
+	//cout <<"각도="<< fAngle << endl;
+	if (fAngle >= -45.f&&fAngle <= 45.f)
+		m_dwCollDir = RIGHT;
+	else if (fAngle >= 45 && fAngle <= 135)
+		m_dwCollDir = DOWN;
+	else if ((fAngle >= -180.f&& fAngle <= -135)
+		|| (fAngle <= 180.f&&fAngle >= 135))
+		m_dwCollDir = LEFT;
+	else if (fAngle >= -135.f&&fAngle <= -45)
+		m_dwCollDir = UP;
+	return m_dwCollDir;
 }
 
 bool CGameObject::Animate(bool bISInfinite,float fSpeed)
@@ -112,19 +154,18 @@ void CGameObject::GetImageDir(DWORD dwDir)
 
 void CGameObject::GetAngle(D3DXVECTOR3 targetPos)
 {
-	D3DXVECTOR3 vDir = targetPos - m_tInfo.vPos;
-	D3DXVec3Normalize(&vDir, &vDir);
+	D3DXVECTOR3 tempNmlColDir;
+	D3DXVec3Normalize(&tempNmlColDir, &targetPos);
 
-	D3DXVECTOR3 tempPos = m_tInfo.vPos ;
-	tempPos.x += 1;
-	
-	D3DXVECTOR3 LookPos = tempPos - m_tInfo.vPos;
-	D3DXVec3Normalize(&LookPos, &LookPos);
-
-	m_fRadian = acosf(D3DXVec3Dot(&LookPos, &vDir));
-	
-	if (m_tInfo.vPos.y > (CMouse::GetMousePos().y + CScrollMgr::GetScrollPos().y))
+	D3DXVECTOR3 temp = m_tInfo.vPos;
+	temp.x += 1;
+	temp = temp - m_tInfo.vPos;
+	D3DXVec3Normalize(&temp, &temp);
+	m_fRadian = acosf(D3DXVec3Dot(&temp, &tempNmlColDir));
+	if (m_tInfo.vPos.y > targetPos.y)
 		m_fRadian *= -1.f;
+	//cout << m_tInfo.vPos.y <<" , "<<targetPos.y << endl; 
+	//cout << "각도" << m_fRadian / PI * 180 << endl;
 
 
 }
@@ -166,11 +207,21 @@ void CGameObject::ChangeState(OBJECT_STATE eState)
 
 void CGameObject::KnockBack(D3DXVECTOR3 vKnock, float fPower)
 {
-	//D3DXVECTOR3 temp;
-	//D3DXVec3Normalize(&temp, &m_tInfo.vPos);
 	//m_vKnockDir = temp - m_vKnockDir;
+	D3DXVECTOR3 temp;
+	D3DXVec3Normalize(&temp, &vKnock);
 
-	m_tInfo.vPos += vKnock*fPower* m_pTimeMgr->GetDelta();
+	m_tInfo.vPos += temp*fPower* m_pTimeMgr->GetDelta();
 	//m_tInfo.vPos = ;
+}
+
+void CGameObject::UpdateRect()
+{
+	
+	m_tRect.left = { m_tInfo.vPos.x - m_vSize.x*0.5f,m_tInfo.vPos.y, 0 };
+	m_tRect.top = { m_tInfo.vPos.x, m_tInfo.vPos.y - m_vSize.y*0.5f, 0 };
+	m_tRect.right = { m_tInfo.vPos.x + m_vSize.x*0.5f, m_tInfo.vPos.y, 0 };
+	m_tRect.bottom = { m_tInfo.vPos.x, m_tInfo.vPos.y + m_vSize.y*0.5f,0 };
+
 }
 

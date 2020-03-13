@@ -45,10 +45,13 @@ private:
 	CColliderBox*			m_CollBox;
 	CHPBar*					m_pHPBar;
 
+	
 	wstring					m_wstrChest;
 	WEAPONE_TYPE			m_eWpType;
 	float					m_fSpeed;
 	float					m_fAtkSpd;
+	bool					m_bIsAttack;
+	
 	//CAstarMgr*		m_pAstarMgr;
 };
 
