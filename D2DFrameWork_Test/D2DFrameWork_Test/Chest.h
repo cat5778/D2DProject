@@ -18,7 +18,7 @@ public:
 public:
 	void SetMatorld(D3DXMATRIX matWorld) { m_tInfo.matWorld = matWorld; }
 	void AttackAni(WEAPONE_TYPE eType);
-
+	void SetAtkAniRate(float fAtkRate) { m_fAtkSpeed = fAtkRate; }
 private:
 	wstring				m_wstrWeapon;
 	bool				m_bIsAtkEnd;

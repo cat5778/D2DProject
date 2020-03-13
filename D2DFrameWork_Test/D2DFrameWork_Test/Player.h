@@ -7,6 +7,7 @@ class CLeg;
 class CWeapon;
 class CColliderBox;
 class CHPBar;
+class CHud;
 class CPlayer : public CGameObject
 {
 public:
@@ -51,7 +52,7 @@ private:
 	float					m_fSpeed;
 	float					m_fAtkSpd;
 	bool					m_bIsAttack;
-	
+	CHud*					m_pHud;
 	//CAstarMgr*		m_pAstarMgr;
 };
 

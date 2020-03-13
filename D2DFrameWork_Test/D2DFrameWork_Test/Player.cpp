@@ -8,6 +8,7 @@
 #include "ColliderBox.h"
 #include "Weapon.h"
 #include "HPBar.h"
+#include "Hud.h"
 CPlayer::CPlayer()
 	: m_pKeyMgr(CKeyManager::GetInstance()),m_pHat(nullptr),m_pChest(nullptr),
 	m_pLeg(nullptr), m_fSpeed(0.f), m_wstrChest(L"Idle"), m_pWeapon(nullptr), m_CollBox(nullptr), m_pHPBar(nullptr)
@@ -17,10 +18,11 @@ CPlayer::CPlayer()
 CPlayer::CPlayer(D3DXVECTOR3 vPos)
 	: m_pKeyMgr(CKeyManager::GetInstance()), m_pHat(nullptr), m_pChest(nullptr),
 	m_pLeg(nullptr), m_fSpeed(0.f), m_wstrChest(L"Idle"), m_pWeapon(nullptr),
-	m_fAtkSpd(2),m_CollBox(nullptr), m_pHPBar(nullptr)
+	m_CollBox(nullptr), m_pHPBar(nullptr),m_pHud(nullptr)
 {
 	m_bIsInvincible = false;
-	m_tData.fAtkSpeed = 1.0f;
+	m_tData.fstdAtkspd = 1;
+	m_tData.fAtkSpeed = 1;
 	m_fTimer = 0;
 	m_bIsAttack = false;
 	m_eType = OBJECT_PLAYER;
@@ -39,6 +41,8 @@ CPlayer::~CPlayer()
 
 int CPlayer::Update()
 {		
+	//if(m_pHud!=nullptr)
+	//	m_pHud->SetvPos(m_tInfo.vPos);
 	//
 	//D3DXVECTOR3 DirPos = (CMouse::GetMousePos() + CScrollMgr::GetScrollPos()) - m_tInfo.vPos;
 	//D3DXVECTOR3 tempPos = m_tInfo.vPos;
@@ -57,12 +61,17 @@ int CPlayer::Update()
 	if (m_pHat != nullptr)
 		m_pHat->Update();
 	if (m_pChest != nullptr)
+	{
+		m_pChest->SetAtkAniRate(m_tData.fAtkSpeed * m_tData.fstdAtkspd);
 		m_pChest->Update();
+	}
 	if (m_pLeg != nullptr)
 		m_pLeg->Update();
 	if (m_pWeapon != nullptr)
+	{
+		m_pWeapon->SetAtkRate(m_tData.fAtkSpeed * m_tData.fstdAtkspd);
 		m_pWeapon->Update();
-
+	}
 	if (m_CollBox != nullptr)
 	{
 		m_CollBox->SetvPos(m_tInfo.vPos);
@@ -161,7 +170,12 @@ HRESULT CPlayer::Initialize()
 	m_tData.fCurHp = m_tData.fHp;
 	m_tData.fDamage=100;
 	m_tData.fOldHp = m_tData.fCurHp;
-	
+	if (m_pHud==nullptr)
+	{
+		m_pHud = new CHud();
+		//m_pHud->InitData(m_tData.,m_fSpeed,m_tData.fDamage,);
+		CObjectMgr::GetInstance()->AddObject(OBJECT_UI, m_pHud);
+	}
 #pragma region InitBody
 
 	if (m_pHat == nullptr)
@@ -189,7 +203,7 @@ HRESULT CPlayer::Initialize()
 		temp->ImageIDX = 0;
 		temp->eObjectType = OBJECT_PLAYER;
 		//m_pChest = new CChest(*temp, m_tInfo.matWorld);
-		m_pChest = new CChest(*temp, m_tInfo.vPos, m_fAtkSpd);
+		m_pChest = new CChest(*temp, m_tInfo.vPos, m_tData.fstdAtkspd);
 		delete temp;
 	}
 	if (m_pLeg == nullptr)
@@ -207,7 +221,7 @@ HRESULT CPlayer::Initialize()
 	}
 #pragma endregion
 	m_pHPBar = new CHPBar(OBJECT_PLAYER, m_tInfo.vPos,m_tData);
-	m_pWeapon = new CWeapon(m_tInfo.vPos,m_fAtkSpd,m_tData.fDamage);
+	m_pWeapon = new CWeapon(m_tInfo.vPos, m_tData.fstdAtkspd,m_tData.fDamage);
 
 	m_vSize = {22,40};
 	m_CollBox = new CColliderBox(m_tInfo.vPos, PLAYER_HITBOX_COLLISION, m_vSize);
@@ -262,18 +276,32 @@ void CPlayer::KeyInput()
 			m_bIsAttack = true;
 		}
 	}
-	Timer(m_bIsAttack, m_tData.fAtkSpeed,m_fTimer);
-	
+	Timer(m_bIsAttack, m_tData.fAtkSpeed/ m_tData.fstdAtkspd,m_fTimer);
+	//2/
 	if (m_pKeyMgr->KeyPressing(KEY_1))
 		m_eWpType = WEAPONE_FIST;
 	if (m_pKeyMgr->KeyPressing(KEY_2))
+	{
 		m_eWpType = WEAPONE_JAVELIN;
+		m_tData.fstdAtkspd = 1.f;
+	}
 	if (m_pKeyMgr->KeyPressing(KEY_3))
+	{
 		m_eWpType = WEAPONE_JAVELIN1;
+		m_tData.fstdAtkspd = 2.f;
+
+	}
 	if (m_pKeyMgr->KeyPressing(KEY_4))
+	{
 		m_eWpType = WEAPONE_BOW;
+		m_tData.fstdAtkspd = 4.f;
+	}
 	if (m_pKeyMgr->KeyPressing(KEY_5))
+	{
 		m_eWpType = WEAPONE_BOW1;
+		m_tData.fstdAtkspd = 8.f;
+
+	}
 	CScrollMgr::FollowCam(m_tInfo.vPos,m_fSpeed);
 }
 

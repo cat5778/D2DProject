@@ -105,6 +105,7 @@ typedef struct CharacterDATA
 	float	fCurHp;
 	float	fOldHp;
 	float	fDamage;
+	float	fstdAtkspd;
 	float	fAtkSpeed;
 	float   fExe;
 	float   fCurEXE;

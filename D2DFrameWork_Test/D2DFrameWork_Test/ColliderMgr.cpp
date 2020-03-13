@@ -103,7 +103,6 @@ void ColliderMgr::HitCollision(COLLSION_TYPE sourType, COLLSION_TYPE destType)
 				continue;
 			
 			D3DXVECTOR3 temp = (pSource->GetTagInfo().vPos - pDest->GetTagInfo().vPos);
-			//D3DXVECTOR3 vSize = { pSource->GetvSize().x+ pDest->GetvSize().x,pSource->GetvSize().y+ pDest->GetvSize().y,0 };
 			D3DXVECTOR2 vSize = (pSource->GetvSize() + pDest->GetvSize());
 			float fDistance = fabsf(D3DXVec3Length(&temp));
 			float fSize = fabsf(D3DXVec2Length(&vSize));
@@ -112,6 +111,7 @@ void ColliderMgr::HitCollision(COLLSION_TYPE sourType, COLLSION_TYPE destType)
 				pSource->SetCollision(true);
 				pDest->SetCollision(true,dynamic_cast<CColliderBox*>(pSource)->GetCollType(), pSource->GetGameData().fDamage);
 				pDest->SetKnockDir(pSource->GetvDir());
+				return;
 			}
 			else
 			{

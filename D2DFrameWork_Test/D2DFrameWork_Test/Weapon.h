@@ -21,7 +21,7 @@ public:
 	WEAPONE_TYPE GetWeaponType() { return m_eWpType; }
 	void SetWeaponType(WEAPONE_TYPE eType) { m_eWpType = eType; }
 	void AttackAni(WEAPONE_TYPE eType);
-
+	void SetAtkRate(float fAtkRate) { m_fAtkRate = fAtkRate; }
 private:
 	void ConvertPos();
 
@@ -30,7 +30,7 @@ private:
 	wstring				m_wstrState;
 	list<CProjectile*>  m_pPTlist;
 	
-
+	float				m_fAtkRate;
 	bool				m_bIsAtkEnd;
 	D3DXVECTOR3			m_tAtkVec;
 };

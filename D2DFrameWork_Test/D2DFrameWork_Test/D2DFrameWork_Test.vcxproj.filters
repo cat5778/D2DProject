@@ -139,6 +139,27 @@
     <Filter Include="10.GameObjects\Monster\Monk">
       <UniqueIdentifier>{955d0111-0722-4bfe-9273-b83c8fcc069e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="10.GameObjects\HUD">
+      <UniqueIdentifier>{2c080adb-d0be-45f8-8094-4ab66ed61d2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10.GameObjects\HUD\Icon">
+      <UniqueIdentifier>{a2e83a13-ba2d-4d01-8a62-7b4129fbf1cb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10.GameObjects\HUD\SkillList">
+      <UniqueIdentifier>{20ec725a-ca34-4246-b718-89f6d2faa433}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10.GameObjects\HUD\Inventory">
+      <UniqueIdentifier>{f58f0d0b-451d-452e-896d-095d9e555cff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10.GameObjects\Button\NewFilter1">
+      <UniqueIdentifier>{382b2473-22f7-4358-86a6-1c89d84f57ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10.GameObjects\HUD\SkillFrame">
+      <UniqueIdentifier>{c37efab6-f889-477a-a795-f577e4cc0479}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10.GameObjects\HUD\SkillFrame\Line">
+      <UniqueIdentifier>{e096fd7b-b801-4049-9a78-2fc01fe1a7c5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -282,7 +303,21 @@
     <ClInclude Include="GaugeFill.h">
       <Filter>10.GameObjects\HPBar\Fill</Filter>
     </ClInclude>
-    <ClInclude Include="Priest.h" />
+    <ClInclude Include="Hud.h">
+      <Filter>10.GameObjects\HUD</Filter>
+    </ClInclude>
+    <ClInclude Include="Icon.h">
+      <Filter>10.GameObjects\HUD\Icon</Filter>
+    </ClInclude>
+    <ClInclude Include="Priest.h">
+      <Filter>10.GameObjects\Monster\Priest</Filter>
+    </ClInclude>
+    <ClInclude Include="HudButton.h" />
+    <ClInclude Include="SkillFrame.h">
+      <Filter>10.GameObjects\HUD\SkillFrame</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillLine.h" />
+    <ClInclude Include="TextBox.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -423,7 +458,21 @@
     <ClCompile Include="GaugeFill.cpp">
       <Filter>10.GameObjects\HPBar\Fill</Filter>
     </ClCompile>
-    <ClCompile Include="Priest.cpp" />
+    <ClCompile Include="Hud.cpp">
+      <Filter>10.GameObjects\HUD</Filter>
+    </ClCompile>
+    <ClCompile Include="Icon.cpp">
+      <Filter>10.GameObjects\HUD\Icon</Filter>
+    </ClCompile>
+    <ClCompile Include="Priest.cpp">
+      <Filter>10.GameObjects\Monster\Priest</Filter>
+    </ClCompile>
+    <ClCompile Include="HudButton.cpp" />
+    <ClCompile Include="SkillFrame.cpp">
+      <Filter>10.GameObjects\HUD\SkillFrame</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillLine.cpp" />
+    <ClCompile Include="TextBox.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="small.ico">

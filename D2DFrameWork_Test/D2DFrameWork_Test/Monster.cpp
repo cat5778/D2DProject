@@ -197,23 +197,25 @@ bool CMonster::DetectTarget()
 	}
 	if (!CObjectMgr::GetInstance()->GetObjList(OBJECT_PLAYER).empty())
 	{
-		m_wsState = L"";
-		m_vTargetPos= (*CObjectMgr::GetInstance()->GetObjList(OBJECT_PLAYER).begin())->GetTagInfo().vPos;
-		m_vDir = m_vTargetPos - m_tInfo.vPos;
-		if (D3DXVec3Length(&m_vDir) <= m_fDetectDistance)
+		if (!m_bIsAttack)
 		{
-			if (D3DXVec3Length(&m_vDir) <= m_fAtkRange)
-				ChangeState(STATE_ATTACK);
-			else
+			m_wsState = L"";
+			m_vTargetPos = (*CObjectMgr::GetInstance()->GetObjList(OBJECT_PLAYER).begin())->GetTagInfo().vPos;
+			m_vDir = m_vTargetPos - m_tInfo.vPos;
+			if (D3DXVec3Length(&m_vDir) <= m_fDetectDistance)
 			{
-				ChangeState(STATE_MOVE);
-				m_tFrame.fCurFrame = 0;
+				if (D3DXVec3Length(&m_vDir) <= m_fAtkRange)
+					ChangeState(STATE_ATTACK);
+				else
+				{
+					ChangeState(STATE_MOVE);
+					//m_tFrame.fCurFrame = 0;
+				}
+				return true;
 			}
-			return true;
+			else
+				ChangeState(STATE_IDLE);
 		}
-		else
-			ChangeState(STATE_IDLE);
-
 	
 	}
 	return false;

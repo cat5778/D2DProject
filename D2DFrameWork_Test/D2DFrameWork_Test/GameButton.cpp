@@ -31,7 +31,7 @@ HRESULT CGameButton::Initialize()
 
 	m_tInfo.vDir = { 0.f, 0.f, 0.f };
 	m_tInfo.vLook = { 0.f, -1.f, 0.f };
-	m_tInfo.vSize = { 1.4f, 1.4f, 0.f };
+	m_tInfo.vSize = { 1.5f, 1.5f, 0.f };
 
 	m_tFrame.fCurFrame = 0.f;
 	m_tFrame.fMaxFrame = 10.f;

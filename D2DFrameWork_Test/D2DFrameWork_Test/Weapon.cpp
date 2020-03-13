@@ -44,6 +44,7 @@ HRESULT CWeapon::Initialize()
 	m_tInfo.vDir = { 0.f, 0.f, 0.f };
 	m_tInfo.vLook = { 1.f, 1.f, 0.f };
 	m_tInfo.vSize = { 1.f, 1.f, 0.f };
+	m_fAtkRate = 1.f;
 	return S_OK;
 }
 
@@ -53,7 +54,7 @@ void CWeapon::Release()
 
 int CWeapon::Update()
 {
-	m_tFrame.fCurFrame += m_tFrame.fMaxFrame * m_pTimeMgr->GetDelta()*m_tData.fAtkSpeed;
+	m_tFrame.fCurFrame += m_tFrame.fMaxFrame * m_pTimeMgr->GetDelta()*m_fAtkRate;
 
 	if (!m_bIsAtkEnd &&(int)(m_tFrame.fMaxFrame -m_tFrame.fCurFrame)==2
 		&&m_wstrState.compare(L"Attack_") == 0)

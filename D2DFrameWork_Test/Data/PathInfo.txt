@@ -168,6 +168,7 @@ Effect|Acid_Bubble|6|..\Image\Effect\Acid_Bubble\%d.png
 Effect|Acid_Ground|11|..\Image\Effect\Acid_Ground\%d.png
 Effect|Acid_Spread_Ground|3|..\Image\Effect\Acid_Spread_Ground\%d.png
 Effect|Black_Hole|10|..\Image\Effect\Black_Hole\%d.png
+Effect|Level_Up|1|..\Image\Effect\Level_Up\%d.png
 Effect|Blaze|6|..\Image\Effect\Blaze\%d.png
 Effect|Bloodsplat_1|5|..\Image\Effect\Bloodsplat_1\%d.png
 Effect|Bloodsplat_2|5|..\Image\Effect\Bloodsplat_2\%d.png
@@ -272,6 +273,7 @@ Item|Attack_Bow2_Down|6|..\Image\Item\Attack_Bow2_Down\%d.png
 Item|Attack_Bow2_Left|8|..\Image\Item\Attack_Bow2_Left\%d.png
 Item|Attack_Bow2_Right|8|..\Image\Item\Attack_Bow2_Right\%d.png
 Item|Attack_Bow2_Up|8|..\Image\Item\Attack_Bow2_Up\%d.png
+Monster|Mevius_Statue|1|..\Image\Monster\Mevius_Statue\%d.png
 Monster|Elemental_Down|4|..\Image\Monster\Elemental_Down\%d.png
 Monster|Elemental_Left|4|..\Image\Monster\Elemental_Left\%d.png
 Monster|Elemental_Right|4|..\Image\Monster\Elemental_Right\%d.png
@@ -340,6 +342,11 @@ NPC|Torstein|17|..\Image\NPC\Torstein\%d.png
 NPC|Witch_NPC|5|..\Image\NPC\Witch_NPC\%d.png
 Question|Question|4|..\Image\Question\Question\%d.png
 Question|Thank_You|10|..\Image\Question\Thank_You\%d.png
+SkillIcon|Hud_Talents|1|..\Image\SkillIcon\Hud_Talents\%d.png
+SkillIcon|Skill_Active_Lock|1|..\Image\SkillIcon\Skill_Active_Lock\%d.png
+SkillIcon|Main_Hud|15|..\Image\SkillIcon\Main_Hud\%d.png
+SkillIcon|Skill_Frames|1|..\Image\SkillIcon\Skill_Frames\%d.png
+SkillIcon|Skill_Tree|3|..\Image\SkillIcon\Skill_Tree\%d.png
 SkillIcon|Skill_Amazon|4|..\Image\SkillIcon\Skill_Amazon\%d.png
 SkillIcon|Talents_Amazon|9|..\Image\SkillIcon\Talents_Amazon\%d.png
 Projectile|Mon_Arrow|4|..\Image\Projectile\Mon_Arrow\%d.png

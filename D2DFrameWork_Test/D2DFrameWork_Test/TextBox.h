@@ -1,14 +1,12 @@
 #pragma once
 #include "GameObject.h"
-class CColliderBox;
-
-class CGameButton :
+class CTextBox :
 	public CGameObject
 {
 public:
-	CGameButton();
-	CGameButton(const OBJ_INFO& objInfo, D3DXVECTOR3 vPos);
-	~CGameButton();
+	CTextBox();
+	CTextBox(float fx,float fy, float fzOrder=1,  float fsize=1);
+	~CTextBox();
 
 	// CGameObject을(를) 통해 상속됨
 	virtual HRESULT Initialize() override;
@@ -18,12 +16,12 @@ public:
 	virtual void Render() override;
 
 public:
-	bool GetIsPick() { return m_IsPick; }
-	void SetButtonText(wstring wsText) {m_wsText = wsText;}
+	void SetButtonText(wstring wsText) { m_wsText = wsText; }
 private:
-	CColliderBox*	m_CollBox;
-	bool			m_IsPick;
 	wstring			m_wsText;
-	D3DXVECTOR2		m_vSize;
+	float			m_fXRatio;
+	float			m_fYRatio;
+	float			m_fZOrder;
+	float			m_fSize;
 };
 

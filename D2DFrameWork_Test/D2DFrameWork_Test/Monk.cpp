@@ -15,10 +15,10 @@ Monk::Monk(const OBJ_INFO & objInfo, D3DXVECTOR3 vPos)
 	m_eMonType = MONK;
 	m_CollBox = nullptr;
 	m_fDetectDistance = 250;
-	m_fAtkRange = 30.f;
+	m_fAtkRange = 60.f;
 	m_eType = OBJECT_MONSTER;
 	m_tInfo.vPos = vPos;
-	m_fSpeed = 2000.f;
+	m_fSpeed = 170.f;
 	m_tData.fCurEXE = 60;
 	m_tData.fHp = 200;
 	m_tData.fCurHp = m_tData.fHp;

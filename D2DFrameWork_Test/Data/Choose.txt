@@ -1,3 +1,1 @@
-UI|Player_HP_Bar|2|..\Image\UI\Player_HP_Bar\%d.png
-UI|HP_Fill|1|..\Image\UI\HP_Fill\Small_HP_Fill.png
-UI|Monster_HP_Bar|6|..\Image\UI\Monster_HP_Bar\%d.png
+SkillIcon|Hud_Talents|1|..\Image\SkillIcon\Hud_Talents\%d.png

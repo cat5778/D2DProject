@@ -70,6 +70,10 @@ void CKeyManager::Update()
 		m_dwCurKey |= KEY_5;
 	if (GetAsyncKeyState('6') & 0x8000)
 		m_dwCurKey |= KEY_6;
+	if (GetAsyncKeyState('T') & 0x8000)
+		m_dwCurKey |= KEY_T;
+	if (GetAsyncKeyState(VK_ESCAPE) & 0x8000)
+		m_dwCurKey |= KEY_T;
 }
 
 

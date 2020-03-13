@@ -19,6 +19,8 @@ const DWORD KEY_3 = 0x00008000;
 const DWORD KEY_4 = 0x00010000;
 const DWORD KEY_5 = 0x00020000;
 const DWORD KEY_6 = 0x00040000;
+const DWORD KEY_T = 0x00080000;
+const DWORD KEY_ESC = 0x00100000;
 class CKeyManager
 {
 public:
