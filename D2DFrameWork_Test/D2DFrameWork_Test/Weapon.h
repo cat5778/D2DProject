@@ -24,7 +24,7 @@ public:
 	void SetAtkRate(float fAtkRate) { m_fAtkRate = fAtkRate; }
 private:
 	void ConvertPos();
-
+	
 private:
 	WEAPONE_TYPE		m_eWpType;
 	wstring				m_wstrState;

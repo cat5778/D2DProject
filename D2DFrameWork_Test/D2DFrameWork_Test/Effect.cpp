@@ -6,7 +6,8 @@ CEffect::CEffect()
 {
 }
 
-CEffect::CEffect(D3DXVECTOR3 vPos, wstring wstrObjKey, wstring wstrStateKey)
+CEffect::CEffect(D3DXVECTOR3 vPos, wstring wstrObjKey, wstring wstrStateKey,float Zorder)
+	:m_fZOrder(Zorder)
 {
 	m_tInfo.vPos = vPos;
 	m_tObjInfo.eObjectType = OBJECT_EFFECT;
@@ -52,7 +53,11 @@ void CEffect::LateUpdate()
 
 void CEffect::Render()
 {
-	UpdateMatWorld(1.0f, ZOrder(m_tInfo.vPos.y));
+	if (m_fZOrder == 1.f)
+		UpdateMatWorld(1.0f, ZOrder(m_tInfo.vPos.y));
+	else
+		UpdateMatWorld(1.0f, m_fZOrder);
+
 	const TEX_INFO* pTexInfo = m_pTextureMgr->GetTexInfo(m_tObjInfo.wstrObjectKey,
 		m_tObjInfo.wstrStateKey, m_tFrame.fCurFrame);
 	NULL_CHECK(pTexInfo);

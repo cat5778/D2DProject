@@ -30,6 +30,7 @@ CSilme::CSilme(const OBJ_INFO & objInfo, D3DXVECTOR3 vPos)
 
 CSilme::~CSilme()
 {
+	
 }
 
 void CSilme::Attack()

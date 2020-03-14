@@ -22,6 +22,7 @@ public:
 	GAME_DATA GetGameData() { return m_tData; }
 	D3DXVECTOR2 GetvSize() { return m_vSize; }
 	D3DXVECTOR3 GetvDir() { return m_vDir; }
+	void SetDir(D3DXVECTOR3 vec) { m_vDir = vec; }
 	D3DXVECTOR3 GetvKnock() { return m_vKnockDir; }
 	COLLSION_TYPE GetHitColl() { return m_HitCollType; }
 	void BeAttack(float fDamage) { m_tData.fCurHp -= fDamage;ChangeState(STATE_BEATTACK); }

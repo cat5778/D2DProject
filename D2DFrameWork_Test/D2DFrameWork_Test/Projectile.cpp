@@ -3,7 +3,7 @@
 #include "Mouse.h"
 #include "ScrollMgr.h"
 #include "ColliderBox.h"
-
+#include "SkillProjectTile.h"
 CProjectile::CProjectile()
 {
 	
@@ -22,6 +22,7 @@ CProjectile::CProjectile(WEAPONE_TYPE eType, D3DXVECTOR3 vPos, D3DXVECTOR3 vDir,
 	m_tObjInfo.IsAni = IsAni;
 	m_tFrame.fCurFrame = 0;
 	m_vDir = vDir;
+	
 	switch (m_eProjectileType)
 	{
 	case PLAYER_PROJECTILE_COLLISION:
@@ -50,11 +51,11 @@ CProjectile::CProjectile(WEAPONE_TYPE eType, D3DXVECTOR3 vPos, D3DXVECTOR3 vDir,
 
 CProjectile::~CProjectile()
 {
+	Release();
 }
 
 HRESULT CProjectile::Initialize()
 {
-
 	D3DXMatrixIdentity(&m_tInfo.matWorld); // 다이렉트 항등행렬 함수
 	//m_tInfo.vDir = { 0.f, 0.f, 0.f };
 	m_tInfo.vLook = { 1.f, 0.f, 0.f };
@@ -66,6 +67,17 @@ HRESULT CProjectile::Initialize()
 
 void CProjectile::Release()
 {
+	int i1 = rand() % 5;
+	if (m_eProjectileType == PLAYER_PROJECTILE_COLLISION&&i1<2)
+	{
+		float iAngle = rand() % 36 + 1;
+
+		iAngle *= 10;
+		float fRadian = iAngle / 180 * PI;
+
+		CSkillProjectTile* temp = new CSkillProjectTile(m_eWpType, m_tInfo.vPos, fRadian, m_tData.fDamage);
+		CObjectMgr::GetInstance()->AddObject(OBJECT_PROJECTILE, temp);
+	}
 }
 
 int CProjectile::Update()
@@ -180,7 +192,7 @@ void CProjectile::PlayerAngle()
 		m_tObjInfo.wstrStateKey = L"";
 		break;
 	}
-	m_vDir = (CMouse::GetMousePos() + CScrollMgr::GetScrollPos()) - m_tInfo.vPos;
+	//m_vDir = (CMouse::GetMousePos() + CScrollMgr::GetScrollPos()) - m_tInfo.vPos;
 	//D3DXVec3Normalize(&m_vDir, &m_vDir);
 	D3DXVECTOR3 vNmalDir;
 	D3DXVec3Normalize(&vNmalDir, &m_vDir);

@@ -24,8 +24,9 @@ int CLogo::Update()
 
 	if (m_Button->GetIsPick())
 	{
-		//m_pSceneMgr->SceneChange(SCENE_LOGO, SCENE_STAGE);
-		m_pSceneMgr->SceneChange(SCENE_LOGO, SCENE_TUTORIAL);
+		m_pSceneMgr->SceneChange(SCENE_LOGO, SCENE_STAGE);
+		//m_pSceneMgr->SceneChange(SCENE_LOGO, SCENE_TUTORIAL);
+		//m_pSceneMgr->SceneChange(SCENE_LOGO, SCENE_BOSS);
 		return CHANGE_SCENE;
 	}
 

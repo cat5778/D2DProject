@@ -5,7 +5,7 @@
 #include "HudButton.h"
 #include "SkillFrame.h"
 CHud::CHud()
-	:m_HudButton(nullptr)
+	:m_HudButton(nullptr), m_bIsOn(false), m_bIsEnd(false)
 {
 	
 	m_tObjInfo.eObjectType = OBJECT_UI;
@@ -15,6 +15,17 @@ CHud::CHud()
 	m_tInfo.vPos = CScrollMgr::GetCenterPos();
 	Initialize();
 
+}
+
+CHud::CHud(GAME_DATA gameData)
+{
+	m_tObjInfo.eObjectType = OBJECT_UI;
+	m_tObjInfo.wstrObjectKey = L"SkillIcon";
+	m_tObjInfo.wstrStateKey = L"Main_Hud";
+	m_tFrame.fCurFrame = 0;
+	m_tInfo.vPos = CScrollMgr::GetCenterPos();
+	m_tData = gameData;
+	Initialize();
 }
 
 
@@ -33,7 +44,8 @@ HRESULT CHud::Initialize()
 	CObjectMgr::GetInstance()->AddObject(OBJECT_UI, m_HudButton);
 	for(int i=0;i<4;i++)
 		CObjectMgr::GetInstance()->AddObject(OBJECT_UI, m_HudIcon[i]);
-	m_SkillFrame = new CSkillFrame();
+	m_SkillFrame = new CSkillFrame(m_tData);
+	
 	CObjectMgr::GetInstance()->AddObject(OBJECT_UI, m_SkillFrame);
 
 	D3DXMatrixIdentity(&m_tInfo.matWorld); // 다이렉트 항등행렬 함수
@@ -53,12 +65,21 @@ int CHud::Update()
 {
 	if (m_HudButton != nullptr)
 	{
-		if (m_HudButton->GetIsPick() || CKeyManager::GetInstance()->KeyDown(KEY_T))
+		if (m_HudButton->GetIsPick() || m_bIsOn)
 		{
-			if(!m_SkillFrame->GetIsOn())
+			
+			if (!m_SkillFrame->GetIsOn())
+			{
 				m_SkillFrame->On();
+				m_bIsEnd = false;
+			}
 			else
+			{
 				m_SkillFrame->Off();
+				
+				m_bIsEnd = true;
+			}
+			SetOnSkillTree();
 		}
 	}
 
@@ -85,11 +106,33 @@ void CHud::Render()
 		nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));
 }
 
-void CHud::InitData(int iLevel, float fSpd, float fDmg, float fAtkSpd)
+GAME_DATA CHud::GetData()
 {
-	m_iLevel = iLevel;
-	m_fSpeed = fSpd;
-	m_fDamage = fDmg;
-	m_fAtkSpeed = fAtkSpd;
-	m_SkillFrame->InitData(m_iLevel, m_fSpeed, m_fDamage, m_fAtkSpeed);
+	m_tData = m_SkillFrame->GetData();
+	
+	return m_tData;
 }
+SKILL_DATA CHud::GetSkillData()
+{
+	m_tSkillData = m_SkillFrame->GetSkillData();
+	return m_tSkillData;
+}
+
+
+void CHud::SetOnSkillTree()
+{
+	m_bIsOn ? m_bIsOn = false : m_bIsOn = true;
+}
+
+void CHud::SetData(GAME_DATA gameData)
+{
+	m_tData = gameData;
+	m_SkillFrame->SetData(m_tData);
+}
+
+void CHud::InitData(GAME_DATA gameData)
+{
+	m_tData = gameData;
+	m_SkillFrame->InitData(m_tData);
+}
+

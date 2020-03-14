@@ -6,8 +6,12 @@
 #include "SkillLine.h"
 #include "TextBox.h"
 CSkillFrame::CSkillFrame()
+{
+}
+CSkillFrame::CSkillFrame(GAME_DATA gameData)
 	:m_bIsRender(false), m_SkillLine(nullptr), m_iPoint(10)
 {
+	ZeroMemory(&m_tSkillData, sizeof(SkillData));
 	for (int i = 0; i < 9; i++)
 	{
 		m_SkillButton[i] = nullptr;
@@ -22,7 +26,10 @@ CSkillFrame::CSkillFrame()
 	m_tObjInfo.wstrStateKey = L"Skill_Tree";
 	m_tFrame.fCurFrame = 0;
 	m_tInfo.vPos = CScrollMgr::GetCenterPos();
+	m_tData= gameData;
+	m_iOldLevel = m_tData.iLevel;
 	Initialize();
+
 }
 
 
@@ -48,17 +55,19 @@ HRESULT CSkillFrame::Initialize()
 		m_SkillButton[i]->SetButtonText(to_wstring(0));
 	}
 
-	m_TextBox[0] = new CTextBox(0.25f, -0.18, 0.086f, 0.75f);
-	m_TextBox[1] = new CTextBox(0.25f, -0.10, 0.086f, 0.75f);
-	m_TextBox[2] = new CTextBox(0.25f, -0.02, 0.086f, 0.75f);
-	m_TextBox[3] = new CTextBox(0.25f, 0.06, 0.086f, 0.75f);
+	m_TextBox[0] = new CTextBox(0.27f, -0.165, 0.086f, 0.75f);
+	m_TextBox[1] = new CTextBox(0.27f, -0.14, 0.086f, 0.75f);
+	m_TextBox[2] = new CTextBox(0.27f, -0.09, 0.086f, 0.75f);
+	m_TextBox[3] = new CTextBox(0.27f, -0.070, 0.086f, 0.75f);
 
 	D3DXMatrixIdentity(&m_tInfo.matWorld); // 다이렉트 항등행렬 함수
 	m_tInfo.vDir = { 0.f, 0.f, 0.f };
 	m_tInfo.vLook = { 1.f, 1.f, 0.f };
 	m_tInfo.vSize = { 1.5f, 1.5f, 0.f };
+	
+	
 
-
+	
 	return S_OK;
 }
 
@@ -83,6 +92,7 @@ int CSkillFrame::Update()
 				{
 					m_iSkillPoint[i] ++;
 					m_iPoint--;
+					m_tData.fDamage = 10 * m_iSkillPoint[0] + m_tData.fDamage;
 					m_SkillButton[i]->SetButtonText(to_wstring(m_iSkillPoint[i]));
 				}
 				if (i == 1)
@@ -90,24 +100,31 @@ int CSkillFrame::Update()
 					m_iSkillPoint[i] ++;
 					m_iPoint--;
 					m_SkillButton[i]->SetButtonText(to_wstring(m_iSkillPoint[i]));
+					m_tSkillData.iDashLv = m_iSkillPoint[i];
+
 				}
 				if (i == 2&& m_iSkillPoint[3]!=0)
 				{
 					m_iSkillPoint[i] ++;
 					m_iPoint--;
+					m_tData.fSpeed = m_iSkillPoint[2] * 50 + m_tData.fSpeed;
 					m_SkillButton[i]->SetButtonText(to_wstring(m_iSkillPoint[i]));
 				}
 				if (i == 3 && m_iSkillPoint[1] != 0)
 				{
 					m_iSkillPoint[i] ++;
 					m_iPoint--;
+					m_tSkillData.iMulptLv = m_iSkillPoint[i];
 					m_SkillButton[i]->SetButtonText(to_wstring(m_iSkillPoint[i]));
 				}
 				if (i == 4 && m_iSkillPoint[0] != 0)
 				{
 					m_iSkillPoint[i] ++;
 					m_iPoint--;
+					m_tData.fAtkSpeed = m_iSkillPoint[4] * 0.5f + m_tData.fAtkSpeed;
 					m_SkillButton[i]->SetButtonText(to_wstring(m_iSkillPoint[i]));
+					m_tSkillData.iThunderLv = m_iSkillPoint[i];
+
 				}
 				if (i == 5 && m_iSkillPoint[6] != 0)
 				{
@@ -132,18 +149,21 @@ int CSkillFrame::Update()
 					m_iSkillPoint[i] ++;
 					m_iPoint--;
 					m_SkillButton[i]->SetButtonText(to_wstring(m_iSkillPoint[i]));
+					m_tSkillData.iBuffLv= m_iSkillPoint[i];
+					
 				}
 			}
 			
 		}
+
+		#pragma endregion
 		m_SkillLine->Update();
+
 		m_wsText = L"Skill Point " + to_wstring(m_iPoint);
-		m_wsLevel = L"레벨:  " + to_wstring(m_iLevel);
-		m_wsDamage = L"공격력:  " + to_wstring(m_fDamage);
-		m_wsAtkSpeed = L"공격속도:  " + to_wstring(m_fAtkSpeed);
-		m_wsSpeed = L"이동속도:  " + to_wstring(m_fAtkSpeed);
-
-
+		m_wsLevel = L"레벨:  " + to_wstring(m_tData.iLevel);
+		m_wsDamage = L"공격력:  " + to_wstring(m_tData.fDamage);
+		m_wsAtkSpeed = L"공격속도:  " + to_wstring(m_tData.fAtkSpeed);
+		m_wsSpeed = L"이동속도:  " + to_wstring(m_tData.fSpeed);
 
 		for (int i = 0; i < 4; i++)
 		{
@@ -155,11 +175,6 @@ int CSkillFrame::Update()
 		m_TextBox[2]->SetButtonText(m_wsAtkSpeed);
 		m_TextBox[3]->SetButtonText(m_wsSpeed);
 
-		#pragma endregion
-
-	
-	
-	
 	}
 	return 0;
 }
@@ -213,17 +228,26 @@ void CSkillFrame::Render()
 	}
 }
 
-void CSkillFrame::InitData(int iLevel, float fSpd, float fDmg, float fAtkSpd)
+void CSkillFrame::InitData(GAME_DATA gameData)
 {
-	m_iLevel= iLevel;
-	m_fSpeed= fSpd;
-	m_fDamage= fDmg;
-	m_fAtkSpeed= fAtkSpd;
-
+	m_tData = gameData;
+	m_iOldLevel = m_tData.iLevel;
 }
 
 void CSkillFrame::LevelUp()
 {
-	m_iLevel++;
+	m_tData.iLevel++;
 	m_iPoint++;
+}
+
+void CSkillFrame::SetData(GAME_DATA gameData)
+{
+	m_tData = gameData;
+	m_iPoint+=m_tData.iLevel- m_iOldLevel;
+	m_iOldLevel = m_tData.iLevel;
+}
+
+SKILL_DATA CSkillFrame::GetSkillData()
+{
+	return m_tSkillData;
 }

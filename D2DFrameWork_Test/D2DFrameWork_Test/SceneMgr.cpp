@@ -3,6 +3,7 @@
 #include "Logo.h"
 #include "Stage.h"
 #include "Tutorial.h"
+#include "BossScene.h"
 IMPLEMENT_SINGLETON(CSceneMgr)
 
 CSceneMgr::CSceneMgr()
@@ -34,6 +35,9 @@ HRESULT CSceneMgr::SceneChange(SCENE_TYPE eCurType, SCENE_TYPE eNextType)
 			m_pScene = CTutorial::Create();
 			break;
 		case SCENE_TOWN:
+			break;
+		case SCENE_BOSS:
+			m_pScene = CBossScene::Create();
 			break;
 		default:
 			break;

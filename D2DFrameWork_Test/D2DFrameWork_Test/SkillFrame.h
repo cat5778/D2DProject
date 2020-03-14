@@ -8,6 +8,7 @@ class CSkillFrame :
 {
 public:
 	CSkillFrame();
+	CSkillFrame(GAME_DATA gameData);
 	~CSkillFrame();
 
 	// CGameObject을(를) 통해 상속됨
@@ -20,9 +21,12 @@ public:
 public:
 	void On() { m_bIsRender = true; }
 	void Off() { m_bIsRender = false; }
-	bool GetIsOn() { return m_bIsRender; }
-	void InitData(int iLevel,float fSpd, float fDmg, float fAtkSpd);
+	bool GetIsOn() { return m_bIsRender;}
+	void InitData(GAME_DATA gameData);
 	void LevelUp();
+	GAME_DATA GetData() { return m_tData; }
+	void SetData(GAME_DATA gameData);
+	SKILL_DATA GetSkillData();
 	//void DrawStat(D3DXMATRIX mat_world,wstring wstrStat, float fx, float fy);
 private:
 	CHudButton* m_SkillButton[9];
@@ -32,17 +36,13 @@ private:
 
 	wstring		m_wsText;
 	int			m_iPoint;
-
-	int			m_iLevel;
-	float		m_fSpeed;
-	float		m_fDamage;
-	float		m_fAtkSpeed;
-
+	GAME_DATA   m_tData;
 	wstring		m_wsLevel;
 	wstring		m_wsDamage;
 	wstring		m_wsAtkSpeed;
 	wstring		m_wsSpeed;
-
+	int			m_iOldLevel;
+	SKILL_DATA	m_tSkillData;
 private:
 	CTextBox*	m_TextBox[4];
 

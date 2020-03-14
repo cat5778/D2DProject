@@ -5,7 +5,7 @@ class CEffect :
 {
 public:
 	CEffect();
-	CEffect(D3DXVECTOR3 vPos,wstring wstrObjKey, wstring wstrStateKey);
+	CEffect(D3DXVECTOR3 vPos, wstring wstrObjKey, wstring wstrStateKey, float Zorder = 1.f);
 	~CEffect();
 
 	// CGameObject을(를) 통해 상속됨
@@ -14,5 +14,8 @@ public:
 	virtual int Update() override;
 	virtual void LateUpdate() override;
 	virtual void Render() override;
+
+private:
+	float	m_fZOrder;
 };
 

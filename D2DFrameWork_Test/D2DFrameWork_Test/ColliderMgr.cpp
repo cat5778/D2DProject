@@ -60,9 +60,10 @@ int ColliderMgr::Update()
 				++iter_begin;
 		}
 	}
-	CheckCollision(PLAYER_HITBOX_COLLISION, OBJECT_HITBOX_COLLISION);
 	HitCollision(PLAYER_PROJECTILE_COLLISION, MONSTER_HITBOX_COLLISION);
 	CheckCollision(MONSTER_HITBOX_COLLISION, OBJECT_HITBOX_COLLISION);
+	CheckCollision(PLAYER_STEP_COLLISION, OBJECT_HITBOX_COLLISION);
+	//CheckCollision(PLAYER_HITBOX_COLLISION, OBJECT_HITBOX_COLLISION);
 	HitCollision(MONSTER_PROJECTILE_COLLISION, PLAYER_HITBOX_COLLISION);
 	return NO_EVENT;
 }
@@ -139,7 +140,6 @@ void ColliderMgr::CheckCollision(COLLSION_TYPE sourType, COLLSION_TYPE destType)
 				pSource->SetOBJCollision(true,destType);
 				pDest->SetOBJCollision(true,sourType);
 				pSource->GetCollDir(pDest->GetTagInfo().vPos);
-				//cout << "Ãæµ¹" << endl;
 			}
 			else
 			{

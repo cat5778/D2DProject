@@ -5,6 +5,7 @@
 #include "ScrollMgr.h"
 #include "HPBar.h"
 #include "Effect.h"
+#include "SkillProjectTile.h"
 CMonster::CMonster()
 	:m_CollBox(nullptr)
 {
@@ -51,6 +52,7 @@ HRESULT CMonster::Initialize()
 
 void CMonster::Release()
 {
+	g_PlayerExe += m_tData.fCurEXE;
 	m_CollBox->EraseCollider();
 }
 
@@ -85,6 +87,8 @@ int CMonster::Update()
 			CEffect* temp = new CEffect(m_tInfo.vPos, L"Effect", L"Hit");
 			CObjectMgr::GetInstance()->AddObject(OBJECT_EFFECT, temp);
 			m_bIsInvincible = true;
+
+
 		}
 
 		if (m_bIsInvincible)

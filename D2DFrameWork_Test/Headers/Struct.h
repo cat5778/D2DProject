@@ -109,4 +109,13 @@ typedef struct CharacterDATA
 	float	fAtkSpeed;
 	float   fExe;
 	float   fCurEXE;
+	float	fSpeed;
+	int		iLevel;
 }GAME_DATA;
+typedef struct SkillData
+{
+	int iDashLv;
+	int iMulptLv;
+	int iThunderLv;
+	int	iBuffLv;
+}SKILL_DATA;
