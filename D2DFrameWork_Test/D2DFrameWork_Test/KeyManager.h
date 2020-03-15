@@ -21,6 +21,7 @@ const DWORD KEY_5 = 0x00020000;
 const DWORD KEY_6 = 0x00040000;
 const DWORD KEY_T = 0x00080000;
 const DWORD KEY_ESC = 0x00100000;
+const DWORD KEY_I =   0x00200000;
 class CKeyManager
 {
 public:

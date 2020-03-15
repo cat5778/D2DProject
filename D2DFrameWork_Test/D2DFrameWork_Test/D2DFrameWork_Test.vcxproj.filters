@@ -362,6 +362,9 @@
     <ClInclude Include="SoundMgr.h">
       <Filter>90.Manager\SoundMgr</Filter>
     </ClInclude>
+    <ClInclude Include="Inven.h">
+      <Filter>10.GameObjects\HUD\Inventory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -542,6 +545,9 @@
     </ClCompile>
     <ClCompile Include="SoundMgr.cpp">
       <Filter>90.Manager\SoundMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="Inven.cpp">
+      <Filter>10.GameObjects\HUD\Inventory</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

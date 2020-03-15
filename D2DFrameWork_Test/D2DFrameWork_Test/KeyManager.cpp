@@ -74,6 +74,8 @@ void CKeyManager::Update()
 		m_dwCurKey |= KEY_T;
 	if (GetAsyncKeyState(VK_ESCAPE) & 0x8000)
 		m_dwCurKey |= KEY_T;
+	if (GetAsyncKeyState('I') & 0x8000)
+		m_dwCurKey |= KEY_I;
 }
 
 

@@ -226,7 +226,8 @@ void CSkillFrame::Render()
 		m_pDeviceMgr->GetSprite()->Draw(pTexInfo->pTexture, nullptr, &D3DXVECTOR3(fCenterX, fCenterY, 0.f),
 			nullptr, D3DCOLOR_ARGB(255, 255, 255, 255));
 		m_SkillLine->Render();
-		D3DXVECTOR3 temp = m_tInfo.vPos-CScrollMgr::GetScrollPos();
+
+		D3DXVECTOR3 temp = m_tInfo.vPos - CScrollMgr::GetScrollPos();
 		D3DXMatrixTranslation(&m_tInfo.matWorld, temp.x+135, temp.y-165, 0.f);
 		m_pDeviceMgr->GetSprite()->SetTransform(&m_tInfo.matWorld);
 

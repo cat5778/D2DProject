@@ -27,7 +27,7 @@ HRESULT CMainGame::Initialize()
 
 	//m_hDC = GetDC(g_hWnd);
 	//m_pDevice->InitDevice(MODE_WIN);
-	HRESULT hr = m_pDeviceMgr->InitDevice(MODE_WIN);
+	HRESULT hr = m_pDeviceMgr->InitDevice(MODE_FULL);
 	FAILED_CHECK_MSG_RETURN(hr, L"InitDevice Failed", E_FAIL);
 
 	hr = m_pSceneMgr->SceneChange(SCENE_END, SCENE_LOGO);
@@ -70,8 +70,8 @@ void CMainGame::Render()
 
 	CDeviceMgr::GetInstance()->Render_Begin();
 	m_pSceneMgr->Render();
-	RenderScroll();
-	m_pFrameMgr->RenderFPS();
+	//RenderScroll();
+	//m_pFrameMgr->RenderFPS();
 	CDeviceMgr::GetInstance()->Render_End();
 
 }

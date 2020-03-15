@@ -17,6 +17,7 @@
 float g_PlayerExe = 0;
 GAME_DATA g_PlayerData;
 SkillData g_PlayerSkillData;
+WEAPONE_TYPE g_eWpType = WEAPONE_FIST;
 CPlayer::CPlayer()
 	: m_pKeyMgr(CKeyManager::GetInstance()), m_pHat(nullptr), m_pChest(nullptr),
 	m_pLeg(nullptr), m_fSpeed(0.f), m_wstrChest(L"Idle"), m_pWeapon(nullptr), m_CollBox(nullptr), m_pHPBar(nullptr), m_bIsDash(false)
@@ -29,6 +30,7 @@ CPlayer::CPlayer(D3DXVECTOR3 vPos)
 	m_pLeg(nullptr), m_fSpeed(0.f), m_wstrChest(L"Idle"), m_pWeapon(nullptr),
 	m_CollBox(nullptr), m_pHPBar(nullptr), m_pHud(nullptr), m_bIsDash(false), m_fDashTime(0), m_fDash(1), m_iMulLv(1)
 {
+	g_eWpType = WEAPONE_FIST;
 	ZeroMemory(&m_tSkillData, sizeof(SKILL_DATA));
 	m_bIsInvincible = false;
 	m_fTimer = 0;
@@ -37,7 +39,7 @@ CPlayer::CPlayer(D3DXVECTOR3 vPos)
 	m_bIsObjCollision = false;
 	m_bIsCollsion = false;
 	m_tInfo.vPos = vPos;
-	m_eWpType = WEAPONE_BOW;
+	m_eWpType = g_eWpType;
 	srand((unsigned)time(NULL));
 	Initialize();
  
@@ -136,7 +138,7 @@ CPlayer::~CPlayer()
 
 int CPlayer::Update()
 {		
-
+	m_eWpType = g_eWpType;
 	MultiShot();
 	LevelUp();
 	Dash();
@@ -332,7 +334,7 @@ HRESULT CPlayer::Initialize()
 
 	m_StepColl = new CColliderBox(m_tInfo.vPos, PLAYER_STEP_COLLISION, D3DXVECTOR2(10,10));
 	m_pColliderMgr->AddObject(PLAYER_STEP_COLLISION, m_StepColl);
-	CScrollMgr::SetCamPos(m_tInfo.vPos);
+	//CScrollMgr::SetCamPos(m_tInfo.vPos);
 	return S_OK;
 }
 
@@ -351,7 +353,11 @@ void CPlayer::KeyInput()
 		g_PlayerData = m_tData;
 		m_tSkillData = m_pHud->GetSkillData();
 		g_PlayerSkillData = m_tSkillData;
-
+	}
+	if (m_pKeyMgr->KeyDown(KEY_I))
+	{
+		m_pSoundMgr->PlaySound(L"Menu_Click.wav", EFFECT);
+		m_pHud->SetOnInven();
 	}
 	if (m_pKeyMgr->KeyDown(KEY_O))
 	{

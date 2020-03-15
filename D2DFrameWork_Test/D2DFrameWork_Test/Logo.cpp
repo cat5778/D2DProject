@@ -26,10 +26,10 @@ int CLogo::Update()
 	{
 		m_pSoundMgr->PlaySound(L"Menu_Click.wav", EFFECT);
 		m_pSoundMgr->StopSound(BGM);
-		//m_pSceneMgr->SceneChange(SCENE_LOGO, SCENE_STAGE);
+		m_pSceneMgr->SceneChange(SCENE_LOGO, SCENE_STAGE);
 		//m_pSceneMgr->SceneChange(SCENE_LOGO, SCENE_TUTORIAL);
 		//m_pSceneMgr->SceneChange(SCENE_LOGO, SCENE_BOSS);
-		m_pSceneMgr->SceneChange(SCENE_LOGO, SCENE_MEVIUS);
+		//m_pSceneMgr->SceneChange(SCENE_LOGO, SCENE_MEVIUS);
 		return CHANGE_SCENE;
 	}
 

@@ -258,7 +258,7 @@ HRESULT CMevius::Initialize()
 	m_eType = OBJECT_MONSTER;
 	m_fSpeed = 100.f;
 	m_tData.fCurEXE = 10;
-	m_tData.fHp = 20;
+	m_tData.fHp = 50000;
 	m_tData.fCurHp = m_tData.fHp;
 	m_tData.fDamage = 30;
 	m_tData.fOldHp = m_tData.fCurHp;

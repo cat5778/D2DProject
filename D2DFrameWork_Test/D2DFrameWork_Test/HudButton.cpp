@@ -55,6 +55,7 @@ int CHudButton::Update()//431 742
 	{
 		if (CKeyManager::GetInstance()->KeyDown(KEY_LBUTTON))
 			m_IsPick = true;
+		
 	}
 	else
 		m_IsPick = false;
@@ -92,7 +93,7 @@ void CHudButton::Render()
 	
 	D3DXMatrixTranslation(&m_tInfo.matWorld, temp.x+45, temp.y+45, 0.f);
 	m_pDeviceMgr->GetSprite()->SetTransform(&m_tInfo.matWorld);
-	m_CollBox->RenderLine();
+	//m_CollBox->RenderLine();
 
 	m_pDeviceMgr->GetFont()->DrawText(
 		m_pDeviceMgr->GetSprite(), /* 스프라이트 COM 객체 */

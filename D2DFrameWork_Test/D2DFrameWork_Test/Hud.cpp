@@ -4,8 +4,9 @@
 #include "Icon.h"
 #include "HudButton.h"
 #include "SkillFrame.h"
+#include "Inven.h"
 CHud::CHud()
-	:m_HudButton(nullptr), m_bIsOn(false), m_bIsEnd(false)
+	:m_HudButton(nullptr), m_bIsOn(false), m_bIsEnd(false), m_bIsOn2(false), m_bIsEnd2(false)
 {
 	
 	m_tObjInfo.eObjectType = OBJECT_UI;
@@ -45,8 +46,10 @@ HRESULT CHud::Initialize()
 	for(int i=0;i<4;i++)
 		CObjectMgr::GetInstance()->AddObject(OBJECT_UI, m_HudIcon[i]);
 	m_SkillFrame = new CSkillFrame(m_tData);
-	
 	CObjectMgr::GetInstance()->AddObject(OBJECT_UI, m_SkillFrame);
+	m_Inven = new CInven();
+	CObjectMgr::GetInstance()->AddObject(OBJECT_UI, m_Inven);
+
 
 	D3DXMatrixIdentity(&m_tInfo.matWorld); // 다이렉트 항등행렬 함수
 	m_tInfo.vDir = { 0.f, 0.f, 0.f };
@@ -76,13 +79,26 @@ int CHud::Update()
 			else
 			{
 				m_SkillFrame->Off();
-				
 				m_bIsEnd = true;
 			}
 			SetOnSkillTree();
 		}
+		if (m_bIsOn2)
+		{
+			if (!m_Inven->GetIsOn())
+			{
+				m_Inven->On();
+				m_bIsEnd2 = false;
+			}
+			else
+			{
+				m_Inven->Off();
+				m_bIsEnd2 = true;
+			}
+			SetOnInven();
+		}
 	}
-
+	
 	m_tInfo.vPos = CScrollMgr::GetCenterPos();
 	m_tInfo.vPos.x -= WINCX*0.5;
 	m_tInfo.vPos.y += WINCY*0.27f;
@@ -122,6 +138,11 @@ SKILL_DATA CHud::GetSkillData()
 void CHud::SetOnSkillTree()
 {
 	m_bIsOn ? m_bIsOn = false : m_bIsOn = true;
+}
+
+void CHud::SetOnInven()
+{
+	m_bIsOn2 ? m_bIsOn2 = false : m_bIsOn2 = true;
 }
 
 void CHud::SetData(GAME_DATA gameData)
