@@ -18,14 +18,16 @@ public:
 	virtual void LateUpdate() override;
 	virtual void Render() override;
 
+
 public:
 	void SetCollider(D3DXVECTOR2 _vSIze);
-
+	void SetEndTime(float fTime) { m_fEndTime = fTime; }
 private:
 	float			m_fzOrder;
 	float			m_fXScale;
 	float			m_fYScale;
 	int				m_iAlpha;
 	CColliderBox*	m_CollBox;
+	float			m_fEndTime; 
 };
 

@@ -4,6 +4,7 @@
 #include "Stage.h"
 #include "Tutorial.h"
 #include "BossScene.h"
+#include "MeviusScene.h"
 IMPLEMENT_SINGLETON(CSceneMgr)
 
 CSceneMgr::CSceneMgr()
@@ -38,6 +39,9 @@ HRESULT CSceneMgr::SceneChange(SCENE_TYPE eCurType, SCENE_TYPE eNextType)
 			break;
 		case SCENE_BOSS:
 			m_pScene = CBossScene::Create();
+			break;
+		case SCENE_MEVIUS:
+			m_pScene = CMeviusScene::Create();
 			break;
 		default:
 			break;

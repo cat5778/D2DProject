@@ -23,6 +23,8 @@ CImageObject::CImageObject(wstring wstrObjectKey, wstring wstrStateKey, D3DXVECT
 	m_tFrame.fMaxFrame = 10;
 	m_iAlpha - iAlpha;
 	m_bIsCollsion = false;
+	m_fEndTime = 0;
+	m_fTimer = 0;
 	Initialize();
 }
 
@@ -49,15 +51,24 @@ void CImageObject::Release()
 
 int CImageObject::Update()
 {
-	if (m_tObjInfo.IsAni)
-		Animate();
-	if (m_CollBox != nullptr)
+	if (m_fEndTime == 0)
 	{
-		m_CollBox->SetvPos(m_tInfo.vPos);
-		m_bIsCollsion = m_CollBox->IsCollsion();
-		
+		if (m_tObjInfo.IsAni)
+			Animate();
+		if (m_CollBox != nullptr)
+		{
+			m_CollBox->SetvPos(m_tInfo.vPos);
+			m_bIsCollsion = m_CollBox->IsCollsion();
+		}
+		return NO_EVENT;
 	}
-	return NO_EVENT;
+	else
+	{
+		if (m_fEndTime >= m_fTimer)
+			m_fTimer += CTimeMgr::GetInstance()->GetDelta();
+		else
+			return DEAD_OBJ;
+	}
 }
 
 void CImageObject::LateUpdate()

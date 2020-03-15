@@ -166,6 +166,15 @@
     <Filter Include="90.Manager\SceneMgr\Boss_Scene">
       <UniqueIdentifier>{1816429a-a82b-4191-af1c-0987067bb88d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="10.GameObjects\Projectile\StomProjectTile">
+      <UniqueIdentifier>{29b1b1af-fc26-4ad3-b53e-6593e1a2d97a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10.GameObjects\Monster\Mevius">
+      <UniqueIdentifier>{00e8c8d1-854d-4a2e-9e0a-7d986552a16d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="10.GameObjects\Projectile\MeviusProjectile">
+      <UniqueIdentifier>{9a69b21d-826c-4e65-be73-059f22561be9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -331,9 +340,21 @@
     <ClInclude Include="SkillProjectTile.h">
       <Filter>10.GameObjects\Projectile</Filter>
     </ClInclude>
-    <ClInclude Include="ImageObject.h" />
     <ClInclude Include="BossScene.h">
       <Filter>90.Manager\SceneMgr\Boss_Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="MeviusScene.h" />
+    <ClInclude Include="StormProjectile.h">
+      <Filter>10.GameObjects\Projectile\StomProjectTile</Filter>
+    </ClInclude>
+    <ClInclude Include="ImageObject.h">
+      <Filter>10.GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Mevius.h">
+      <Filter>10.GameObjects\Monster\Mevius</Filter>
+    </ClInclude>
+    <ClInclude Include="MeviusProjectile.h">
+      <Filter>10.GameObjects\Projectile\MeviusProjectile</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -497,9 +518,21 @@
     <ClCompile Include="SkillProjectTile.cpp">
       <Filter>10.GameObjects\Projectile</Filter>
     </ClCompile>
-    <ClCompile Include="ImageObject.cpp" />
     <ClCompile Include="BossScene.cpp">
       <Filter>90.Manager\SceneMgr\Boss_Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="MeviusScene.cpp" />
+    <ClCompile Include="StormProjectile.cpp">
+      <Filter>10.GameObjects\Projectile\StomProjectTile</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageObject.cpp">
+      <Filter>10.GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Mevius.cpp">
+      <Filter>10.GameObjects\Monster\Mevius</Filter>
+    </ClCompile>
+    <ClCompile Include="MeviusProjectile.cpp">
+      <Filter>10.GameObjects\Projectile\MeviusProjectile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

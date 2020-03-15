@@ -140,6 +140,9 @@ float CGameObject::ZOrder(float _y)
 
 void CGameObject::GetImageDir(DWORD dwDir)
 {
+	if (m_dwDir != dwDir)
+		m_tFrame.fCurFrame = 0;
+
 	m_dwDir = dwDir;
 	if (dwDir & DOWN)
 		m_wsImgDir = L"_Down";

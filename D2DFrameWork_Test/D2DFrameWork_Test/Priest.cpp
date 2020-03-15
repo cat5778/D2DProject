@@ -56,6 +56,7 @@ void Priest::Attack()
 			m_tData.fDamage, MONSTER_PROJECTILE_COLLISION, L"Effect", L"Quest_Black_Hole");
 		CObjectMgr::GetInstance()->AddObject(OBJECT_PROJECTILE, temp);
 		m_bIsAttack = false;
+		m_tFrame.fCurFrame = 0;
 		ChangeState(STATE_IDLE);
 
 	}

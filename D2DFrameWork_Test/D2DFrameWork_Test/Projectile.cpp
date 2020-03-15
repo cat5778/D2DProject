@@ -4,6 +4,8 @@
 #include "ScrollMgr.h"
 #include "ColliderBox.h"
 #include "SkillProjectTile.h"
+#include "Effect.h"
+#include "StormProjectile.h"
 CProjectile::CProjectile()
 {
 	
@@ -67,16 +69,33 @@ HRESULT CProjectile::Initialize()
 
 void CProjectile::Release()
 {
-	int i1 = rand() % 5;
-	if (m_eProjectileType == PLAYER_PROJECTILE_COLLISION&&i1<2)
+	if (g_PlayerSkillData.iBuffLv>=1)
 	{
-		float iAngle = rand() % 36 + 1;
+		int i1 = rand() % 5;
+		if (m_eProjectileType == PLAYER_PROJECTILE_COLLISION&&i1<2)
+		{
+			float iAngle = rand() % 36 + 1;
 
-		iAngle *= 10;
-		float fRadian = iAngle / 180 * PI;
+			iAngle *= 10;
+			float fRadian = iAngle / 180 * PI;
 
-		CSkillProjectTile* temp = new CSkillProjectTile(m_eWpType, m_tInfo.vPos, fRadian, m_tData.fDamage);
-		CObjectMgr::GetInstance()->AddObject(OBJECT_PROJECTILE, temp);
+			CSkillProjectTile* temp = new CSkillProjectTile(m_eWpType, m_tInfo.vPos, fRadian, m_tData.fDamage);
+			CObjectMgr::GetInstance()->AddObject(OBJECT_PROJECTILE, temp);
+
+			if (g_PlayerSkillData.iThunderLv >= 1)
+			{
+				D3DXVECTOR3 convert = m_tInfo.vPos;
+				convert.x -= 10;
+				CEffect* pStomp = new CEffect(convert, L"Effect", L"Stomp");
+				CObjectMgr::GetInstance()->AddObject(OBJECT_EFFECT, pStomp);
+
+				CStormProjectile* pStorm = new CStormProjectile(m_tInfo.vPos,
+					m_tData.fDamage, 1.0f, PLAYER_PROJECTILE_COLLISION, L"Effect"
+					, L"Storm");
+				CObjectMgr::GetInstance()->AddObject(OBJECT_PROJECTILE, pStorm);
+			}
+		}
+
 	}
 }
 

@@ -109,9 +109,12 @@ void ColliderMgr::HitCollision(COLLSION_TYPE sourType, COLLSION_TYPE destType)
 			float fSize = fabsf(D3DXVec2Length(&vSize));
 			if (fDistance <= fSize*0.5f)
 			{
+
 				pSource->SetCollision(true);
 				pDest->SetCollision(true,dynamic_cast<CColliderBox*>(pSource)->GetCollType(), pSource->GetGameData().fDamage);
-				pDest->SetKnockDir(pSource->GetvDir());
+				D3DXVECTOR3 temp = pSource->GetvDir();
+				temp.z = 0;
+				pDest->SetKnockDir(temp);
 				return;
 			}
 			else

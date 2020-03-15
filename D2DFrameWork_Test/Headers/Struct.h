@@ -118,4 +118,5 @@ typedef struct SkillData
 	int iMulptLv;
 	int iThunderLv;
 	int	iBuffLv;
+	int iFinish;
 }SKILL_DATA;

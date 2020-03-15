@@ -18,6 +18,7 @@ CBossScene::CBossScene()
 	:m_pObjectMgr(CObjectMgr::GetInstance()),
 	m_pColliderMgr(ColliderMgr::GetInstance())
 {
+	m_pPlayer = nullptr;
 }
 
 
@@ -30,7 +31,11 @@ int CBossScene::Update()
 {
 	m_pObjectMgr->Update();
 	m_pColliderMgr->Update();
-	
+	if (m_pPlayer != nullptr)
+	{
+		if (m_pPlayer->GetTagInfo().vPos.y < 70)
+			m_pSceneMgr->SceneChange(SCENE_BOSS, SCENE_MEVIUS);//SCENE_BOSS
+	}
 	return NO_EVENT;
 }
 
@@ -115,12 +120,17 @@ HRESULT CBossScene::Initialize()
 	//CImageObject *pImage = new CImageObject(L"Obstacle", L"ZoneLight", D3DXVECTOR3(1600, 11500, 0), false, 0, -1, 1, 0.1f, 100);
 	//CObjectMgr::GetInstance()->AddObject(OBJECT_BUILDING, pImage);
 
-	CPlayer* m_pPlayer = new CPlayer(D3DXVECTOR3(1700, 1500, 0));
+	 //m_pPlayer = new CPlayer(D3DXVECTOR3(300, 500, 0));
+	m_pPlayer = new CPlayer(D3DXVECTOR3(1700, 1500, 0));
 	m_pObjectMgr->AddObject(OBJECT_PLAYER, m_pPlayer);
 }
 
 void CBossScene::Release()
 {
+	m_pColliderMgr->DestroyInstance();
+	m_pObjectMgr->DestroyInstance();
+	CRespawnManager::GetInstance()->DestroyInstance();
+	ColliderMgr::GetInstance()->DestroyInstance();
 }
 
 CBossScene * CBossScene::Create()

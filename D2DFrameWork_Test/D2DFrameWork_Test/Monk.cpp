@@ -57,6 +57,7 @@ void Monk::Attack()
 			m_tData.fDamage, MONSTER_PROJECTILE_COLLISION, L"", L"", false);
 		CObjectMgr::GetInstance()->AddObject(OBJECT_PROJECTILE, pHitBox);
 		m_bIsAttack = false;
+		m_tFrame.fCurFrame = 0;
 		ChangeState(STATE_IDLE);
 
 	}

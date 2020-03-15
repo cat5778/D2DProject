@@ -123,7 +123,6 @@ int CSkillFrame::Update()
 					m_iPoint--;
 					m_tData.fAtkSpeed = m_iSkillPoint[4] * 0.5f + m_tData.fAtkSpeed;
 					m_SkillButton[i]->SetButtonText(to_wstring(m_iSkillPoint[i]));
-					m_tSkillData.iThunderLv = m_iSkillPoint[i];
 
 				}
 				if (i == 5 && m_iSkillPoint[6] != 0)
@@ -137,20 +136,22 @@ int CSkillFrame::Update()
 					m_iSkillPoint[i] ++;
 					m_iPoint--;
 					m_SkillButton[i]->SetButtonText(to_wstring(m_iSkillPoint[i]));
+					m_tSkillData.iThunderLv = m_iSkillPoint[i];
 				}
 				if (i == 7 && m_iSkillPoint[4] != 0)
 				{
 					m_iSkillPoint[i] ++;
 					m_iPoint--;
 					m_SkillButton[i]->SetButtonText(to_wstring(m_iSkillPoint[i]));
+					m_tSkillData.iBuffLv= m_iSkillPoint[i];
 				}
 				if (i == 8 && m_iSkillPoint[5] != 0)
 				{
 					m_iSkillPoint[i] ++;
 					m_iPoint--;
 					m_SkillButton[i]->SetButtonText(to_wstring(m_iSkillPoint[i]));
-					m_tSkillData.iBuffLv= m_iSkillPoint[i];
-					
+					m_tSkillData.iFinish = m_iSkillPoint[i];
+
 				}
 			}
 			

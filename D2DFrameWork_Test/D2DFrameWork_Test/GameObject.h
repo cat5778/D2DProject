@@ -25,7 +25,7 @@ public:
 	void SetDir(D3DXVECTOR3 vec) { m_vDir = vec; }
 	D3DXVECTOR3 GetvKnock() { return m_vKnockDir; }
 	COLLSION_TYPE GetHitColl() { return m_HitCollType; }
-	void BeAttack(float fDamage) { m_tData.fCurHp -= fDamage;ChangeState(STATE_BEATTACK); }
+	void BeAttack(float fDamage) { m_tData.fCurHp -= fDamage;/*ChangeState(STATE_BEATTACK);*/ }
 	void InitCurHP() { m_tData.fCurHp = 0; }
 
 	void SetKnockDir(D3DXVECTOR3 vDir) { m_vKnockDir=vDir; }

@@ -27,6 +27,7 @@ int CLogo::Update()
 		m_pSceneMgr->SceneChange(SCENE_LOGO, SCENE_STAGE);
 		//m_pSceneMgr->SceneChange(SCENE_LOGO, SCENE_TUTORIAL);
 		//m_pSceneMgr->SceneChange(SCENE_LOGO, SCENE_BOSS);
+		//m_pSceneMgr->SceneChange(SCENE_LOGO, SCENE_MEVIUS);
 		return CHANGE_SCENE;
 	}
 

@@ -33,7 +33,7 @@ int CTutorial::Update()
 	if (m_pPlayer != nullptr)
 	{
 		if (m_pPlayer->GetTagInfo().vPos.x > 1740)
-			m_pSceneMgr->SceneChange(SCENE_TUTORIAL, SCENE_BOSS);
+			m_pSceneMgr->SceneChange(SCENE_TUTORIAL, SCENE_BOSS);//SCENE_BOSS
 	}
 	//CScrollMgr::ScrollPos();
 	//cout << m_pObjectMgr->GetObjList(OBJECT_MONSTER).size() << endl;

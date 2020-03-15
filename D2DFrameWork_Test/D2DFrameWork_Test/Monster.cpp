@@ -69,7 +69,6 @@ int CMonster::Update()
 	}
 	else
 		Animate();
-	
 	StateMachine();
 	DetectTarget();
 	
@@ -213,7 +212,6 @@ bool CMonster::DetectTarget()
 				else
 				{
 					ChangeState(STATE_MOVE);
-					//m_tFrame.fCurFrame = 0;
 				}
 				return true;
 			}

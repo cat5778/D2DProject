@@ -46,6 +46,8 @@ void CColliderBox::Release()
 
 int CColliderBox::Update()
 {
+	//cout << m_tInfo.vPos.z << endl;
+
 	if (m_bIsDeadObj)
 		return DEAD_OBJ;
 	

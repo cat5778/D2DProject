@@ -45,6 +45,11 @@ const void CScrollMgr::ScrollPos(float fSpeed)
 
 }
 
+const void CScrollMgr::SetCamPos(D3DXVECTOR3 vPos)
+{
+	MoveScrollPos(vPos*0.5);
+}
+
 const void CScrollMgr::FollowCam(D3DXVECTOR3 vPos,float fSpeed)
 {
 	float fMoveSpeed = fSpeed * CTimeMgr::GetInstance()->GetDelta();

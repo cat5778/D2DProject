@@ -13,6 +13,7 @@
 #include "SkillProjectTile.h"
 #include "Effect.h"
 #include "ImageObject.h"
+#include "StormProjectile.h"
 float g_PlayerExe = 0;
 GAME_DATA g_PlayerData;
 SkillData g_PlayerSkillData;
@@ -122,7 +123,7 @@ CPlayer::CPlayer(D3DXVECTOR3 vPos, GAME_DATA gameData)
 	m_CollBox = new CColliderBox(m_tInfo.vPos, PLAYER_HITBOX_COLLISION, m_vSize);
 	m_pColliderMgr->AddObject(PLAYER_HITBOX_COLLISION, m_CollBox);
 
-	m_StepColl = new CColliderBox(m_tInfo.vPos, PLAYER_STEP_COLLISION, D3DXVECTOR2(10, 10));
+	m_StepColl = new CColliderBox(m_tInfo.vPos, PLAYER_STEP_COLLISION, D3DXVECTOR2(5, 5));
 	m_pColliderMgr->AddObject(PLAYER_STEP_COLLISION, m_StepColl);
 
 }
@@ -171,6 +172,8 @@ int CPlayer::Update()
 			{
 				BeAttack(-m_CollBox->GetGameData().fCurHp);
 				m_CollBox->SetHitColl(COLLSION_END);
+				CEffect* temp = new CEffect(m_tInfo.vPos, L"Effect", L"Hit_Blood");
+				CObjectMgr::GetInstance()->AddObject(OBJECT_EFFECT, temp);
 				m_bIsInvincible = true;
 
 			}
@@ -190,6 +193,7 @@ int CPlayer::Update()
 		{
 			KnockBack(m_CollBox->GetvKnock(), 10.f*(-m_CollBox->GetGameData().fCurHp));
 			m_CollBox->InitCurHP();
+
 		}
 		Timer(m_bIsInvincible, 0.1f, m_fKnockTime);
 	}
@@ -326,7 +330,7 @@ HRESULT CPlayer::Initialize()
 
 	m_StepColl = new CColliderBox(m_tInfo.vPos, PLAYER_STEP_COLLISION, D3DXVECTOR2(10,10));
 	m_pColliderMgr->AddObject(PLAYER_STEP_COLLISION, m_StepColl);
-
+	//CScrollMgr::SetCamPos(m_tInfo.vPos);
 	return S_OK;
 }
 
@@ -343,6 +347,7 @@ void CPlayer::KeyInput()
 		g_PlayerData = m_tData;
 		m_tSkillData = m_pHud->GetSkillData();
 		g_PlayerSkillData = m_tSkillData;
+
 	}
 	if (m_pKeyMgr->KeyDown(KEY_O))
 	{
@@ -396,6 +401,10 @@ void CPlayer::KeyInput()
 			m_pChest->AttackAni(m_eWpType);
 			m_pWeapon->AttackAni(m_eWpType);
 			m_bIsAttack = true;
+
+
+			
+
 		}
 	}
 	Timer(m_bIsAttack, m_tData.fstdAtkspd/ m_tData.fAtkSpeed,m_fTimer);
@@ -424,6 +433,7 @@ void CPlayer::KeyInput()
 	//	m_eWpType = WEAPONE_BOW1;
 	//	m_tData.fstdAtkspd += 2.f;
 	//}
+	
 	CScrollMgr::FollowCam(m_tInfo.vPos, m_tData.fSpeed*m_fDash);
 }
 
@@ -529,10 +539,7 @@ void CPlayer::MultiShot()
 		}
 		
 	}
-	if (m_pKeyMgr->KeyDown(KEY_3))
-	{
-		m_iMulLv++;
-	}
+
 }
 
 void CPlayer::LevelUp()

@@ -1,1 +1,11 @@
-SkillIcon|Hud_Talents|1|..\Image\SkillIcon\Hud_Talents\%d.png
+Obstacle|Manor_Torch_Mevius|5|..\Image\Object\Obstacle\Manor_Torch_Mevius\%d.png
+Tile|Tileset_Mevius_Study_bg|1|..\Image\Tile\Tile\Tileset_Mevius_Study_bg\%d.png
+Mevius|Mevius|4|..\Image\Mevius\Mevius\%d.png
+Mevius|Mevius_Cast|20|..\Image\Mevius\Mevius_Cast\%d.png
+Mevius|Mevius_Chains|1|..\Image\Mevius\Mevius_Chains\%d.png
+Mevius|Mevius_Levitating|1|..\Image\Mevius\Mevius_Levitating\Mevius_Levitating.png
+Mevius|Mevius_Light|1|..\Image\Mevius\Mevius_Light\%d.png
+Mevius|Mevius_Monster|6|..\Image\Mevius\Mevius_Monster\%d.png
+Mevius|Mevius_Walk|8|..\Image\Mevius\Mevius_Walk\%d.png
+Mevius|Mevius_Wall|1|..\Image\Mevius\Mevius_Wall\%d.png
+Mevius|Spike_Ball|7|..\Image\Mevius\Spike_Ball\%d.png

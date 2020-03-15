@@ -19,7 +19,7 @@ public:
 	void PlayerAngle();
 	void MonsterAngle();
 
-
+	void SetDeleteTime(float fTime) { m_fTime = fTime; }
 private:
 	WEAPONE_TYPE	m_eWpType;
 	CColliderBox*	m_CollBox;

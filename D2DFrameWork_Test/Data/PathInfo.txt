@@ -5,6 +5,9 @@ Obstacle|Castle_Hut_2|2|..\Image\Object\Obstacle\Castle_Hut_2\%d.png
 Obstacle|Coffee_Club|8|..\Image\Object\Obstacle\Coffee_Club\%d.png
 Obstacle|Crypt|2|..\Image\Object\Obstacle\Crypt\%d.png
 Obstacle|Curse_Area|12|..\Image\Object\Obstacle\Curse_Area\%d.png
+Obstacle|Chair|4|..\Image\Object\Obstacle\Chair\%d.png
+Obstacle|Cathedral_Pillar|9|..\Image\Object\Obstacle\Cathedral_Pillar\%d.png
+Obstacle|Table|2|..\Image\Object\Obstacle\Table\%d.png
 Obstacle|Fence|2|..\Image\Object\Obstacle\Fence\%d.png
 Obstacle|Fish_Water|17|..\Image\Object\Obstacle\Fish_Water\%d.png
 Obstacle|Flagpole|6|..\Image\Object\Obstacle\Flagpole\%d.png
@@ -36,6 +39,17 @@ Obstacle|Plant_Shred_Sand|6|..\Image\Object\Obstacle\Plant_Shred_Sand\%d.png
 Obstacle|Plant_Shred_Winter|6|..\Image\Object\Obstacle\Plant_Shred_Winter\%d.png
 Obstacle|Portal|6|..\Image\Object\Obstacle\Portal\%d.png
 Obstacle|Portal_Sheep|4|..\Image\Object\Obstacle\Portal_Sheep\%d.png
+Obstacle|Manor_Torch_Mevius|5|..\Image\Object\Obstacle\Manor_Torch_Mevius\%d.png
+Tile|Tileset_Mevius_Study_bg|1|..\Image\Tile\Tile\Tileset_Mevius_Study_bg\%d.png
+Mevius|Mevius|4|..\Image\Mevius\Mevius\%d.png
+Mevius|Mevius_Cast|20|..\Image\Mevius\Mevius_Cast\%d.png
+Mevius|Mevius_Chains|1|..\Image\Mevius\Mevius_Chains\%d.png
+Mevius|Mevius_Levitating|1|..\Image\Mevius\Mevius_Levitating\%d.png
+Mevius|Mevius_Light|1|..\Image\Mevius\Mevius_Light\%d.png
+Mevius|Mevius_Monster|6|..\Image\Mevius\Mevius_Monster\%d.png
+Mevius|Mevius_Walk|8|..\Image\Mevius\Mevius_Walk\%d.png
+Mevius|Mevius_Wall|1|..\Image\Mevius\Mevius_Wall\%d.png
+Mevius|Spike_Ball|7|..\Image\Mevius\Spike_Ball\%d.png
 Precipice|Lava_Rail_1_spr|6|..\Image\Object\Obstacle\Precipice\Lava_Rail_1_spr\%d.png
 Precipice|Lava_Rail_2_spr|6|..\Image\Object\Obstacle\Precipice\Lava_Rail_2_spr\%d.png
 Precipice|Lava_Rail_3_spr|7|..\Image\Object\Obstacle\Precipice\Lava_Rail_3_spr\%d.png
@@ -373,6 +387,9 @@ Tile|Autotile_Void_Winter_tileset|1|..\Image\Tile\Tile\Autotile_Void_Winter_tile
 Tile|Autotile_Water_Fall_tileset|1|..\Image\Tile\Tile\Autotile_Water_Fall_tileset\%d.png
 Tile|Autotile_Water_Shores_tileset|1|..\Image\Tile\Tile\Autotile_Water_Shores_tileset\%d.png
 Tile|Autotile_Water_Winter_tileset|1|..\Image\Tile\Tile\Autotile_Water_Winter_tileset\%d.png
+Tile|Autotile_Water_Manor_tileset|1|..\Image\Tile\Tile\Autotile_Water_Manor_tileset\%d.png
+Tile|Autotile_Grass_Manor_tileset|1|..\Image\Tile\Tile\Autotile_Grass_Manor_tileset\%d.png
+Tile|Autotile_Dirt_Manor_tileset|1|..\Image\Tile\Tile\Autotile_Dirt_Manor_tileset\%d.png
 Tile|Tileset_Desert_bg_tileset|1|..\Image\Tile\Tile\Tileset_Desert_bg_tileset\Tileset_Desert_bg_tileset.png
 Tile|Tileset_Desert_Night_bg_tileset|1|..\Image\Tile\Tile\Tileset_Desert_Night_bg_tileset\Tileset_Desert_Night_bg_tileset.png
 Tile|Tileset_Fields_bg_tileset|1|..\Image\Tile\Tile\Tileset_Fields_bg_tileset\Tileset_Fields_bg_tileset.png
