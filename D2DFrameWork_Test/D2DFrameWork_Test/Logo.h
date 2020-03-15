@@ -27,5 +27,6 @@ private:
 	CObjectMgr*			m_pObjectMgr;
 	CKeyManager*			m_pKeyMgr;
 	CGameButton*		    m_Button;
+
 };
 

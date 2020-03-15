@@ -86,6 +86,7 @@ int CMonster::Update()
 			CEffect* temp = new CEffect(m_tInfo.vPos, L"Effect", L"Hit");
 			CObjectMgr::GetInstance()->AddObject(OBJECT_EFFECT, temp);
 			m_bIsInvincible = true;
+			m_pSoundMgr->PlaySound(L"Javelin_Impact.wav", EFFECT);
 
 
 		}
@@ -137,6 +138,7 @@ void CMonster::Render()
 	{
 		m_CollBox = new CColliderBox(m_tInfo.vPos, MONSTER_HITBOX_COLLISION, m_vSize);
 		m_pColliderMgr->AddObject(MONSTER_HITBOX_COLLISION, m_CollBox);
+
 	}
 	if (m_pHPBar != nullptr)
 	{

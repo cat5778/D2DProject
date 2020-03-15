@@ -175,6 +175,9 @@
     <Filter Include="10.GameObjects\Projectile\MeviusProjectile">
       <UniqueIdentifier>{9a69b21d-826c-4e65-be73-059f22561be9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="90.Manager\SoundMgr">
+      <UniqueIdentifier>{98ee290a-8aa3-4d37-aca5-be764e8398ce}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h">
@@ -356,6 +359,9 @@
     <ClInclude Include="MeviusProjectile.h">
       <Filter>10.GameObjects\Projectile\MeviusProjectile</Filter>
     </ClInclude>
+    <ClInclude Include="SoundMgr.h">
+      <Filter>90.Manager\SoundMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -533,6 +539,9 @@
     </ClCompile>
     <ClCompile Include="MeviusProjectile.cpp">
       <Filter>10.GameObjects\Projectile\MeviusProjectile</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundMgr.cpp">
+      <Filter>90.Manager\SoundMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

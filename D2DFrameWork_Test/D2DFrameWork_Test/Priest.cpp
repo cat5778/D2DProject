@@ -55,6 +55,8 @@ void Priest::Attack()
 		CProjectile* temp = new CProjectile(WEAPONE_END, m_tInfo.vPos, m_vDir,
 			m_tData.fDamage, MONSTER_PROJECTILE_COLLISION, L"Effect", L"Quest_Black_Hole");
 		CObjectMgr::GetInstance()->AddObject(OBJECT_PROJECTILE, temp);
+		m_pSoundMgr->PlaySound(L"Chaos_Bolt.wav", EFFECT);
+
 		m_bIsAttack = false;
 		m_tFrame.fCurFrame = 0;
 		ChangeState(STATE_IDLE);
@@ -67,6 +69,8 @@ int Priest::Dead()
 	if (!m_bIsDead)
 	{
 		GetCollDir(m_vTargetPos);
+		m_pSoundMgr->PlaySound(L"Priest_Die.wav", EFFECT);
+
 		m_wsState = L"_Dies";
 		GetImageDir(m_dwCollDir);
 		wstring temp = m_wsIdleState + m_wsState + m_wsImgDir;

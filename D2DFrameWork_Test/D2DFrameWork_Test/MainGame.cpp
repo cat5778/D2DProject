@@ -23,9 +23,11 @@ CMainGame::~CMainGame()
 
 HRESULT CMainGame::Initialize()
 {
+	CSoundMgr::GetInstance()->Initialize();
+
 	//m_hDC = GetDC(g_hWnd);
 	//m_pDevice->InitDevice(MODE_WIN);
-	HRESULT hr = m_pDeviceMgr->InitDevice(MODE_FULL);
+	HRESULT hr = m_pDeviceMgr->InitDevice(MODE_WIN);
 	FAILED_CHECK_MSG_RETURN(hr, L"InitDevice Failed", E_FAIL);
 
 	hr = m_pSceneMgr->SceneChange(SCENE_END, SCENE_LOGO);
@@ -55,7 +57,7 @@ void CMainGame::LateUpdate()
 {
 	if (CHANGE_SCENE == m_iEvent)
 		return;
-
+	CSoundMgr::GetInstance()->UpdateSound();
 	m_pSceneMgr->LateUpdate();
 }
 
@@ -112,6 +114,7 @@ void CMainGame::RenderScroll()
 
 void CMainGame::Release()
 {
+	CSoundMgr::GetInstance()->DestroyInstance();
 	m_pFrameMgr->DestroyInstance();
 	m_pSceneMgr->DestroyInstance();
 	m_pTimeMgr->DestroyInstance();

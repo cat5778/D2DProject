@@ -64,6 +64,8 @@ using namespace std;
 #include "FrameMgr.h"
 #include "ObjectMgr.h"
 #include "ColliderMgr.h"
+#include "SoundMgr.h"
+
 
 //#ifdef _DEBUG
 //#include "vld.h"

@@ -47,6 +47,7 @@ void CSilme::Attack()
 		m_bIsAttack = true;
 		m_tFrame.fCurFrame = 0;
 		m_fTimer = 0.f;
+		m_pSoundMgr->PlaySound(L"Slime_Attack.wav", EFFECT);
 
 
 	}
@@ -72,6 +73,7 @@ int CSilme::Dead()
 
 	if (!m_bIsDead)
 	{
+		m_pSoundMgr->PlaySound(L"Slime_Die.wav", EFFECT);
 		m_bIsDead = true;
 	}
 	return NO_EVENT;

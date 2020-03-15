@@ -94,6 +94,8 @@ int CSkillFrame::Update()
 					m_iPoint--;
 					m_tData.fDamage = 10 * m_iSkillPoint[0] + m_tData.fDamage;
 					m_SkillButton[i]->SetButtonText(to_wstring(m_iSkillPoint[i]));
+					m_pSoundMgr->PlaySound(L"Menu_Click.wav", EFFECT);
+
 				}
 				if (i == 1)
 				{
@@ -101,6 +103,7 @@ int CSkillFrame::Update()
 					m_iPoint--;
 					m_SkillButton[i]->SetButtonText(to_wstring(m_iSkillPoint[i]));
 					m_tSkillData.iDashLv = m_iSkillPoint[i];
+					m_pSoundMgr->PlaySound(L"Menu_Click.wav", EFFECT);
 
 				}
 				if (i == 2&& m_iSkillPoint[3]!=0)
@@ -109,6 +112,8 @@ int CSkillFrame::Update()
 					m_iPoint--;
 					m_tData.fSpeed = m_iSkillPoint[2] * 50 + m_tData.fSpeed;
 					m_SkillButton[i]->SetButtonText(to_wstring(m_iSkillPoint[i]));
+					m_pSoundMgr->PlaySound(L"Menu_Click.wav", EFFECT);
+
 				}
 				if (i == 3 && m_iSkillPoint[1] != 0)
 				{
@@ -116,6 +121,8 @@ int CSkillFrame::Update()
 					m_iPoint--;
 					m_tSkillData.iMulptLv = m_iSkillPoint[i];
 					m_SkillButton[i]->SetButtonText(to_wstring(m_iSkillPoint[i]));
+					m_pSoundMgr->PlaySound(L"Menu_Click.wav", EFFECT);
+
 				}
 				if (i == 4 && m_iSkillPoint[0] != 0)
 				{
@@ -123,6 +130,8 @@ int CSkillFrame::Update()
 					m_iPoint--;
 					m_tData.fAtkSpeed = m_iSkillPoint[4] * 0.5f + m_tData.fAtkSpeed;
 					m_SkillButton[i]->SetButtonText(to_wstring(m_iSkillPoint[i]));
+					m_pSoundMgr->PlaySound(L"Menu_Click.wav", EFFECT);
+
 
 				}
 				if (i == 5 && m_iSkillPoint[6] != 0)
@@ -130,6 +139,8 @@ int CSkillFrame::Update()
 					m_iSkillPoint[i] ++;
 					m_iPoint--;
 					m_SkillButton[i]->SetButtonText(to_wstring(m_iSkillPoint[i]));
+					m_pSoundMgr->PlaySound(L"Menu_Click.wav", EFFECT);
+
 				}
 				if (i == 6 && m_iSkillPoint[7] != 0)
 				{
@@ -137,6 +148,8 @@ int CSkillFrame::Update()
 					m_iPoint--;
 					m_SkillButton[i]->SetButtonText(to_wstring(m_iSkillPoint[i]));
 					m_tSkillData.iThunderLv = m_iSkillPoint[i];
+					m_pSoundMgr->PlaySound(L"Menu_Click.wav", EFFECT);
+
 				}
 				if (i == 7 && m_iSkillPoint[4] != 0)
 				{
@@ -144,6 +157,8 @@ int CSkillFrame::Update()
 					m_iPoint--;
 					m_SkillButton[i]->SetButtonText(to_wstring(m_iSkillPoint[i]));
 					m_tSkillData.iBuffLv= m_iSkillPoint[i];
+					m_pSoundMgr->PlaySound(L"Menu_Click.wav", EFFECT);
+
 				}
 				if (i == 8 && m_iSkillPoint[5] != 0)
 				{
@@ -151,6 +166,8 @@ int CSkillFrame::Update()
 					m_iPoint--;
 					m_SkillButton[i]->SetButtonText(to_wstring(m_iSkillPoint[i]));
 					m_tSkillData.iFinish = m_iSkillPoint[i];
+					m_pSoundMgr->PlaySound(L"Menu_Click.wav", EFFECT);
+
 
 				}
 			}

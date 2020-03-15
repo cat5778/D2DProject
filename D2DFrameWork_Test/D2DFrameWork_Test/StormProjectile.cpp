@@ -34,6 +34,8 @@ HRESULT CStormProjectile::Initialize()
 	m_tInfo.vDir = { 0.f,0.f,0.f };
 	m_tInfo.vLook = { 1.f, 0.f, 0.f };
 	m_tInfo.vSize = { 1.f, 1.f, 0.f };
+	m_pSoundMgr->PlaySound(L"Storm.wav", EFFECT);
+
 	return S_OK;
 }
 

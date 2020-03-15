@@ -22,12 +22,14 @@ HRESULT CSceneMgr::SceneChange(SCENE_TYPE eCurType, SCENE_TYPE eNextType)
 {
 	if (eCurType != eNextType)
 	{
+		
 		SafeDelete(m_pScene);
 
 		switch (eNextType)
 		{
 		case SCENE_LOGO:
 			m_pScene = CLogo::Create();
+
 			break;
 		case SCENE_STAGE:
 			m_pScene = CStage::Create();

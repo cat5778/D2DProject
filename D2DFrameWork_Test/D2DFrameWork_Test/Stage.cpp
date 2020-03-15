@@ -27,10 +27,12 @@ int CStage::Update()
 	auto chooseList = m_pObjectMgr->GetObjList(OBJECT_CHOOSE);
 	for (auto pChoose : chooseList)
 	{
+		
 		CChoose* temp = dynamic_cast<CChoose*>(pChoose);
 		if (temp != nullptr&&temp->GetIsChoose())
 		{
 				bIsChoose = true;
+
 				break;
 		}
 		
@@ -41,6 +43,10 @@ int CStage::Update()
 		CTextField* temp = dynamic_cast<CTextField*>(pUI);
 		if (temp != nullptr &&temp->m_IsPick&&bIsChoose)
 		{
+			m_pSoundMgr->PlaySound(L"Amazon_snd.wav", EFFECT);
+
+			m_pSoundMgr->PlaySound(L"Menu_Click.wav", EFFECT);
+			m_pSoundMgr->StopSound(BGM);
 			m_pSceneMgr->SceneChange(SCENE_STAGE, SCENE_TUTORIAL);
 			return CHANGE_SCENE;
 		}

@@ -48,6 +48,7 @@ void Monk::Attack()
 		m_bIsAttack = true;
 		m_tFrame.fCurFrame = 0;
 		m_fTimer = 0.f;
+
 	}
 	m_fTimer += m_pTimeMgr->GetDelta();
 	if (m_fTimer >= 1.0f)
@@ -57,6 +58,8 @@ void Monk::Attack()
 			m_tData.fDamage, MONSTER_PROJECTILE_COLLISION, L"", L"", false);
 		CObjectMgr::GetInstance()->AddObject(OBJECT_PROJECTILE, pHitBox);
 		m_bIsAttack = false;
+		m_pSoundMgr->PlaySound(L"Zombie_Attack.wav", EFFECT);
+
 		m_tFrame.fCurFrame = 0;
 		ChangeState(STATE_IDLE);
 
@@ -67,6 +70,8 @@ int Monk::Dead()
 {
 	if (!m_bIsDead)
 	{
+		m_pSoundMgr->PlaySound(L"Monk_Die.wav", EFFECT);
+
 		GetCollDir(m_vTargetPos);
 		m_wsState = L"_Dies";
 		GetImageDir(m_dwCollDir);

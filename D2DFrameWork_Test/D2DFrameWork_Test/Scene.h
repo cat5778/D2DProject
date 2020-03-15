@@ -26,5 +26,6 @@ protected:
 	CTextureMgr*	m_pTextureMgr;
 	CTimeMgr*		m_pTimeMgr;
 	CSceneMgr*		m_pSceneMgr;
+	CSoundMgr*		m_pSoundMgr;
 };
 

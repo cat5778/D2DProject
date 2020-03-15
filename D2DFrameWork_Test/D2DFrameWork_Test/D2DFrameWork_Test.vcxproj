@@ -202,6 +202,7 @@
     <ClInclude Include="SkillFrame.h" />
     <ClInclude Include="SkillLine.h" />
     <ClInclude Include="SkillProjectTile.h" />
+    <ClInclude Include="SoundMgr.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="StormProjectile.h" />
@@ -264,6 +265,7 @@
     <ClCompile Include="SkillFrame.cpp" />
     <ClCompile Include="SkillLine.cpp" />
     <ClCompile Include="SkillProjectTile.cpp" />
+    <ClCompile Include="SoundMgr.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

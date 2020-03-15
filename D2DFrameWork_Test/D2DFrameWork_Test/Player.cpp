@@ -174,6 +174,8 @@ int CPlayer::Update()
 				m_CollBox->SetHitColl(COLLSION_END);
 				CEffect* temp = new CEffect(m_tInfo.vPos, L"Effect", L"Hit_Blood");
 				CObjectMgr::GetInstance()->AddObject(OBJECT_EFFECT, temp);
+				m_pSoundMgr->PlaySound(L"Amazon_Hurt.wav", EFFECT);
+
 				m_bIsInvincible = true;
 
 			}
@@ -330,7 +332,7 @@ HRESULT CPlayer::Initialize()
 
 	m_StepColl = new CColliderBox(m_tInfo.vPos, PLAYER_STEP_COLLISION, D3DXVECTOR2(10,10));
 	m_pColliderMgr->AddObject(PLAYER_STEP_COLLISION, m_StepColl);
-	//CScrollMgr::SetCamPos(m_tInfo.vPos);
+	CScrollMgr::SetCamPos(m_tInfo.vPos);
 	return S_OK;
 }
 
@@ -342,6 +344,8 @@ void CPlayer::KeyInput()
 {
 	if (m_pKeyMgr->KeyDown(KEY_T))
 	{
+		m_pSoundMgr->PlaySound(L"Menu_Click.wav", EFFECT);
+
 		m_pHud->SetOnSkillTree();
 		m_tData=m_pHud->GetData();
 		g_PlayerData = m_tData;
@@ -351,6 +355,8 @@ void CPlayer::KeyInput()
 	}
 	if (m_pKeyMgr->KeyDown(KEY_O))
 	{
+		m_pSoundMgr->PlaySound(L"Level_Up.wav", EFFECT);
+
 		CEffect* temp = new CEffect(m_tInfo.vPos, L"Effect", L"Stomp",0.11f);
 		CObjectMgr::GetInstance()->AddObject(OBJECT_EFFECT, temp);
 		D3DXVECTOR3 convert = m_tInfo.vPos;
@@ -397,6 +403,25 @@ void CPlayer::KeyInput()
 		
 		if (!m_bIsAttack)
 		{
+			switch (m_eWpType)
+			{
+			case WEAPONE_FIST:
+				m_pSoundMgr->PlaySound(L"Amazon_Warcry.wav", EFFECT);
+				break;
+			case WEAPONE_JAVELIN:
+			case WEAPONE_JAVELIN1:
+				m_pSoundMgr->PlaySound(L"Javelin_Throw.wav", EFFECT);
+				break;
+			case WEAPONE_BOW:
+			case WEAPONE_BOW1:
+				m_pSoundMgr->PlaySound(L"Crosbow_Fire.wav", EFFECT);
+				break;
+			case WEAPONE_END:
+				break;
+			default:
+				break;
+			}
+
 			m_pWeapon->SetDamage(m_tData.fDamage);
 			m_pChest->AttackAni(m_eWpType);
 			m_pWeapon->AttackAni(m_eWpType);
@@ -511,7 +536,8 @@ void CPlayer::Dash()
 	
 	if (m_pKeyMgr->KeyDown(KEY_1) && !m_bIsDash)
 	{
-	
+		m_pSoundMgr->PlaySound(L"Amazon_Warcry.wav", EFFECT);
+
 		m_fDash = 5.0f;
 		m_bIsDash = true;
 	}
@@ -524,12 +550,33 @@ void CPlayer::MultiShot()
 {
 	if (m_pKeyMgr->KeyDown(KEY_2)&& m_tSkillData.iMulptLv)
 	{
+		
+		m_pSoundMgr->PlaySound(L"Amazon_Warcry.wav", EFFECT);
+		switch (m_eWpType)
+		{
+		case WEAPONE_FIST:
+			m_pSoundMgr->PlaySound(L"Amazon_Warcry.wav", EFFECT);
+			break;
+		case WEAPONE_JAVELIN:
+		case WEAPONE_JAVELIN1:
+			m_pSoundMgr->PlaySound(L"Javelin_Throw.wav", EFFECT);
+			break;
+		case WEAPONE_BOW:
+		case WEAPONE_BOW1:
+			m_pSoundMgr->PlaySound(L"Crosbow_Fire.wav", EFFECT);
+			break;
+		case WEAPONE_END:
+			break;
+		default:
+			break;
+		}
 		float fangle = 0;
 		float radian=0;
 		int iRate = (m_tSkillData.iMulptLv * 10);
 		int iAngle= 360/ iRate;
 		for (int i = 0; i < iRate; i++)
 		{
+
 			fangle = iAngle*i;
 			radian = fangle / 180 * PI;
 			CSkillProjectTile* tempProject =
@@ -548,6 +595,8 @@ void CPlayer::LevelUp()
 	g_PlayerExe = 0;
 	if (m_tData.fExe <= m_tData.fCurEXE)
 	{
+		m_pSoundMgr->PlaySound(L"Level_Up.wav", EFFECT);
+
 		CEffect* temp = new CEffect(m_tInfo.vPos, L"Effect", L"Stomp", 0.11f);
 		CObjectMgr::GetInstance()->AddObject(OBJECT_EFFECT, temp);
 		D3DXVECTOR3 convert = m_tInfo.vPos;

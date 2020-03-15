@@ -25,17 +25,21 @@ CMevius::CMevius( D3DXVECTOR3 vPos)
 	m_fAtkRate = 0;
 	m_bIsAttack = false;
 	m_bIsCast = false;
+	m_pSoundMgr->PlaySound(L"Mevius_Appear.wav", EFFECT);
+	m_pSoundMgr->PlaySound(L"Mevius_1.wav", EFFECT);
 	Initialize();
+
 }
 
 
 CMevius::~CMevius()
 {
+	Release();
 }
 
 void CMevius::Appear()
 {
-	
+
 	m_tInfo.vPos += m_ApperPos*200* m_pTimeMgr->GetDelta();
 	
 
@@ -94,7 +98,7 @@ void CMevius::Attack()
 			m_fRadian = m_fAngle[i] / 180 * PI;
 			CMeviusProjectile* tempProject = new CMeviusProjectile(m_tInfo.vPos, m_fRadian, m_tData.fDamage);
 			CObjectMgr::GetInstance()->AddObject(OBJECT_PROJECTILE, tempProject);
-			if (m_tData.fCurHp <= 70)
+			if (0.5f > m_tData.fCurHp / m_tData.fHp)
 			{
 				D3DXVECTOR3 tempPos = m_tInfo.vPos;
 				tempPos.x -= WINCX*0.5f;
@@ -137,7 +141,10 @@ void CMevius::Move()
 		Timer(m_bIsApreDist, 2, m_fApreDist);
 	}
 	else
+	{
+
 		MeviState(STATE_IDLE);
+	}
 
 
 
@@ -153,7 +160,7 @@ bool CMevius::AttackRange()
 void CMevius::BeAttack(float fDamage)
 {
 	m_tData.fCurHp -= fDamage;
-	if (m_tData.fCurHp < 90)
+	if (0.8f > m_tData.fCurHp / m_tData.fHp)
 		MeviState(STATE_ATTACK);
 	else
 		MeviState(STATE_IDLE);
@@ -169,7 +176,9 @@ int CMevius::Dead()
 
 		m_bIsDead = true;
 	}//cout << "Fungus" << endl;
+	
 	return NO_EVENT;
+	
 }
 
 void CMevius::MeviState(OBJECT_STATE eState)
@@ -181,9 +190,12 @@ void CMevius::MeviState(OBJECT_STATE eState)
 		{
 		case STATE_IDLE:
 			m_eCurState = STATE_IDLE;
+
 			break;
 		case STATE_ATTACK:
 			m_eCurState = STATE_ATTACK;
+			m_pSoundMgr->PlaySound(L"Mevius_2.wav", EFFECT);
+
 			break;
 		case STATE_MOVE:
 			m_eCurState = STATE_MOVE;
@@ -211,6 +223,7 @@ void CMevius::StateMachine()
 	{
 	case STATE_IDLE:
 		Idle();
+
 		break;
 	case STATE_ATTACK:
 		Attack();
@@ -245,7 +258,7 @@ HRESULT CMevius::Initialize()
 	m_eType = OBJECT_MONSTER;
 	m_fSpeed = 100.f;
 	m_tData.fCurEXE = 10;
-	m_tData.fHp = 100;
+	m_tData.fHp = 20;
 	m_tData.fCurHp = m_tData.fHp;
 	m_tData.fDamage = 30;
 	m_tData.fOldHp = m_tData.fCurHp;
@@ -282,6 +295,8 @@ void CMevius::Release()
 {
 	g_PlayerExe += m_tData.fCurEXE;
 	m_CollBox->EraseCollider();
+
+
 }
 
 int CMevius::Update()
@@ -289,7 +304,6 @@ int CMevius::Update()
 
 	StateMachine();
 
-	cout << m_eCurState<< endl;
 	if (m_CollBox != nullptr)
 	{
 		m_CollBox->SetDamage(m_tData.fDamage);
@@ -304,6 +318,7 @@ int CMevius::Update()
 			CEffect* temp = new CEffect(m_tInfo.vPos, L"Effect", L"Hit");
 			CObjectMgr::GetInstance()->AddObject(OBJECT_EFFECT, temp);
 			m_bIsInvincible = true;
+			m_pSoundMgr->PlaySound(L"Javelin_Impact.wav", EFFECT);
 
 
 		}
@@ -313,8 +328,25 @@ int CMevius::Update()
 
 		Timer(m_bIsInvincible, 0.1f, m_fKnockTime);
 	}
+	if (m_tData.fCurHp <=0)
+	{
+		
+		for (int i = 0; i < 100; i++)
+		{
+				D3DXVECTOR3 tempPos = m_tInfo.vPos;
+			tempPos.x -= WINCX*1.5f;
+			tempPos.y -= WINCY*1.5f;
+			tempPos.x += rand() % (WINCX * 2);
+			tempPos.y += rand() % (WINCY * 2);
 
 
+			CImageObject* light = new CImageObject(L"Effect", L"Horizontal_Light", tempPos, true, 0, 1, 1, 0.9); //-375
+			CObjectMgr::GetInstance()->AddObject(OBJECT_EFFECT, light);
+
+		}
+		return DEAD_OBJ;
+
+	}
 	return NO_EVENT;
 }
 

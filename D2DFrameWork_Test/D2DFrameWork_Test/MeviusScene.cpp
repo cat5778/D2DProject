@@ -31,19 +31,19 @@ int CMeviusScene::Update()
 {
 	m_pObjectMgr->Update();
 	m_pColliderMgr->Update();
-	if (m_pPlayer != nullptr&&m_pMevius == nullptr)
+	int iMon = CObjectMgr::GetInstance()->GetObjList(OBJECT_MONSTER).size();
+	if (m_pPlayer != nullptr&&m_pMevius == nullptr&&iMon == 0)
 	{
 		D3DXVECTOR3 temp = m_cPentag->GetTagInfo().vPos - m_pPlayer->GetTagInfo().vPos;
-		cout << D3DXVec3Length(&temp) << endl;
-		if (D3DXVec3Length(&temp) <= 500)
+		if (D3DXVec3Length(&temp) <= 200)
 		{
-			//CImageObject* light = new CImageObject(L"Mevius", L"Mevius_Light", D3DXVECTOR3(1270, -115, 0), true, 0, 1, 1, 0.9);
-			//light->SetEndTime(2.0f);
-			//CObjectMgr::GetInstance()->AddObject(OBJECT_EFFECT, light);
+			CImageObject* light = new CImageObject(L"Mevius", L"Mevius_Light", D3DXVECTOR3(820,715 , 0), true, 0, 1, 1, 0.9); //-375
+			light->SetEndTime(2.0f);
+			CObjectMgr::GetInstance()->AddObject(OBJECT_EFFECT, light);
 			//m_pMevius = new CMevius(D3DXVECTOR3(1270, -100, 0));
 
 
-			m_pMevius = new CMevius(D3DXVECTOR3(1270, 300, 0));
+			m_pMevius = new CMevius(D3DXVECTOR3(820, 730, 0));// y -75
 			m_pObjectMgr->AddObject(OBJECT_MONSTER, m_pMevius);
 		}
 	}
@@ -75,7 +75,7 @@ HRESULT CMeviusScene::Initialize()
 	CTerrain::GetInstance()->LoadTile(L"../Data/MebiusMap.dat");
 
 
-	CRespawnManager::GetInstance()->FileLoad(L"../Data/ChacterSelect/MebiusObj.dat");
+	CRespawnManager::GetInstance()->FileLoad(L"../Data/ChacterSelect/MebiusObj2.dat");
 
 	for (auto Obj : CRespawnManager::GetInstance()->m_mObjects)//리스폰 매니저에서 멀티맵 가져와서 obstacle클래스에 넣은후에 렌더링 확인
 	{
@@ -134,11 +134,12 @@ HRESULT CMeviusScene::Initialize()
 
 //
 
-	m_cPentag = new CImageObject(L"Obstacle", L"Shadow_Realm_Pentagram_Active", D3DXVECTOR3(1270, 375, 0), true, 0, 1, 1, 0.9999);
+	m_cPentag = new CImageObject(L"Obstacle", L"Shadow_Realm_Pentagram_Active", D3DXVECTOR3(820,1200, 0), true, 0, 1, 1, 0.9999);
 	CObjectMgr::GetInstance()->AddObject(OBJECT_EFFECT, m_cPentag);
 
 	
 	//
+	m_pSoundMgr->PlayBGM(L"Boss_Mevius_mus.ogg");
 
 	return S_OK;
 }

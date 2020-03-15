@@ -83,7 +83,7 @@ protected:
 	bool			m_bIsInvincible;
 	float			m_fKnockTime;
 	bool			m_bIsAttack;
-
+	CSoundMgr*		m_pSoundMgr;
 	
 };
 

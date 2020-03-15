@@ -40,6 +40,8 @@ void CFungus::Attack()
 			m_tData.fDamage,MONSTER_PROJECTILE_COLLISION,L"Effect",L"Black_Hole");
 		CObjectMgr::GetInstance()->AddObject(OBJECT_PROJECTILE, temp);
 		m_fTimer = 0.f;
+		m_pSoundMgr->PlaySound(L"Chaos_Bolt.wav", EFFECT);
+
 	}
 
 
@@ -50,6 +52,7 @@ int CFungus::Dead()
 
 	if (!m_bIsDead)
 	{
+		m_pSoundMgr->PlaySound(L"Enemy_Huge_Explosion.wav", EFFECT);
 		wstring temp = L"_Dies";
 		m_tObjInfo.wstrStateKey += temp;
 	

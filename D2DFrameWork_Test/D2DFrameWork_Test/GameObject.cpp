@@ -8,7 +8,8 @@ CGameObject::CGameObject()
 	m_pTextureMgr(CTextureMgr::GetInstance()),
 	m_pTimeMgr(CTimeMgr::GetInstance()),
 	m_pColliderMgr(ColliderMgr::GetInstance()),
-	m_dwDir(0x00000001),m_ColliderBox(nullptr), m_bIsCollsion(false), m_fTimer(0)
+	m_dwDir(0x00000001), m_ColliderBox(nullptr), m_bIsCollsion(false), m_fTimer(0),
+	m_pSoundMgr(CSoundMgr::GetInstance())
 {
 }
 

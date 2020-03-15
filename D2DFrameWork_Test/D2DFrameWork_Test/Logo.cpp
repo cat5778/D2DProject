@@ -24,10 +24,12 @@ int CLogo::Update()
 
 	if (m_Button->GetIsPick())
 	{
-		m_pSceneMgr->SceneChange(SCENE_LOGO, SCENE_STAGE);
+		m_pSoundMgr->PlaySound(L"Menu_Click.wav", EFFECT);
+		m_pSoundMgr->StopSound(BGM);
+		//m_pSceneMgr->SceneChange(SCENE_LOGO, SCENE_STAGE);
 		//m_pSceneMgr->SceneChange(SCENE_LOGO, SCENE_TUTORIAL);
 		//m_pSceneMgr->SceneChange(SCENE_LOGO, SCENE_BOSS);
-		//m_pSceneMgr->SceneChange(SCENE_LOGO, SCENE_MEVIUS);
+		m_pSceneMgr->SceneChange(SCENE_LOGO, SCENE_MEVIUS);
 		return CHANGE_SCENE;
 	}
 
@@ -47,6 +49,7 @@ void CLogo::Render()
 
 HRESULT CLogo::Initialize()
 {
+	
 	LPDIRECT3DDEVICE9 pGraphicDev = m_pDeviceMgr->GetDevice();
 	NULL_CHECK_MSG_RETURN(pGraphicDev, L"pGraphicDev is null", E_FAIL);
 
@@ -68,7 +71,7 @@ HRESULT CLogo::Initialize()
 
 		}
 	}
-
+	m_pSoundMgr->PlayBGM(L"Credits_mus.ogg");
 	//Button
 	OBJ_INFO* temp = new OBJ_INFO;
 	temp->wstrObjectName = L"Logo";
